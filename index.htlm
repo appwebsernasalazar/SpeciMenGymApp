@@ -1061,8 +1061,6 @@ var EJERCICIOS_DB = {
     maquina_desc: "Bicicleta estática o spinning. Alternativa perfecta si hay molestias en rodillas o tobillos con la cinta."
   },
 };
-ENDEOF
-echo "OK: $(wc -l < /home/claude/gymapp/ejercicios.js) líneas"
 
 /* =================== DATOS BASE =================== */
 var PLAN_U1 = [
