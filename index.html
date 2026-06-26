@@ -6,10 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0a0a0f">
-<title>Specimen Data App</title>
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<title>FitLog Pro</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 :root{
@@ -216,42 +213,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .ai-loading-dot:nth-child(3){animation-delay:0.4s;}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-10px)}}
 
-/* NEXT WORKOUT EXPANDED */
-.nw-ex{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 11px;margin-bottom:6px;}
-.nw-ex-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;}
-.nw-ex-det{display:flex;justify-content:space-between;align-items:center;font-size:12px;}
-.nw-ex-sets{color:var(--t2);}
-.nw-ex-w{font-weight:700;color:var(--acc2);font-size:14px;}
-.nw-ex-prev{font-size:10px;color:var(--green);margin-top:1px;}
-.nw-ex-w.u2color{color:var(--pink);}
-.nw-day-hdr{display:flex;align-items:center;gap:8px;padding:10px 0 8px;}
-.nw-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
-.nw-day-name{font-weight:700;font-size:14px;}
-.nw-day-sub{font-size:11px;color:var(--t3);}
-.cloud-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:100px;border:1px solid var(--border2);color:var(--t2);cursor:pointer;}
-.cloud-badge.synced{color:var(--green);border-color:var(--green);background:var(--gb);}
-.cloud-badge.syncing{color:var(--amber);border-color:var(--amber);background:var(--ab);}
-.cloud-badge.error{color:var(--red);border-color:var(--red);background:var(--rb);}
-
-/* MENU DIARIO */
-.menu-comida{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:11px 13px;margin-bottom:8px;}
-.menu-hora{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:3px;}
-.menu-nombre{font-size:14px;font-weight:700;margin-bottom:2px;}
-.menu-items{font-size:12px;color:var(--t2);line-height:1.6;}
-.menu-macros{display:flex;gap:8px;margin-top:5px;flex-wrap:wrap;}
-.menu-macro{font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;}
-.menu-macro.p{background:var(--gb);color:var(--green);}
-.menu-macro.c{background:var(--ab);color:var(--amber);}
-.menu-macro.g{background:var(--bb);color:var(--blue);}
-.menu-macro.k{background:var(--accb);color:var(--acc2);}
-
-/* CLOUD SETTINGS */
-.cloud-form{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:13px;margin-bottom:11px;}
-.cloud-status-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.cloud-dot{width:10px;height:10px;border-radius:50%;background:var(--t3);}
-.cloud-dot.on{background:var(--green);}
-.cloud-dot.err{background:var(--red);}
-
 </style>
 </head>
 <body>
@@ -263,12 +224,12 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <div style="display:flex;gap:6px;margin-bottom:20px;">
       <div class="prog-dot on"></div><div class="prog-dot"></div><div class="prog-dot"></div>
     </div>
-    <div class="onb-title">Bienvenido a Specimen Data App</div>
+    <div class="onb-title">Bienvenido a FitLog Pro</div>
     <div class="onb-sub">Tu app de entrenamiento y nutrición personalizada. Primero vamos a configurar tu perfil.</div>
-    <div class="fg"><label>¿Eres hombre o mujer?</label>
+    <div class="fg"><label>¿Quién eres?</label>
       <select id="onb-quien">
-        <option value="u1">Hombre</option>
-        <option value="u2">Mujer</option>
+        <option value="u1">Soy el usuario principal (hombre)</option>
+        <option value="u2">Soy la segunda usuaria (mujer)</option>
       </select>
     </div>
     <button class="btn btn-acc btn-full" id="onb-next1" style="margin-top:auto;">Continuar →</button>
@@ -280,14 +241,14 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <div class="prog-dot on"></div><div class="prog-dot on"></div><div class="prog-dot"></div>
     </div>
     <div class="onb-title" id="onb-title2">Tu perfil físico</div>
-    <div class="onb-sub" id="onb-sub2">Con estos datos calculamos tu plan de entrenamiento, calorías y macros de forma precisa.</div>
+    <div class="onb-sub">Estos datos calculan tus calorías, macros e hidratación de forma precisa.</div>
     <div class="fr">
-      <div class="fg"><label>Nombre</label><input type="text" id="onb-nombre" placeholder="Ej: Cristhian"></div>
-      <div class="fg"><label>Edad</label><input type="number" id="onb-edad" placeholder="Ej: 35" inputmode="numeric"></div>
+      <div class="fg"><label>Nombre</label><input type="text" id="onb-nombre" placeholder="Tu nombre"></div>
+      <div class="fg"><label>Edad</label><input type="number" id="onb-edad" placeholder="38" inputmode="numeric"></div>
     </div>
     <div class="fr">
-      <div class="fg"><label>Peso (kg)</label><input type="number" id="onb-peso" step="0.1" placeholder="Ej: 80.0" inputmode="decimal"></div>
-      <div class="fg"><label>Altura (cm)</label><input type="number" id="onb-altura" placeholder="Ej: 175" inputmode="numeric"></div>
+      <div class="fg"><label>Peso (kg)</label><input type="number" id="onb-peso" step="0.1" placeholder="102.0" inputmode="decimal"></div>
+      <div class="fg"><label>Altura (cm)</label><input type="number" id="onb-altura" placeholder="178" inputmode="numeric"></div>
     </div>
     <div class="fg"><label>Objetivo principal</label>
       <select id="onb-objetivo">
@@ -334,8 +295,8 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
 <!-- APP -->
 <div class="topbar">
-  <div class="topbar-logo">Specimen</div>
-  <div id="cloud-badge-top" class="cloud-badge" title="Sincronización en la nube">☁️</div>
+  <div class="topbar-logo">FitLog</div>
+  <div class="topbar-title" id="page-title">Inicio</div>
   <div class="user-switch">
     <button class="user-btn active-u1" id="btn-u1" data-u="u1">Él</button>
     <button class="user-btn" id="btn-u2" data-u="u2">Ella</button>
@@ -371,21 +332,11 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <button class="btn btn-sm" id="hyd-reset" style="font-size:11px;padding:4px 8px;min-height:28px;">Resetear</button>
     </div>
   </div>
-  <!-- NEXT WORKOUT EXPANDED -->
-  <div class="card" id="card-next-workout">
-    <div class="card-hdr">
-      <div class="card-title">💪 Entreno de hoy</div>
-      <button class="btn btn-sm" id="btn-start-top" style="display:none;">Iniciar →</button>
-    </div>
-    <div id="d-next"></div>
-    <div id="d-next-exercises" style="margin-top:8px;"></div>
-  </div>
+  <!-- NEXT WORKOUT -->
+  <div class="card"><div class="card-title" style="margin-bottom:9px;">Próximo entreno</div><div id="d-next"></div></div>
   <!-- MACROS DEL DÍA -->
   <div class="card">
-    <div class="card-hdr">
-      <div class="card-title">🥗 Objetivos diarios</div>
-      <button class="btn btn-sm" id="btn-gen-menu" style="background:var(--accb);border-color:var(--acc);color:var(--acc2);">✨ Menú IA</button>
-    </div>
+    <div class="card-title" style="margin-bottom:9px;">Objetivos diarios</div>
     <div id="d-macros"></div>
   </div>
   <!-- RECENT -->
@@ -496,7 +447,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <div id="fatiga-grid"></div>
   </div>
   <div class="card">
-    <div class="card-title" style="margin-bottom:9px;">Recetas del plan nutricional</div>
+    <div class="card-title" style="margin-bottom:9px;">Recetas del plan de Karol</div>
     <div id="recetas-list"></div>
   </div>
 </div>
@@ -783,57 +734,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <div class="modal-actions">
       <button class="btn btn-ghost" id="btn-cancel-ficha">Cancelar</button>
       <button class="btn btn-acc" style="flex:1;" id="btn-save-ficha">Guardar ficha</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL CLOUD SYNC -->
-<div class="modal-ov" id="modal-cloud">
-  <div class="modal">
-    <div class="modal-hnd"></div>
-    <div class="modal-title">☁️ Sincronización en la nube</div>
-    <div id="cloud-status-area">
-      <div class="cloud-status-row">
-        <div class="cloud-dot" id="cloud-dot"></div>
-        <span id="cloud-status-txt" style="font-size:13px;color:var(--t2);">Sin configurar — datos locales</span>
-      </div>
-    </div>
-    <div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:11px;">
-      Pega aquí tu clave de sincronización. Ambos usuarios deben usar <b>la misma clave</b> para compartir datos entre dispositivos.
-    </div>
-    <div class="fg"><label>Clave de sala (invéntala, ej: CristihanYella2025)</label>
-      <input type="text" id="cloud-key" placeholder="MiPareja2025" autocomplete="off">
-    </div>
-    <div class="fg"><label>Firebase Project URL (de tu proyecto Firebase)</label>
-      <input type="url" id="cloud-url" placeholder="https://TU-PROYECTO-default-rtdb.firebaseio.com" autocomplete="off">
-    </div>
-    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;font-size:11px;color:var(--t2);line-height:1.7;margin-bottom:11px;">
-      <b style="color:var(--acc2);">Cómo configurar Firebase gratis (5 min):</b><br>
-      1. Ve a <b>console.firebase.google.com</b> → Nuevo proyecto<br>
-      2. <b>Realtime Database</b> → Crear base de datos → Modo prueba<br>
-      3. Copia la URL (termina en <i>firebaseio.com</i>) y pégala arriba<br>
-      4. Usa la misma clave en ambos dispositivos<br>
-      <span style="color:var(--amber);">⚠️ Sin Firebase, los datos se guardan solo en este dispositivo.</span>
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" id="btn-cancel-cloud">Cancelar</button>
-      <button class="btn btn-acc" style="flex:1;" id="btn-save-cloud">Activar sincronización ☁️</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL MENÚ DIARIO IA -->
-<div class="modal-ov" id="modal-menu">
-  <div class="modal" style="max-width:600px;">
-    <div class="modal-hnd"></div>
-    <div class="modal-title">🥗 Menú del día</div>
-    <div id="menu-content">
-      <div style="font-size:13px;color:var(--t2);margin-bottom:11px;" id="menu-perfil-txt"></div>
-      <div id="menu-result"></div>
-    </div>
-    <div style="display:flex;gap:8px;margin-top:13px;padding-bottom:calc(var(--safe)+6px);">
-      <button class="btn btn-ghost" id="btn-close-menu">Cerrar</button>
-      <button class="btn" id="btn-regenerar-menu" style="flex:1;background:var(--accb);border-color:var(--acc);color:var(--acc2);">✨ Regenerar menú</button>
     </div>
   </div>
 </div>
@@ -1315,79 +1215,6 @@ function var_green(){return '#22c55e';}
 function var_amber(){return '#f59e0b';}
 function var_blue(){return '#3b82f6';}
 
-/* =================== FIREBASE SYNC =================== */
-var FB_APP = null;
-var FB_DB = null;
-var FB_SYNC_KEY = localStorage.getItem('fl_cloud_key') || '';
-var FB_URL = localStorage.getItem('fl_cloud_url') || '';
-var cloudStatus = 'off'; // off | syncing | synced | error
-
-function initFirebase(url, key) {
-  try {
-    if (FB_APP) { try { FB_APP.delete(); } catch(e){} }
-    FB_APP = firebase.initializeApp({ databaseURL: url }, 'fitlog-' + Date.now());
-    FB_DB = firebase.database(FB_APP);
-    FB_SYNC_KEY = key;
-    FB_URL = url;
-    localStorage.setItem('fl_cloud_key', key);
-    localStorage.setItem('fl_cloud_url', url);
-    setCloudStatus('syncing');
-    // Pull data from cloud
-    FB_DB.ref('/fitlog/' + FB_SYNC_KEY).once('value').then(function(snap) {
-      var data = snap.val() || {};
-      ['u1','u2'].forEach(function(u) {
-        if (data[u]) {
-          if (data[u].sessions && Array.isArray(data[u].sessions)) { sessions[u] = data[u].sessions; localStorage.setItem('fl_ses_'+u, JSON.stringify(sessions[u])); }
-          if (data[u].measures && Array.isArray(data[u].measures)) { measures[u] = data[u].measures; localStorage.setItem('fl_med_'+u, JSON.stringify(measures[u])); }
-          if (data[u].profile && typeof data[u].profile === 'object') { profiles[u] = data[u].profile; localStorage.setItem('fl_prof_'+u, JSON.stringify(profiles[u])); }
-        }
-      });
-      setCloudStatus('synced');
-      renderDash();
-    }).catch(function(e) { setCloudStatus('error'); });
-  } catch(e) { setCloudStatus('error'); }
-}
-
-function setCloudStatus(s) {
-  cloudStatus = s;
-  var badge = document.getElementById('cloud-badge-top');
-  var dot = document.getElementById('cloud-dot');
-  var txt = document.getElementById('cloud-status-txt');
-  if (!badge) return;
-  badge.className = 'cloud-badge';
-  if (s === 'synced') {
-    badge.classList.add('synced');
-    badge.textContent = '☁️ Sincronizado';
-    if(dot){dot.className='cloud-dot on';}
-    if(txt){txt.textContent='Sincronizado con la nube ✓';}
-  } else if (s === 'syncing') {
-    badge.classList.add('syncing');
-    badge.textContent = '☁️ Sincronizando…';
-    if(dot){dot.className='cloud-dot';}
-    if(txt){txt.textContent='Conectando…';}
-  } else if (s === 'error') {
-    badge.classList.add('error');
-    badge.textContent = '☁️ Error';
-    if(dot){dot.className='cloud-dot err';}
-    if(txt){txt.textContent='Error de conexión — comprueba la URL';}
-  } else {
-    badge.textContent = '☁️ Sin nube';
-  }
-}
-
-function cloudSave(u, tipo, data) {
-  // Always save locally first
-  if (tipo === 'sessions') localStorage.setItem('fl_ses_'+u, JSON.stringify(data));
-  else if (tipo === 'measures') localStorage.setItem('fl_med_'+u, JSON.stringify(data));
-  else if (tipo === 'profile') localStorage.setItem('fl_prof_'+u, JSON.stringify(data));
-  // Then sync to Firebase
-  if (!FB_DB || !FB_SYNC_KEY) return;
-  setCloudStatus('syncing');
-  FB_DB.ref('/fitlog/' + FB_SYNC_KEY + '/' + u + '/' + tipo).set(data)
-    .then(function(){ setCloudStatus('synced'); })
-    .catch(function(){ setCloudStatus('error'); });
-}
-
 /* =================== STATE =================== */
 var currentUser = 'u1';
 var sessions = {u1:load('fl_ses_u1'), u2:load('fl_ses_u2')};
@@ -1405,261 +1232,11 @@ function saveHyd(u,v){
   var key='fl_hyd_'+u+'_'+new Date().toISOString().split('T')[0];
   localStorage.setItem(key,String(v));
 }
-function save(k,v){
-  localStorage.setItem(k,JSON.stringify(v));
-  // Determine type and user for cloud sync
-  var m = k.match(/^fl_(ses|med|prof)_(u[12])$/);
-  if (m) {
-    var tipo = {ses:'sessions',med:'measures',prof:'profile'}[m[1]];
-    cloudSave(m[2], tipo, v);
-  }
-}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v));}
 function S(){return sessions[currentUser];}
 function M(){return measures[currentUser];}
 function P(){return profiles[currentUser];}
 function PLAN(){return currentUser==='u1'?PLAN_U1:PLAN_U2;}
-
-/* =================== SMART WEIGHTS =================== */
-// Returns suggested weight for an exercise based on history + plan defaults
-function getSmartWeight(exName, userId, planEx) {
-  var userSessions = sessions[userId] || [];
-  var lastW = null;
-  var lastRIR = 2;
-  // Search backwards through sessions
-  for (var i = userSessions.length - 1; i >= 0; i--) {
-    var ses = userSessions[i];
-    if (!ses.ejercicios) continue;
-    for (var j = 0; j < ses.ejercicios.length; j++) {
-      var ex = ses.ejercicios[j];
-      if (ex.nombre && ex.nombre.trim().toLowerCase() === exName.trim().toLowerCase() && ex.peso > 0) {
-        lastW = ex.peso;
-        lastRIR = ex.rir !== undefined ? ex.rir : 2;
-        break;
-      }
-    }
-    if (lastW !== null) break;
-  }
-  if (lastW !== null) {
-    // Progressive overload: if RIR <= 1, add 2.5kg; if RIR <= 2, add 1.25kg
-    var delta = lastRIR <= 1 ? 2.5 : (lastRIR <= 2 ? 1.25 : 0);
-    return { w: lastW + delta, prev: lastW, delta: delta };
-  }
-  // Fall back to plan defaults based on experience
-  var p = profiles[userId] || {};
-  var exp = p.experiencia || '4-12';
-  if (!planEx) return { w: 0, prev: null, delta: 0 };
-  var wStr = exp === '0-3' ? planEx.p1 : exp === '12+' ? planEx.p3 : planEx.p2;
-  // Parse weight string like "45-55" → take lower bound
-  if (!wStr) return { w: 0, prev: null, delta: 0 };
-  var wVal = parseFloat(String(wStr).split('-')[0]) || 0;
-  return { w: wVal, prev: null, delta: 0 };
-}
-
-// Determine today's plan day based on day of week + last session
-function getTodayPlanIndex(userId) {
-  var plan = userId === 'u1' ? PLAN_U1 : PLAN_U2;
-  var dow = new Date().getDay(); // 0=Sun,1=Mon...
-  var planMap = {1:0,2:1,3:2,4:3,5:4}; // Mon→0,Tue→1,Wed→2,Thu→3,Fri→4
-  // Find the last session to determine where we are in the plan
-  var userSessions = sessions[userId] || [];
-  if (userSessions.length > 0) {
-    var sorted = [].concat(userSessions).sort(function(a,b){return new Date(b.fecha)-new Date(a.fecha);});
-    var lastSes = sorted[0];
-    // Find what plan index last session corresponds to
-    var lastIdx = -1;
-    for (var i = 0; i < plan.length; i++) {
-      if (lastSes.tipo && (lastSes.tipo.indexOf(plan[i].dia) !== -1 || lastSes.tipo.indexOf(plan[i].tipo) !== -1)) {
-        lastIdx = i;
-        break;
-      }
-    }
-    if (lastIdx >= 0) {
-      return (lastIdx + 1) % plan.length;
-    }
-  }
-  if (planMap[dow] !== undefined) return planMap[dow] % plan.length;
-  return 0;
-}
-
-function renderNextWorkoutExpanded() {
-  var plan = PLAN();
-  var ni = getTodayPlanIndex(currentUser);
-  var pd = plan[ni % plan.length];
-  var isU2 = currentUser === 'u2';
-  var accentColor = isU2 ? 'var(--pink)' : 'var(--acc2)';
-
-  var dnDiv = document.getElementById('d-next');
-  var exDiv = document.getElementById('d-next-exercises');
-  var startBtn = document.getElementById('btn-start-top');
-
-  if (!pd) { dnDiv.innerHTML = '<div style="color:var(--t3);font-size:13px;">Sin plan configurado</div>'; return; }
-
-  // Header
-  dnDiv.innerHTML = '<div class="nw-day-hdr"><div class="nw-dot" style="background:'+pd.color+';"></div><div><div class="nw-day-name">'+pd.dia+' — '+pd.tipo+'</div><div class="nw-day-sub">'+pd.sub+'</div></div></div>'
-    + (pd.nota ? '<div style="font-size:11px;color:var(--amber);background:var(--ab);border-radius:6px;padding:6px 10px;margin-bottom:8px;">📌 '+pd.nota+'</div>' : '');
-
-  // Exercises with smart weights
-  var exHtml = '';
-  pd.exs.forEach(function(ex) {
-    var sw = getSmartWeight(ex.n, currentUser, ex);
-    var wLabel = sw.w > 0 ? sw.w + ' kg' : (ex.p1 && ex.p1.toString().includes('PC') ? 'Peso corporal' : '—');
-    var prevLabel = sw.prev !== null ? ('Anterior: ' + sw.prev + ' kg' + (sw.delta > 0 ? ' → +' + sw.delta + ' kg 📈' : '')) : 'Primera vez · Peso del plan';
-    exHtml += '<div class="nw-ex" data-ex-name="'+ex.n+'" data-ex-s="'+ex.s+'" data-ex-w="'+sw.w+'">'
-      + '<div class="nw-ex-name">'+ex.n+'</div>'
-      + '<div class="nw-ex-det"><span class="nw-ex-sets">'+ex.s+'</span><span class="nw-ex-w'+(isU2?' u2color':'')+'">'+wLabel+'</span></div>'
-      + '<div class="nw-ex-prev">'+prevLabel+'</div>'
-      + '</div>';
-  });
-  exDiv.innerHTML = exHtml;
-
-  // Show start button
-  if (startBtn) {
-    startBtn.style.display = 'inline-flex';
-    startBtn.className = 'btn btn-sm ' + (isU2 ? 'btn-pink' : 'btn-acc');
-    startBtn.onclick = function() { preloadSessionFromPlan(pd, ni); };
-  }
-
-  // Click on exercise → open guide
-  exDiv.querySelectorAll('.nw-ex').forEach(function(el) {
-    el.addEventListener('click', function() { openGuia(this.getAttribute('data-ex-name')); });
-    el.style.cursor = 'pointer';
-  });
-}
-
-function preloadSessionFromPlan(pd, planIdx) {
-  // Pre-populate the session form with today's exercises
-  exTemp = [];
-  pd.exs.forEach(function(ex) {
-    var sw = getSmartWeight(ex.n, currentUser, ex);
-    // Parse sets and reps from "4×10" format
-    var setsReps = (ex.s || '3×10').match(/(\d+)[×x](\d+)/);
-    var sets = setsReps ? parseInt(setsReps[1]) : 3;
-    var reps = setsReps ? parseInt(setsReps[2]) : 10;
-    exTemp.push({
-      nombre: ex.n,
-      series: sets,
-      reps: reps,
-      unit: 'reps',
-      peso: sw.w || 0,
-      rir: 2,
-      notas: ''
-    });
-  });
-  // Set the session type
-  var tipoSel = document.getElementById('s-tipo');
-  if (tipoSel) {
-    // Try to find matching option
-    var found = false;
-    for (var i = 0; i < tipoSel.options.length; i++) {
-      if (tipoSel.options[i].value.indexOf(pd.dia) !== -1 || tipoSel.options[i].value.indexOf(pd.tipo) !== -1) {
-        tipoSel.selectedIndex = i; found = true; break;
-      }
-    }
-    if (!found) tipoSel.options[0].selected = true;
-  }
-  renderExList();
-  goTo('sesion');
-  toast('Ejercicios del plan cargados ✓');
-}
-
-/* =================== MENÚ DIARIO IA =================== */
-var menuGenerado = null;
-
-async function generateMenuDia() {
-  var p = P();
-  if (!p || !p.peso) { toast('Completa tu perfil primero'); return; }
-  var calc = calcPlan(p);
-  var isU2 = currentUser === 'u2';
-  var foods = isU2 ? FOODS_U2 : FOODS_U1;
-  var prohib = (foods.prohibidos || []).join(', ');
-  var prot_list = (foods.proteinas || []).join(', ');
-  var hc_list = (foods.hidratos || []).join(', ');
-  var fat_list = (foods.grasas || []).join(', ');
-  var obj_str = {recomp:'Recomposición corporal (déficit moderado)',perdida:'Pérdida de grasa (déficit calórico)',volumen:'Ganancia muscular (superávit ligero)',mantenimiento:'Mantenimiento'}[p.objetivo] || p.objetivo;
-
-  // Update modal content
-  var perfilTxt = document.getElementById('menu-perfil-txt');
-  if(perfilTxt) perfilTxt.textContent = (p.nombre||'Usuario') + ' · ' + calc.kcal + ' kcal · ' + calc.prot + 'g prot · ' + calc.hc + 'g HC · ' + calc.grasas + 'g grasas';
-
-  var resultDiv = document.getElementById('menu-result');
-  resultDiv.innerHTML = '<div class="ai-loading"><div class="ai-loading-dot"></div><div class="ai-loading-dot"></div><div class="ai-loading-dot"></div><div style="margin-top:10px;font-size:13px;">Generando menú personalizado…</div></div>';
-  openM('modal-menu');
-
-  var prompt = 'Eres un nutricionista deportivo experto. Crea un menú diario COMPLETO para una persona con estos datos:\n'
-    + '- Objetivo: ' + obj_str + '\n'
-    + '- Calorías: ' + calc.kcal + ' kcal\n'
-    + '- Proteína: ' + calc.prot + 'g · HC: ' + calc.hc + 'g · Grasas: ' + calc.grasas + 'g\n'
-    + '- Proteínas permitidas: ' + prot_list + '\n'
-    + '- Hidratos permitidos: ' + hc_list + '\n'
-    + '- Grasas permitidas: ' + fat_list + '\n'
-    + (prohib ? '- PROHIBIDOS (intolerancia): ' + prohib + '\n' : '')
-    + (foods.lacteos ? '- Lácteos permitidos: ' + foods.lacteos.join(', ') + '\n' : '')
-    + '\nResponde SOLO en JSON válido sin markdown, con este formato exacto:\n'
-    + '{"comidas":[{"hora":"8:00","nombre":"Desayuno","plato":"nombre del plato","ingredientes":"lista de ingredientes con cantidades","prep":"instrucción breve de preparación","macros":{"kcal":400,"p":30,"hc":45,"g":10}},{"hora":"11:00","nombre":"Media mañana","plato":"...","ingredientes":"...","prep":"...","macros":{"kcal":200,"p":15,"hc":20,"g":5}},{"hora":"14:00","nombre":"Almuerzo","plato":"...","ingredientes":"...","prep":"...","macros":{"kcal":600,"p":45,"hc":55,"g":15}},{"hora":"17:00","nombre":"Merienda","plato":"...","ingredientes":"...","prep":"...","macros":{"kcal":250,"p":20,"hc":25,"g":6}},{"hora":"20:30","nombre":"Cena","plato":"...","ingredientes":"...","prep":"...","macros":{"kcal":500,"p":40,"hc":35,"g":12}}],"totales":{"kcal":1950,"p":150,"hc":180,"g":48},"consejo":"consejo nutricional del día en 1 frase"}';
-
-  try {
-    var response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json','x-api-key': getApiKey(),'anthropic-version':'2023-06-01'},
-      body: JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,messages:[{role:'user',content:prompt}]})
-    });
-    var data = await response.json();
-    if (!data.content || !data.content[0]) throw new Error('Sin respuesta');
-    var text = data.content[0].text.trim().replace(/```json|```/g,'').trim();
-    var menu = JSON.parse(text);
-    menuGenerado = menu;
-    renderMenu(menu, calc);
-  } catch(e) {
-    resultDiv.innerHTML = '<div style="color:var(--red);font-size:13px;padding:10px;">❌ Error al generar menú. Comprueba conexión a internet.<br><small>' + (e.message||'') + '</small></div>';
-  }
-}
-
-function renderMenu(menu, calc) {
-  var resultDiv = document.getElementById('menu-result');
-  if (!menu || !menu.comidas) { resultDiv.innerHTML = '<div style="color:var(--red);">Error en el formato del menú.</div>'; return; }
-
-  var colores = {Desayuno:'var(--amber)','Media mañana':'var(--green)',Almuerzo:'var(--acc2)',Merienda:'var(--teal)',Cena:'var(--pink)'};
-  var html = menu.comidas.map(function(c) {
-    var col = colores[c.nombre] || 'var(--acc2)';
-    return '<div class="menu-comida">'
-      + '<div class="menu-hora" style="color:'+col+';">'+c.hora+' · '+c.nombre+'</div>'
-      + '<div class="menu-nombre">'+c.plato+'</div>'
-      + '<div class="menu-items">'+c.ingredientes+'</div>'
-      + (c.prep ? '<div style="font-size:11px;color:var(--t3);margin-top:3px;font-style:italic;">🍳 '+c.prep+'</div>' : '')
-      + '<div class="menu-macros">'
-      + '<span class="menu-macro k">'+c.macros.kcal+' kcal</span>'
-      + '<span class="menu-macro p">P: '+c.macros.p+'g</span>'
-      + '<span class="menu-macro c">HC: '+c.macros.hc+'g</span>'
-      + '<span class="menu-macro g">G: '+c.macros.g+'g</span>'
-      + '</div></div>';
-  }).join('');
-
-  // Totales
-  if (menu.totales) {
-    html += '<div style="background:var(--bg4);border-radius:var(--r);padding:11px 13px;margin-top:4px;">'
-      + '<div style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;margin-bottom:7px;">TOTAL DEL DÍA</div>'
-      + '<div class="menu-macros">'
-      + '<span class="menu-macro k">'+menu.totales.kcal+' kcal</span>'
-      + '<span class="menu-macro p">Prot: '+menu.totales.p+'g / '+calc.prot+'g</span>'
-      + '<span class="menu-macro c">HC: '+menu.totales.hc+'g / '+calc.hc+'g</span>'
-      + '<span class="menu-macro g">Grasas: '+menu.totales.g+'g / '+calc.grasas+'g</span>'
-      + '</div></div>';
-  }
-  if (menu.consejo) {
-    html += '<div style="background:var(--accb);border:1px solid var(--acc);border-radius:var(--r);padding:10px 12px;font-size:12px;color:var(--acc2);margin-top:8px;">💡 '+menu.consejo+'</div>';
-  }
-  resultDiv.innerHTML = html;
-}
-
-function getApiKey() {
-  // Check localStorage for cached key
-  var k = localStorage.getItem('fl_api_key') || '';
-  if (!k) {
-    k = prompt('Introduce tu API key de Anthropic (claude.ai → API Keys):\n(Se guarda solo en este dispositivo)') || '';
-    if (k) localStorage.setItem('fl_api_key', k);
-  }
-  return k;
-}
 
 /* =================== ONBOARDING =================== */
 var onbUser='u1', onbData={};
@@ -1678,14 +1255,9 @@ function showOnb(){
 }
 document.getElementById('onb-next1').addEventListener('click',function(){
   onbUser=document.getElementById('onb-quien').value;
-  var isMujer=onbUser==='u2';
-  // Avatar y título según género real
-  document.getElementById('onb-avatar2').textContent=isMujer?'🌸':'🏋️';
-  document.getElementById('onb-avatar2').style.background=isMujer?'var(--pb)':'var(--accb)';
-  document.getElementById('onb-title2').textContent=isMujer?'Tu perfil físico — Mujer':'Tu perfil físico — Hombre';
-  document.getElementById('onb-sub2') && (document.getElementById('onb-sub2').textContent=
-    isMujer?'Con estos datos calculamos tu plan de entrenamiento femenino, calorías y macros.':
-            'Con estos datos calculamos tu plan de entrenamiento masculino, calorías y macros.');
+  var isF=onbUser==='u2';
+  document.getElementById('onb-avatar2').textContent=isF?'🌸':'🏋️';
+  document.getElementById('onb-title2').textContent=isF?'Tu perfil físico (ella)':'Tu perfil físico (él)';
   document.getElementById('onb-step-1').style.display='none';
   document.getElementById('onb-step-2').style.display='block';
 });
@@ -1699,13 +1271,11 @@ document.getElementById('onb-next2').addEventListener('click',function(){
   var altura=parseFloat(document.getElementById('onb-altura').value);
   var edad=parseInt(document.getElementById('onb-edad').value);
   if(!nombre||!peso||!altura||!edad){alert('Rellena todos los campos');return;}
-  // Sexo viene directamente de la selección Hombre/Mujer
-  var sexo = onbUser==='u2' ? 'F' : 'M';
   onbData={nombre,peso,altura,edad,
     objetivo:document.getElementById('onb-objetivo').value,
     actividad:parseFloat(document.getElementById('onb-actividad').value),
     experiencia:document.getElementById('onb-experiencia').value,
-    sexo:sexo
+    sexo:onbUser==='u2'?'F':'M'
   };
   var calc=calcPlan(onbData);
   document.getElementById('onb-resultados').innerHTML=calcHTML(calc,onbData);
@@ -1724,22 +1294,12 @@ document.getElementById('onb-finish').addEventListener('click',function(){
   var hasOther=(onbUser==='u1'&&profiles.u2&&profiles.u2.nombre)||(onbUser==='u2'&&profiles.u1&&profiles.u1.nombre);
   if(!hasOther){
     onbUser=onbUser==='u1'?'u2':'u1';
-    var isMujer2=onbUser==='u2';
     document.getElementById('onb-quien').value=onbUser;
-    // Limpiar TODOS los campos para el nuevo usuario
+    var isF=onbUser==='u2';
     document.getElementById('onb-nombre').value='';
     document.getElementById('onb-peso').value='';
     document.getElementById('onb-altura').value='';
     document.getElementById('onb-edad').value='';
-    document.getElementById('onb-objetivo').selectedIndex=0;
-    document.getElementById('onb-actividad').value='1.55';
-    document.getElementById('onb-experiencia').selectedIndex=0;
-    // Actualizar título y avatar y avanzar al paso 2
-    document.getElementById('onb-avatar2').textContent=isMujer2?'🌸':'🏋️';
-    document.getElementById('onb-avatar2').style.background=isMujer2?'var(--pb)':'var(--accb)';
-    document.getElementById('onb-title2').textContent=isMujer2?'Tu perfil físico — Mujer':'Tu perfil físico — Hombre';
-    document.getElementById('onb-step-1').style.display='none';
-    document.getElementById('onb-step-2').style.display='block';
   } else {
     onbEl.classList.add('onb-hidden');
     initApp();
@@ -1784,42 +1344,9 @@ function initApp(){
   wireHydration();
   wireSesion();
   wireMedidas();
-  wireCloud();
-  wireMenu();
   renderFatiga();
   renderRecetas();
   renderDash();
-  // Auto-init Firebase if previously configured
-  if (FB_URL && FB_SYNC_KEY) { initFirebase(FB_URL, FB_SYNC_KEY); }
-}
-
-function wireCloud() {
-  // Cloud badge click → open settings
-  var badge = document.getElementById('cloud-badge-top');
-  if (badge) badge.addEventListener('click', function() { openM('modal-cloud'); });
-  // Load saved config into form
-  var urlInput = document.getElementById('cloud-url');
-  var keyInput = document.getElementById('cloud-key');
-  if (urlInput && FB_URL) urlInput.value = FB_URL;
-  if (keyInput && FB_SYNC_KEY) keyInput.value = FB_SYNC_KEY;
-  // Save button
-  document.getElementById('btn-save-cloud').addEventListener('click', function() {
-    var url = document.getElementById('cloud-url').value.trim();
-    var key = document.getElementById('cloud-key').value.trim();
-    if (!url || !key) { alert('Completa la URL de Firebase y la clave de sala'); return; }
-    if (!url.includes('firebaseio.com')) { alert('La URL debe terminar en firebaseio.com'); return; }
-    closeM('modal-cloud');
-    initFirebase(url, key);
-    toast('Sincronizando con la nube… ☁️');
-  });
-  document.getElementById('btn-cancel-cloud').addEventListener('click', function() { closeM('modal-cloud'); });
-}
-
-function wireMenu() {
-  var btn = document.getElementById('btn-gen-menu');
-  if (btn) btn.addEventListener('click', function() { generateMenuDia(); });
-  document.getElementById('btn-close-menu').addEventListener('click', function() { closeM('modal-menu'); });
-  document.getElementById('btn-regenerar-menu').addEventListener('click', function() { generateMenuDia(); });
 }
 
 /* =================== USER SWITCH =================== */
@@ -1902,8 +1429,17 @@ function renderDash(){
       +'</div>';
   } else dm.innerHTML='<div style="font-size:13px;color:var(--t3);">Completa tu perfil para ver los macros</div>';
 
-  // Next workout — expanded with smart weights
-  renderNextWorkoutExpanded();
+  // Next workout
+  var plan=PLAN();var tipos=plan.map(function(p){return p.dia;});
+  var dow=new Date().getDay();
+  var planMap={1:0,2:1,3:2,4:3,5:4};
+  var ni=planMap[dow]!==undefined?planMap[dow]:0;
+  var pd=plan[ni%plan.length];
+  var dn=document.getElementById('d-next');
+  if(pd){
+    dn.innerHTML='<div style="display:flex;align-items:center;gap:10px;"><div style="width:10px;height:10px;border-radius:50%;background:'+pd.color+';flex-shrink:0;"></div><div style="flex:1;"><div style="font-weight:700;font-size:14px;">'+pd.dia+' — '+pd.tipo+'</div><div style="font-size:11px;color:var(--t3);">'+pd.sub+'</div></div><button class="btn btn-sm '+(currentUser==='u2'?'btn-pink':'btn-acc')+'" id="btn-start">Iniciar →</button></div>';
+    document.getElementById('btn-start').addEventListener('click',function(){goTo('sesion');});
+  }
 
   // Recent
   var dr=document.getElementById('d-recent');
@@ -2080,7 +1616,7 @@ function renderPlan(){
   var fa=document.getElementById('plan-foods');
   var fhtml='<div style="margin-bottom:8px;"><span style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;display:block;margin-bottom:5px;">Proteínas</span>'
     +foods.proteinas.map(function(f){return '<span class="badge bg">'+f+'</span>';}).join('')+'</div>'
-    +'<div style="margin-bottom:8px;"><span style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercas    +'<div style="margin-bottom:8px;"><span style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;display:block;margin-bottom:5px;">Hidratos tolerados</span>'
+    +'<div style="margin-bottom:8px;"><span style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;display:block;margin-bottom:5px;">Hidratos tolerados</span>'
     +foods.hidratos.map(function(f){return '<span class="badge bt">'+f+'</span>';}).join('')+'</div>'
     +'<div style="margin-bottom:8px;"><span style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;display:block;margin-bottom:5px;">Grasas</span>'
     +foods.grasas.map(function(f){return '<span class="badge bp">'+f+'</span>';}).join('')+'</div>';
@@ -2102,7 +1638,7 @@ function renderPlan(){
   ph.innerHTML='<div class="tip-block ok"><div class="tip-t">Meta diaria: ~'+Math.round(agua/100)*100+' ml</div><div class="tip-b">Basado en '+( p2.peso||'tu peso')+' kg × 35 ml/kg + actividad. '+( p2.actividad>1.55?'Añade 500ml extra por alta actividad.':'')+' Ajusta en días de calor o sudoración alta.</div></div>'
     +'<div class="calc-row"><div class="calc-label">Pre-entreno (2-3h antes)</div><div class="calc-val" style="color:var(--blue);">400-600 ml</div></div>'
     +'<div class="calc-row"><div class="calc-label">Intra-entreno (cada 15-20 min)</div><div class="calc-val" style="color:var(--blue);">150-200 ml</div></div>'
-    +'<div class="calc-row"><div class="calc-label">Electrolitos intra (receta ella)</div><div class="calc-val" style="color:var(--teal);">1g sal/L + limón</div></div>'
+    +'<div class="calc-row"><div class="calc-label">Electrolitos intra (receta Karol)</div><div class="calc-val" style="color:var(--teal);">1g sal/L + limón</div></div>'
     +'<div class="calc-row"><div class="calc-label">Post-entreno (primeras 2h)</div><div class="calc-val" style="color:var(--green);">400-600 ml</div></div>'
     +'<div class="calc-row" style="border:none;"><div class="calc-label">Indicador de hidratación</div><div class="calc-val" style="color:var(--amber);">Orina pálida ✓</div></div>';
 }
