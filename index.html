@@ -196,6 +196,12 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .compra-cat-hdr{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--t3);padding:10px 0 4px;margin-top:4px;}
 
 @media(max-width:380px){.content{padding:12px 10px;}.onb-inner{padding:22px 16px;}}
+
+/* Restricciones toggle buttons */
+.rest-btn{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:8px;border:2px solid var(--border2);background:var(--bg3);color:var(--t2);font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s;-webkit-tap-highlight-color:transparent;}
+.rest-btn:active{opacity:0.7;}
+.rest-btn.rest-sel{border-color:var(--red);background:var(--rb);color:var(--red);font-weight:700;}
+.rest-btn.rest-sel::before{content:'✕ ';}
 </style>
 </head>
 <body>
@@ -247,7 +253,18 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     </div>
     <div class="fr">
       <div class="fg"><label>Peso actual (kg)</label><input type="number" id="ob-peso" step="0.1" inputmode="decimal" placeholder="75.0"></div>
-      <div class="fg"><label>% Grasa estimado</label><input type="number" id="ob-grasa" inputmode="decimal" placeholder="20"></div>
+      <div class="fg"><label>% Grasa estimado</label>
+        <select id="ob-grasa">
+          <option value="">No lo sé / sin dato</option>
+          <option value="8">~8% — Muy definido (abs visibles)</option>
+          <option value="12">~12% — Definido, poca grasa</option>
+          <option value="15">~15% — Delgado con algo de grasa</option>
+          <option value="20" selected>~20% — Promedio / leve barriga</option>
+          <option value="25">~25% — Sobrepeso moderado</option>
+          <option value="30">~30% — Sobrepeso notable</option>
+          <option value="35">~35% — Obesidad leve</option>
+        </select>
+      </div>
     </div>
     <div class="fg"><label>Objetivo principal</label>
       <select id="ob-obj">
@@ -555,10 +572,19 @@ function calcMacros(u){
 // ── RESTRICCIONES ─────────────────────────────
 var RESTS=['Lácteos de vaca','Soja/Tofu','Trigo/Gluten','Arroz','Maíz','Clara de huevo','Champiñón','Garbanzo','Lenteja','Almendra','Anacardo','Levadura de pan','Levadura de cerveza','Mejillón','Cacahuete','Fructosa'];
 function renderRestGrid(){
-  $('rest-grid').innerHTML=RESTS.map(function(r){
-    return '<label style="display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:9px 11px;cursor:pointer;font-size:13px;font-weight:500;">'
-      +'<input type="checkbox" value="'+r+'" style="width:16px;height:16px;accent-color:var(--acc);">'+r+'</label>';
-  }).join('');
+  var el=$('rest-grid');
+  el.innerHTML='';
+  RESTS.forEach(function(r){
+    var btn=document.createElement('button');
+    btn.type='button';
+    btn.setAttribute('data-rest',r);
+    btn.className='rest-btn';
+    btn.textContent=r;
+    btn.addEventListener('click',function(){
+      this.classList.toggle('rest-sel');
+    });
+    el.appendChild(btn);
+  });
 }
 
 // ── PLANES DE EJERCICIO ───────────────────────
@@ -870,7 +896,7 @@ $('s2-next').addEventListener('click',function(){
 $('s3-back').addEventListener('click',function(){obShow('s2');});
 
 $('s3-next').addEventListener('click',function(){
-  var rests=[].slice.call(document.querySelectorAll('#rest-grid input:checked')).map(function(c){return c.value;});
+  var rests=[].slice.call(document.querySelectorAll('#rest-grid .rest-btn.rest-sel')).map(function(b){return b.getAttribute('data-rest');});
   obShow('s4');
   setTimeout(function(){crearPerfil(rests);},400);
 });
@@ -1348,7 +1374,73 @@ async function runIA(){
   var lun=new Date();lun.setDate(lun.getDate()-((lun.getDay()+6)%7));lun.setHours(0,0,0,0);
   var sesUlt7=(u.sessions||[]).filter(function(s){return new Date(s.fecha+'T12:00')>=lun;});
   var meds=u.measures||[]; var lastMed=meds[meds.length-1]||{}; var prevMed=meds[meds.length-2]||{};
-  if(!ANTHROPIC_KEY){$r.innerHTML='<div style="font-size:13px;color:var(--red);">⚠️ Configura tu API Key de Anthropic en Perfil → Configuración.</div>';return;}
+
+  // ── Análisis automático sin API key ──
+  if(!ANTHROPIC_KEY){
+    var numSes=sesUlt7.length;
+    var rpeArr=sesUlt7.map(function(s){return parseFloat(s.rpe)||7;});
+    var rpeAvg=rpeArr.length?Math.round(rpeArr.reduce(function(a,b){return a+b;},0)/rpeArr.length):7;
+    var fatArr=sesUlt7.map(function(s){return parseFloat(s.fat)||5;});
+    var fatAvg=fatArr.length?Math.round(fatArr.reduce(function(a,b){return a+b;},0)/fatArr.length):5;
+    var pesoCambio=lastMed.peso&&prevMed.peso?(parseFloat(lastMed.peso)-parseFloat(prevMed.peso)).toFixed(1):null;
+    var nivel=numSes>=4?'bueno':numSes>=2?'regular':'necesita_mejorar';
+    var niv={'bueno':'b','regular':'r','necesita_mejorar':'m'}[nivel];
+    var nivLabel={'bueno':'✅ Buen progreso','regular':'⚡ Progreso regular','necesita_mejorar':'⚠️ Necesita ajustes'}[nivel];
+
+    var ajEntreno=[];
+    var ajNutricion=[];
+    var recomendacion='';
+
+    if(numSes>=4){
+      recomendacion='Excelente constancia esta semana. Mantén el plan y considera aumentar el peso en los ejercicios principales un 2-5% la próxima semana.';
+      if(rpeAvg>=9) ajEntreno.push('RPE muy alto ('+rpeAvg+'/10) — considera reducir el peso un 5-10% o añadir un día extra de descanso.');
+      else if(rpeAvg<=5) ajEntreno.push('RPE bajo ('+rpeAvg+'/10) — tienes margen para incrementar la carga. Sube el peso en los compuestos principales.');
+      else ajEntreno.push('RPE en rango óptimo ('+rpeAvg+'/10). Continúa progresando con la carga actual.');
+      if(fatAvg>=7) ajEntreno.push('Fatiga acumulada alta ('+fatAvg+'/10) — prioriza el descanso, el sueño y la hidratación este fin de semana.');
+    } else if(numSes>=2){
+      recomendacion='Semana incompleta ('+numSes+'/5 sesiones). Intenta planificar los entrenos con antelación para la próxima semana.';
+      ajEntreno.push('Completaste '+numSes+' de 5 sesiones. Cada sesión perdida es una semana de progreso retrasado.');
+      ajEntreno.push('Identifica qué día de la semana te cuesta más cumplir y ajusta el plan de orden de días si es necesario.');
+    } else {
+      recomendacion='Semana muy baja en entrenamiento. Recuerda que la consistencia es el factor #1 en resultados. Esta semana: mínimo 3 sesiones.';
+      ajEntreno.push('Solo '+numSes+' sesión(es) registrada(s). La consistencia supera a la intensidad en importancia.');
+    }
+
+    if(pesoCambio!==null){
+      var cambioNum=parseFloat(pesoCambio);
+      var obj=u.obj||'recomp';
+      if(obj==='perdida'){
+        if(cambioNum<-0.8) ajNutricion.push('Bajada de peso rápida ('+pesoCambio+'kg) — asegúrate de mantener la proteína alta para no perder músculo.');
+        else if(cambioNum>0) ajNutricion.push('El peso subió '+pesoCambio+'kg — revisa las porciones de carbohidratos, especialmente en los días sin entreno.');
+        else ajNutricion.push('Peso estable o leve bajada ('+pesoCambio+'kg) — progreso saludable. Mantén el déficit calórico actual.');
+      } else if(obj==='recomp'){
+        if(Math.abs(cambioNum)<=0.5) ajNutricion.push('Peso estable ('+pesoCambio+'kg) — ideal para recomposición. Si el rendimiento sube, el plan está funcionando.');
+        else ajNutricion.push('Cambio de peso: '+pesoCambio+'kg. En recomposición es normal fluctuar. Prioriza cómo te ves y cómo rindes.');
+      } else if(obj==='volumen'){
+        if(cambioNum<0.1) ajNutricion.push('Peso estancado en fase de volumen — prueba añadir 150-200 kcal extra, preferiblemente en carbohidratos post-entreno.');
+        else ajNutricion.push('Ganando '+pesoCambio+'kg — correcto para volumen. Si supera 0.5kg/semana considera reducir ligeramente las calorías.');
+      }
+    }
+
+    ajNutricion.push('Hidratación: revisa que alcanzas el objetivo de '+(u.macros&&u.macros.agua?Math.round(u.macros.agua/100)*100:2500)+' ml/día especialmente los días de entreno.');
+    if(u.genero==='H') ajNutricion.push('Proteína: apunta a '+(u.macros&&u.macros.prot||'160')+'g diarios. Distribuye en 4-5 tomas para máxima síntesis proteica.');
+    else ajNutricion.push('Proteína: objetivo '+(u.macros&&u.macros.prot||'120')+'g diarios. No olvides el aporte post-entreno (batido o comida proteica).');
+
+    $r.innerHTML='<div class="ia-card">'
+      +'<div class="ia-nivel '+niv+'">'+nivLabel+'</div>'
+      +'<div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">Semana analizada: '+numSes+'/5 sesiones completadas. RPE promedio: '+rpeAvg+'/10.'+(pesoCambio?(' Cambio de peso: '+pesoCambio+'kg.'):'')+'</div>'
+      +'<div style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;margin:8px 0 4px;">💪 Entreno</div>'
+      +ajEntreno.map(function(a){return '<div style="font-size:13px;color:var(--t2);padding:4px 0;display:flex;gap:7px;"><span style="color:var(--acc2);">→</span><span>'+a+'</span></div>';}).join('')
+      +'<div style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;margin:8px 0 4px;">🥗 Nutrición</div>'
+      +ajNutricion.map(function(a){return '<div style="font-size:13px;color:var(--t2);padding:4px 0;display:flex;gap:7px;"><span style="color:var(--green);">→</span><span>'+a+'</span></div>';}).join('')
+      +'<div style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;margin:8px 0 4px;">📅 Próxima semana</div>'
+      +'<div style="font-size:13px;color:var(--text);line-height:1.6;">'+recomendacion+'</div>'
+      +'<div style="font-size:11px;color:var(--t3);margin-top:10px;border-top:1px solid var(--border);padding-top:8px;">Análisis automático. Añade tu API Key de Anthropic en Perfil para análisis más detallado con IA.</div>'
+      +'</div>';
+    return;
+  }
+
+  // ── Con API Key de Anthropic ──
   var prompt='Eres entrenador personal y nutricionista experto. Analiza este progreso semanal y responde SOLO JSON válido:\n{"resumen":"","ajustes_entreno":[""],"ajustes_nutricion":[""],"recomendacion":"","nivel":"bueno"}\n\nDATOS:\nGénero: '+(u.genero==='H'?'Hombre':'Mujer')+'\nObjetivo: '+LABEL_OBJ[u.obj||'recomp']+'\nSesiones semana: '+sesUlt7.length+'/5\nRPE promedio: '+(sesUlt7.reduce(function(a,s){return a+(parseFloat(s.rpe)||7);},0)/Math.max(1,sesUlt7.length)).toFixed(1)+'\nPeso anterior: '+(prevMed.peso||u.peso||'—')+' kg → actual: '+(lastMed.peso||u.peso||'—')+' kg\nCintura: '+(prevMed.cin||'—')+' → '+(lastMed.cin||'—')+' cm';
   try{
     var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:700,messages:[{role:'user',content:prompt}]})});
