@@ -260,6 +260,54 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .plan-ex-pr{font-size:11px;color:var(--green);margin-top:3px;font-weight:500;}
 .plan-ex-arrow{color:var(--border2);font-size:20px;flex-shrink:0;line-height:1;}
 .hevy-card-sep{height:1px;background:var(--border);margin:0 0 2px;}
+
+/* ── Buscadores alimentos y ejercicios ─── */
+.srch-wrap{position:relative;margin-bottom:10px;}
+.srch-inp{width:100%;background:var(--bg3);border:1.5px solid var(--border2);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px;padding:10px 40px 10px 14px;outline:none;box-sizing:border-box;}
+.srch-inp:focus{border-color:var(--acc2);}
+.srch-ico{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:16px;pointer-events:none;}
+.srch-results{background:var(--bg3);border-radius:10px;border:1px solid var(--border2);overflow:hidden;margin-top:6px;max-height:320px;overflow-y:auto;}
+.srch-item{padding:11px 14px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.1s;}
+.srch-item:last-child{border-bottom:none;}
+.srch-item:active{background:var(--bg4);}
+.srch-item-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.srch-item-sub{font-size:11px;color:var(--t3);}
+.srch-item-macros{font-size:11px;color:var(--acc2);margin-top:2px;font-weight:600;}
+.srch-empty{padding:20px;text-align:center;color:var(--t3);font-size:13px;}
+.srch-loading{padding:16px;text-align:center;color:var(--t2);font-size:13px;}
+.srch-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:100px;background:var(--accb);color:var(--acc2);font-size:11px;font-weight:600;margin:2px;}
+.srch-section-title{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:0.07em;padding:8px 14px 4px;background:var(--bg4);}
+/* Modal buscador */
+.modal-srch{max-height:90vh;overflow-y:auto;padding-bottom:calc(var(--safe)+10px);}
+
+/* ── Chat Kongo ─────────────────────────────── */
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 110px - var(--safe));max-height:calc(100vh - 110px - var(--safe));}
+.chat-msgs{flex:1;overflow-y:auto;padding:12px 0 8px;display:flex;flex-direction:column;gap:10px;}
+.chat-msg{display:flex;gap:9px;align-items:flex-end;}
+.chat-msg.user{flex-direction:row-reverse;}
+.chat-bubble{max-width:82%;padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.55;word-break:break-word;}
+.chat-msg.kongo .chat-bubble{background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-bottom-left-radius:4px;}
+.chat-msg.user .chat-bubble{background:var(--acc);color:#fff;border-bottom-right-radius:4px;}
+.chat-avatar{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--bg4);border:2px solid var(--border2);}
+.chat-avatar.kongo{background:linear-gradient(135deg,var(--acc),var(--acc2));border-color:var(--acc2);}
+.chat-msg.user .chat-avatar{background:var(--bg4);}
+.chat-time{font-size:10px;color:var(--t3);margin-top:3px;text-align:center;width:100%;}
+.chat-input-row{display:flex;gap:8px;padding:10px 0 4px;border-top:1px solid var(--border);}
+.chat-input{flex:1;background:var(--bg3);border:1.5px solid var(--border2);border-radius:22px;color:var(--text);font-family:inherit;font-size:14px;padding:10px 16px;outline:none;resize:none;max-height:100px;min-height:42px;line-height:1.4;}
+.chat-input:focus{border-color:var(--acc2);}
+.chat-send{width:42px;height:42px;border-radius:50%;background:var(--acc);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.15s;}
+.chat-send:hover{background:var(--acc2);}
+.chat-send svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.chat-typing{display:flex;gap:4px;align-items:center;padding:4px 0;}
+.chat-dot{width:7px;height:7px;border-radius:50%;background:var(--t3);animation:chat-pulse 1.2s ease-in-out infinite;}
+.chat-dot:nth-child(2){animation-delay:0.2s;}
+.chat-dot:nth-child(3){animation-delay:0.4s;}
+@keyframes chat-pulse{0%,100%{opacity:0.3;transform:scale(0.8)}50%{opacity:1;transform:scale(1)}}
+.chat-nokey{background:var(--bg3);border:1px solid var(--amber);border-radius:12px;padding:14px;text-align:center;margin:12px 0;font-size:13px;color:var(--t2);line-height:1.7;}
+.chat-quick{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.chat-quick-btn{padding:6px 12px;border-radius:100px;border:1px solid var(--border2);background:var(--bg3);color:var(--acc2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all 0.15s;}
+.chat-quick-btn:active{background:var(--accb);}
+.kongo-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border-radius:100px;padding:4px 12px 4px 6px;font-size:12px;font-weight:700;margin-bottom:12px;}
 </style>
 </head>
 <body>
@@ -304,26 +352,45 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <div class="onb-logo">SpeciMen</div>
     <div class="prog-bar"><div class="prog-fill" style="width:50%"></div></div>
     <div class="onb-title">Tu perfil físico</div>
-    <div class="onb-sub">Calculamos tus calorías, macros e hidratación con Harris-Benedict.</div>
-    <div class="fr">
-      <div class="fg"><label>Fecha nacimiento</label><input type="date" id="ob-fnac"></div>
-      <div class="fg"><label>Altura (cm)</label><input type="number" id="ob-alt" inputmode="numeric" placeholder="175"></div>
+    <div class="onb-sub">Calculamos tu % grasa (Método Navy EEUU), calorías y macros con Mifflin-St Jeor.</div>
+    <div class="fg"><label>País de residencia</label>
+      <select id="ob-pais">
+        <option value="es" selected>🇪🇸 España</option>
+        <option value="co">🇨🇴 Colombia</option>
+      </select>
     </div>
     <div class="fr">
-      <div class="fg"><label>Peso actual (kg)</label><input type="number" id="ob-peso" step="0.1" inputmode="decimal" placeholder="75.0"></div>
-      <div class="fg"><label>% Grasa estimado</label>
-        <select id="ob-grasa">
-          <option value="">No lo sé / sin dato</option>
-          <option value="8">~8% — Muy definido (abs visibles)</option>
-          <option value="12">~12% — Definido, poca grasa</option>
-          <option value="15">~15% — Delgado con algo de grasa</option>
-          <option value="20" selected>~20% — Promedio / leve barriga</option>
-          <option value="25">~25% — Sobrepeso moderado</option>
-          <option value="30">~30% — Sobrepeso notable</option>
-          <option value="35">~35% — Obesidad leve</option>
-        </select>
+      <div class="fg"><label>Fecha nacimiento</label><input type="date" id="ob-fnac" onchange="calcGrasaAuto()"></div>
+      <div class="fg"><label>Altura (cm)</label><input type="number" id="ob-alt" inputmode="numeric" placeholder="175" oninput="calcGrasaAuto()"></div>
+    </div>
+    <div class="fg"><label>Peso actual (kg)</label><input type="number" id="ob-peso" step="0.1" inputmode="decimal" placeholder="75.0" oninput="calcGrasaAuto()"></div>
+    <!-- Medidas para fórmula Navy (% grasa automático) -->
+    <div style="background:var(--accb);border:1px solid var(--acc);border-radius:var(--r);padding:11px 13px;margin-bottom:10px;">
+      <div style="font-size:12px;font-weight:700;color:var(--acc2);margin-bottom:4px;">Medidas corporales para calcular tu % grasa</div>
+      <div style="font-size:11px;color:var(--t2);line-height:1.6;">Mide en la parte más estrecha (cintura), a la altura del ombligo (abdomen) y en el cuello justo bajo la nuez de Adán. Sin meter barriga.</div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>Cintura (cm)</label><input type="number" id="ob-cin" inputmode="decimal" step="0.1" placeholder="80" oninput="calcGrasaAuto()"></div>
+      <div class="fg"><label>Cuello (cm)</label><input type="number" id="ob-cue" inputmode="decimal" step="0.1" placeholder="37" oninput="calcGrasaAuto()"></div>
+    </div>
+    <!-- Campo cadera solo para mujer -->
+    <div class="fg" id="fg-cadera" style="display:none;">
+      <label>Cadera (cm) <span style="font-size:10px;color:var(--t3);">— parte más ancha</span></label>
+      <input type="number" id="ob-cad" inputmode="decimal" step="0.1" placeholder="95" oninput="calcGrasaAuto()">
+    </div>
+    <!-- Resultado automático -->
+    <div id="grasa-result" style="display:none;background:var(--bg3);border-radius:var(--r);padding:10px 14px;margin-bottom:10px;border-left:3px solid var(--acc2);">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-size:12px;color:var(--t3);">% Grasa estimado (Fórmula Navy EEUU)</div>
+          <div id="grasa-val" style="font-size:22px;font-weight:800;color:var(--acc2);line-height:1.2;"></div>
+          <div id="grasa-cat" style="font-size:12px;color:var(--t2);margin-top:2px;"></div>
+        </div>
+        <div id="grasa-ico" style="font-size:32px;"></div>
       </div>
     </div>
+    <!-- Campo oculto que guarda el valor calculado -->
+    <input type="hidden" id="ob-grasa" value="">
     <div class="fg"><label>Objetivo principal</label>
       <select id="ob-obj">
         <option value="recomp">Recomposición corporal (músculo + quemar grasa)</option>
@@ -448,8 +515,14 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <button class="guia-tab" id="pt-nut" onclick="planTab('nut')">🥗 Nutrición</button>
     <button class="guia-tab" id="pt-comp" onclick="planTab('comp')">🛒 Compra</button>
   </div>
-  <div id="pv-ej"><div id="plan-ej-list"></div></div>
-  <div id="pv-nut" style="display:none"><div id="plan-nut-list"></div></div>
+  <div id="pv-ej">
+  <button class="btn btn-ghost btn-full" style="margin-bottom:12px;border:1.5px dashed var(--border2);" onclick="openExSearch()">+ Buscar ejercicio en base de datos</button>
+  <div id="plan-ej-list"></div>
+</div>
+  <div id="pv-nut" style="display:none">
+  <button class="btn btn-acc btn-full" style="margin-bottom:12px;" onclick="openFoodSearch()">+ Buscar y añadir alimento</button>
+  <div id="plan-nut-list"></div>
+</div>
   <div id="pv-comp" style="display:none"><div id="plan-comp-inner"></div></div>
 </div>
 
@@ -558,6 +631,12 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
         <option value="25">25% — Agresivo (máximo recomendado)</option>
       </select>
     </div>
+    <div class="fg"><label>País de residencia</label>
+      <select id="edit-pais">
+        <option value="es">🇪🇸 España</option>
+        <option value="co">🇨🇴 Colombia</option>
+      </select>
+    </div>
     <div class="fg"><label>Tipo de alimentación</label>
       <select id="edit-dieta">
         <option value="equilibrada">Equilibrada</option>
@@ -612,6 +691,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <button class="bn" data-s="hist"><span class="bn-ico">📊</span><span>Historial</span></button>
   <button class="bn" data-s="medidas"><span class="bn-ico">📏</span><span>Progreso</span></button>
   <button class="bn" data-s="perfil"><span class="bn-ico">👤</span><span>Perfil</span></button>
+  <button class="bn" data-s="kongo"><span class="bn-ico">🦍</span><span>Kongo</span></button>
 </nav>
 
 <!-- MODAL ejercicio -->
@@ -632,6 +712,92 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <div class="modal-actions">
       <button class="btn btn-ghost" id="ex-cancel">Cancelar</button>
       <button class="btn btn-acc btn-full" id="ex-ok">Añadir ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- PANTALLA CHAT KONGO ══════════════════════ -->
+<div id="sc-kongo" class="screen">
+  <div class="kongo-badge">
+    <span style="font-size:20px;">🦍</span>
+    <span>Kongo — Tu entrenador personal IA</span>
+  </div>
+  <div id="kongo-nokey" style="display:none;" class="chat-nokey">
+    <div style="font-size:28px;margin-bottom:8px;">🔑</div>
+    <b style="color:var(--amber);">API Key requerida</b><br>
+    Configura tu clave de Anthropic Claude o Gemini en<br>
+    <b>Perfil → Configuración</b><br>
+    para chatear con Kongo.
+    <br><br>
+    <button class="btn btn-acc btn-sm" onclick="goTo('perfil')">Ir a Configuración →</button>
+  </div>
+  <div id="kongo-chat" style="display:none;" class="chat-wrap">
+    <div class="chat-quick" id="kongo-quick"></div>
+    <div class="chat-msgs" id="kongo-msgs"></div>
+    <div class="chat-input-row">
+      <textarea class="chat-input" id="kongo-inp" placeholder="Pregúntale a Kongo..." rows="1"></textarea>
+      <button class="chat-send" id="kongo-send">
+        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL buscador alimentos -->
+<div class="modal-ov" id="m-food-srch">
+  <div class="modal modal-srch">
+    <div class="modal-hnd"></div>
+    <div class="modal-title">Buscar alimento</div>
+    <div class="srch-wrap">
+      <input class="srch-inp" type="text" id="food-srch-inp" placeholder="Ej: pechuga de pollo, avena, aguacate..." autocomplete="off" oninput="foodSrchDebounce()">
+      <span class="srch-ico">🔍</span>
+    </div>
+    <div id="food-srch-results"></div>
+    <!-- Panel añadir cantidad -->
+    <div id="food-add-panel" style="display:none;background:var(--bg3);border-radius:10px;padding:14px;margin-top:8px;">
+      <div id="food-add-name" style="font-size:15px;font-weight:700;margin-bottom:10px;"></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div class="fg" style="flex:1;margin-bottom:0;">
+          <label style="font-size:11px;">Cantidad (g)</label>
+          <input type="number" id="food-add-qty" inputmode="decimal" step="5" value="100" class="srch-inp" style="padding:8px 12px;" oninput="foodUpdateMacros()">
+        </div>
+        <div id="food-add-macros" style="font-size:12px;color:var(--acc2);flex:1;text-align:right;line-height:1.8;"></div>
+      </div>
+      <div class="fg" style="margin-bottom:10px;">
+        <label style="font-size:11px;">Añadir a comida del día</label>
+        <select id="food-add-meal" class="srch-inp" style="padding:8px 12px;"></select>
+      </div>
+      <button class="btn btn-acc btn-full" onclick="foodConfirmAdd()">Añadir al menú ✓</button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-full" onclick="closeM('m-food-srch')">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL buscador ejercicios -->
+<div class="modal-ov" id="m-ex-srch">
+  <div class="modal modal-srch">
+    <div class="modal-hnd"></div>
+    <div class="modal-title">Buscar ejercicio</div>
+    <div class="srch-wrap">
+      <input class="srch-inp" type="text" id="ex-srch-inp" placeholder="Ej: peso muerto, jalón, elevaciones..." autocomplete="off" oninput="exSrchDebounce()">
+      <span class="srch-ico">🔍</span>
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;" id="ex-srch-filters">
+      <button class="srch-tag" style="background:var(--acc);color:#fff;" data-filter="" onclick="exSrchFilter(this,'')">Todos</button>
+      <button class="srch-tag" data-filter="Pecho" onclick="exSrchFilter(this,'Pecho')">Pecho</button>
+      <button class="srch-tag" data-filter="Espalda" onclick="exSrchFilter(this,'Espalda')">Espalda</button>
+      <button class="srch-tag" data-filter="Pierna" onclick="exSrchFilter(this,'Pierna')">Pierna</button>
+      <button class="srch-tag" data-filter="Glúteo" onclick="exSrchFilter(this,'Glúteo')">Glúteo</button>
+      <button class="srch-tag" data-filter="Hombro" onclick="exSrchFilter(this,'Hombro')">Hombro</button>
+      <button class="srch-tag" data-filter="Bíceps" onclick="exSrchFilter(this,'Bíceps')">Bíceps</button>
+      <button class="srch-tag" data-filter="Tríceps" onclick="exSrchFilter(this,'Tríceps')">Tríceps</button>
+      <button class="srch-tag" data-filter="Core" onclick="exSrchFilter(this,'Core')">Core</button>
+    </div>
+    <div id="ex-srch-results"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-full" onclick="closeM('m-ex-srch')">Cerrar</button>
     </div>
   </div>
 </div>
@@ -818,8 +984,22 @@ function renderRestGrid(){
 var LABEL_OBJ={recomp:'Recomposición',perdida:'Pérdida de grasa',volumen:'Ganancia muscular',mant:'Mantenimiento'};
 
 function getPlanEjercicio(u){
-  return u.genero==='H'?planH(u):planM(u);
+  var obj=u.obj||'recomp';
+  var esH=u.genero==='H';
+  if(esH){
+    if(obj==='perdida') return planH_perdida(u);
+    if(obj==='volumen') return planH_volumen(u);
+    if(obj==='mant') return planH_mant(u);
+    return planH(u); // recomp por defecto
+  } else {
+    if(obj==='perdida') return planM_perdida(u);
+    if(obj==='volumen') return planM_volumen(u);
+    if(obj==='mant') return planM_mant(u);
+    return planM(u); // recomp por defecto
+  }
 }
+
+// ── HOMBRE RECOMPOSICIÓN (original, sin cambios) ──────
 function planH(u){
   return[
     {dia:'Lunes',nombre:'Torso Push — Pecho · Hombro · Tríceps',color:'#6c4fff',tipo:'fuerza',exs:[
@@ -910,114 +1090,452 @@ function planM(u){
   ];
 }
 
+// ══════════════════════════════════════════════════════════
+// PLANES POR OBJETIVO — HOMBRE
+// ══════════════════════════════════════════════════════════
+
+// ── HOMBRE · PÉRDIDA DE GRASA ─────────────────────────
+// Más cardio HIIT, supersets, menos volumen por sesión,
+// mayor frecuencia para maximizar gasto calórico
+function planH_perdida(u){
+  var exp=u.exp||'inter';
+  return[
+    {dia:'Lunes',nombre:'Full Body A — Circuito de Fuerza',color:'#ef4444',tipo:'fuerza',exs:[
+      {id:'sentadilla',n:'Sentadilla con Barra',s:4,r:'10-12',rir:2,mus:'Cuádriceps/Glúteo'},
+      {id:'press-banca',n:'Press Banca',s:3,r:'10-12',rir:2,mus:'Pecho'},
+      {id:'remo-barra',n:'Remo con Barra',s:3,r:'10-12',rir:2,mus:'Espalda'},
+      {id:'press-militar',n:'Press Militar',s:3,r:'12-15',rir:1,mus:'Hombros'},
+      {id:'plancha',n:'Plancha isométrica',s:3,r:'45-60s',rir:0,mus:'Core'},
+      {id:'caminata',n:'Cardio HIIT final: 15 min intervalos',s:1,r:'15 min',rir:0,mus:'Cardiovascular'}
+    ]},
+    {dia:'Martes',nombre:'Cardio HIIT + Core',color:'#14b8a6',tipo:'cardio',exs:[
+      {id:'caminata',n:'Caminata inclinada (10-12%) o correr',s:1,r:'25-30 min',rir:0,mus:'Cardio/Glúteo'},
+      {id:'eliptica',n:'Intervalos en bicicleta/elíptica',s:6,r:'40s fuerte / 20s suave',rir:0,mus:'Cardiovascular'},
+      {id:'crunch-m',n:'Crunch + Elevación piernas',s:3,r:'20-25',rir:0,mus:'Abdomen'},
+      {id:'plancha-lat',n:'Plancha lateral',s:3,r:'30s/lado',rir:0,mus:'Oblicuos'}
+    ]},
+    {dia:'Miércoles',nombre:'Full Body B — Potencia',color:'#ef4444',tipo:'fuerza',exs:[
+      {id:'peso-muerto',n:'Peso Muerto Convencional',s:4,r:'8-10',rir:2,mus:'Cadena posterior'},
+      {id:'dominadas',n:'Dominadas / Jalón al Pecho',s:3,r:'8-12',rir:2,mus:'Dorsal'},
+      {id:'fondos',n:'Fondos en Paralelas',s:3,r:'10-15',rir:1,mus:'Tríceps/Pecho'},
+      {id:'zancadas',n:'Zancadas caminando',s:3,r:'12/lado',rir:1,mus:'Cuádriceps/Glúteo'},
+      {id:'curl-barra',n:'Curl Bíceps',s:2,r:'12-15',rir:1,mus:'Bíceps'},
+      {id:'caminata',n:'Cardio LISS 15 min post-sesión',s:1,r:'15 min',rir:0,mus:'Cardiovascular'}
+    ]},
+    {dia:'Jueves',nombre:'Cardio Moderado + Movilidad',color:'#14b8a6',tipo:'cardio',exs:[
+      {id:'caminata',n:'Caminata inclinada o natación',s:1,r:'40-45 min',rir:0,mus:'Cardio/Recuperación'},
+      {id:'movilidad',n:'Movilidad + estiramientos',s:1,r:'15-20 min',rir:0,mus:'Recuperación'}
+    ]},
+    {dia:'Viernes',nombre:'Full Body C — Metabólico',color:'#ef4444',tipo:'fuerza',exs:[
+      {id:'prensa',n:'Prensa de Pierna',s:4,r:'15-20',rir:1,mus:'Cuádriceps/Glúteo'},
+      {id:'remo-cable',n:'Remo en Cable',s:3,r:'12-15',rir:1,mus:'Espalda'},
+      {id:'elev-lat',n:'Elevaciones Laterales',s:3,r:'15-20',rir:1,mus:'Deltoides'},
+      {id:'ext-polea',n:'Extensión Tríceps Polea',s:3,r:'15-20',rir:1,mus:'Tríceps'},
+      {id:'hip-thrust',n:'Hip Thrust',s:3,r:'15-20',rir:1,mus:'Glúteo'},
+      {id:'plancha',n:'Finisher: 3 planchas 60s',s:3,r:'60s',rir:0,mus:'Core'}
+    ]},
+    {dia:'Sábado',nombre:'Cardio activo + NEAT',color:'#22c55e',tipo:'descanso',exs:[
+      {id:'caminata',n:'Caminata 45-60 min (ritmo moderado)',s:1,r:'45-60 min',rir:0,mus:'NEAT/Recuperación'}
+    ]},
+    {dia:'Domingo',nombre:'Descanso completo',color:'#3a3a5c',tipo:'descanso',exs:[]}
+  ];
+}
+
+// ── HOMBRE · GANANCIA MUSCULAR ────────────────────────
+// Mayor volumen, cargas altas, periodización PPL x2/semana
+function planH_volumen(u){
+  return[
+    {dia:'Lunes',nombre:'Push A — Pecho · Hombro · Tríceps (Volumen)',color:'#6c4fff',tipo:'fuerza',exs:[
+      {id:'press-banca',n:'Press Banca con Barra',s:5,r:'4-6',rir:3,mus:'Pecho'},
+      {id:'press-incl',n:'Press Inclinado Mancuernas',s:4,r:'8-10',rir:2,mus:'Pecho superior'},
+      {id:'aperturas-cable',n:'Aperturas en Cable (estiramiento)',s:3,r:'12-15',rir:1,mus:'Pecho'},
+      {id:'press-militar',n:'Press Militar con Barra',s:4,r:'5-8',rir:3,mus:'Deltoides anterior'},
+      {id:'elev-lat',n:'Elevaciones Laterales — series largas',s:4,r:'15-20',rir:1,mus:'Deltoides lateral'},
+      {id:'ext-polea',n:'Extensión Tríceps Cuerda',s:4,r:'10-15',rir:1,mus:'Tríceps'},
+      {id:'fondos',n:'Fondos cargados',s:3,r:'6-10',rir:2,mus:'Tríceps/Pecho'}
+    ]},
+    {dia:'Martes',nombre:'Pull A — Espalda · Bíceps (Volumen)',color:'#3b82f6',tipo:'fuerza',exs:[
+      {id:'dominadas',n:'Dominadas lastradas',s:5,r:'4-8',rir:3,mus:'Dorsal'},
+      {id:'remo-barra',n:'Remo Pendlay con Barra',s:4,r:'5-8',rir:3,mus:'Espalda gruesa'},
+      {id:'remo-cable',n:'Remo Cable — arco completo',s:3,r:'10-12',rir:1,mus:'Espalda media'},
+      {id:'pullover',n:'Pullover Polea — estiramiento dorsal',s:3,r:'12-15',rir:1,mus:'Dorsal/Serrato'},
+      {id:'curl-barra',n:'Curl Barra en banco inclinado',s:4,r:'8-12',rir:2,mus:'Bíceps'},
+      {id:'curl-conc',n:'Curl Concentrado',s:3,r:'12-15',rir:1,mus:'Bíceps pico'}
+    ]},
+    {dia:'Miércoles',nombre:'Legs A — Cuádriceps · Glúteo (Volumen)',color:'#ef4444',tipo:'fuerza',exs:[
+      {id:'sentadilla',n:'Sentadilla con Barra — trabajo pesado',s:5,r:'4-6',rir:3,mus:'Cuádriceps/Glúteo'},
+      {id:'prensa',n:'Prensa de Pierna 45° (alto pie)',s:4,r:'10-15',rir:1,mus:'Cuádriceps/Glúteo'},
+      {id:'ext-cuad',n:'Extensión Cuádriceps (acortada)',s:4,r:'15-20',rir:1,mus:'Cuádriceps'},
+      {id:'peso-muerto-rum',n:'Peso Muerto Rumano',s:4,r:'8-12',rir:2,mus:'Isquio/Glúteo'},
+      {id:'hip-thrust',n:'Hip Thrust pesado',s:4,r:'8-12',rir:2,mus:'Glúteo mayor'},
+      {id:'gemelo-pie',n:'Gemelo de pie pesado',s:5,r:'8-12',rir:2,mus:'Gastrocnemio'}
+    ]},
+    {dia:'Jueves',nombre:'Push B — Hombros prioritarios',color:'#6c4fff',tipo:'fuerza',exs:[
+      {id:'press-militar',n:'Press Militar pesado',s:5,r:'4-6',rir:3,mus:'Deltoides anterior'},
+      {id:'press-incl',n:'Press Inclinado mancuernas',s:4,r:'8-12',rir:2,mus:'Pecho superior'},
+      {id:'elev-lat',n:'Elevaciones laterales 4x20',s:4,r:'20-25',rir:0,mus:'Deltoides lateral'},
+      {id:'aperturas-cable',n:'Aperturas cable bajo',s:3,r:'12-15',rir:1,mus:'Pecho inferior'},
+      {id:'ext-polea',n:'Extensión tríceps barra recta',s:3,r:'10-12',rir:2,mus:'Tríceps'}
+    ]},
+    {dia:'Viernes',nombre:'Pull B + Legs B — Espalda · Isquio',color:'#3b82f6',tipo:'fuerza',exs:[
+      {id:'dominadas',n:'Jalón agarre supino',s:4,r:'8-12',rir:2,mus:'Dorsal/Bíceps'},
+      {id:'remo-uni',n:'Remo Unilateral Pesado',s:4,r:'8-10/lado',rir:2,mus:'Espalda'},
+      {id:'peso-muerto',n:'Peso Muerto Convencional',s:4,r:'4-6',rir:3,mus:'Cadena posterior'},
+      {id:'curl-fem',n:'Curl Femoral Nórdico / Tumbado',s:4,r:'8-12',rir:2,mus:'Isquiotibiales'},
+      {id:'curl-barra',n:'Curl Bíceps EZ',s:3,r:'10-12',rir:2,mus:'Bíceps'},
+      {id:'zancadas',n:'Zancadas búlgaras',s:3,r:'8-10/lado',rir:2,mus:'Glúteo/Cuád'}
+    ]},
+    {dia:'Sábado',nombre:'Descanso activo + Postura',color:'#22c55e',tipo:'descanso',exs:[
+      {id:'movilidad',n:'Movilidad + trabajo correctivo',s:1,r:'30-40 min',rir:0,mus:'Recuperación'}
+    ]},
+    {dia:'Domingo',nombre:'Descanso completo',color:'#3a3a5c',tipo:'descanso',exs:[]}
+  ];
+}
+
+// ── HOMBRE · MANTENIMIENTO ────────────────────────────
+// 3-4 días, eficiente, full body o push/pull alternado
+function planH_mant(u){
+  return[
+    {dia:'Lunes',nombre:'Full Body — Fuerza General',color:'#6c4fff',tipo:'fuerza',exs:[
+      {id:'sentadilla',n:'Sentadilla con Barra',s:3,r:'6-10',rir:2,mus:'Cuádriceps/Glúteo'},
+      {id:'press-banca',n:'Press Banca',s:3,r:'6-10',rir:2,mus:'Pecho'},
+      {id:'dominadas',n:'Dominadas / Jalón',s:3,r:'6-10',rir:2,mus:'Espalda/Bíceps'},
+      {id:'press-militar',n:'Press Hombros',s:2,r:'10-12',rir:2,mus:'Hombros'},
+      {id:'plancha',n:'Plancha + Core',s:2,r:'45s',rir:0,mus:'Core'}
+    ]},
+    {dia:'Martes',nombre:'Cardio + Movilidad',color:'#14b8a6',tipo:'cardio',exs:[
+      {id:'caminata',n:'Cardio moderado 30 min',s:1,r:'30 min',rir:0,mus:'Cardiovascular'},
+      {id:'movilidad',n:'Estiramientos + movilidad',s:1,r:'15 min',rir:0,mus:'Recuperación'}
+    ]},
+    {dia:'Miércoles',nombre:'Full Body — Hipertrofia',color:'#6c4fff',tipo:'fuerza',exs:[
+      {id:'peso-muerto',n:'Peso Muerto',s:3,r:'5-8',rir:2,mus:'Cadena posterior'},
+      {id:'prensa',n:'Prensa de Pierna',s:3,r:'10-15',rir:1,mus:'Cuádriceps'},
+      {id:'remo-barra',n:'Remo con Barra',s:3,r:'8-12',rir:2,mus:'Espalda'},
+      {id:'fondos',n:'Fondos',s:3,r:'8-12',rir:2,mus:'Tríceps/Pecho'},
+      {id:'curl-barra',n:'Curl Bíceps',s:2,r:'10-12',rir:1,mus:'Bíceps'}
+    ]},
+    {dia:'Jueves',nombre:'Descanso activo',color:'#22c55e',tipo:'descanso',exs:[
+      {id:'caminar',n:'Caminata 30 min',s:1,r:'libre',rir:0,mus:'Recuperación'}
+    ]},
+    {dia:'Viernes',nombre:'Full Body — Potencia + Core',color:'#6c4fff',tipo:'fuerza',exs:[
+      {id:'sentadilla',n:'Sentadilla frontal o goblet',s:3,r:'8-12',rir:2,mus:'Cuádriceps'},
+      {id:'press-incl',n:'Press Inclinado',s:3,r:'8-12',rir:2,mus:'Pecho superior'},
+      {id:'remo-uni',n:'Remo Unilateral',s:3,r:'10-12/lado',rir:1,mus:'Espalda'},
+      {id:'elev-lat',n:'Elevaciones Laterales',s:3,r:'15-20',rir:1,mus:'Hombros'},
+      {id:'plancha-lat',n:'Plancha lateral + rotación',s:2,r:'30s/lado',rir:0,mus:'Core'}
+    ]},
+    {dia:'Sábado',nombre:'Cardio libre',color:'#22c55e',tipo:'descanso',exs:[
+      {id:'caminata',n:'Actividad libre: deporte, bici, natación',s:1,r:'30-60 min',rir:0,mus:'Cardiovascular'}
+    ]},
+    {dia:'Domingo',nombre:'Descanso completo',color:'#3a3a5c',tipo:'descanso',exs:[]}
+  ];
+}
+
+// ══════════════════════════════════════════════════════════
+// PLANES POR OBJETIVO — MUJER
+// ══════════════════════════════════════════════════════════
+
+// ── MUJER · PÉRDIDA DE GRASA ──────────────────────────
+// Mayor cardio, supersets glúteo-pierna, circuitos metabólicos
+function planM_perdida(u){
+  return[
+    {dia:'Lunes',nombre:'Glúteo & Pierna — Circuito Metabólico',color:'#ec4899',tipo:'fuerza',exs:[
+      {id:'hip-thrust-m',n:'Hip Thrust con Barra',s:4,r:'15-20',rir:1,mus:'Glúteo mayor'},
+      {id:'squat-sumo',n:'Sentadilla Sumo',s:4,r:'15-20',rir:1,mus:'Aductores/Glúteo'},
+      {id:'zancadas-m',n:'Zancadas caminando',s:3,r:'12/lado',rir:1,mus:'Glúteo/Cuád'},
+      {id:'curl-fem-m',n:'Curl Femoral Sentado',s:3,r:'15-20',rir:1,mus:'Isquiotibiales'},
+      {id:'abduccion',n:'Abducción Cadera + patada glúteo',s:3,r:'20-25',rir:0,mus:'Glúteo medio'},
+      {id:'caminata-m',n:'HIIT final 12 min (30s sprint / 30s descanso)',s:1,r:'12 min',rir:0,mus:'Cardio'}
+    ]},
+    {dia:'Martes',nombre:'Cardio HIIT + Abdomen',color:'#14b8a6',tipo:'cardio',exs:[
+      {id:'caminata-m',n:'Caminata inclinada al 12-15%',s:1,r:'30 min',rir:0,mus:'Glúteo/Cardio'},
+      {id:'eliptica',n:'Intervalos bicicleta: 40s/20s',s:8,r:'8 rondas',rir:0,mus:'Cardiovascular'},
+      {id:'plancha-m',n:'Plancha + plancha lateral',s:3,r:'40s',rir:0,mus:'Core/Oblicuos'},
+      {id:'crunch-m',n:'Crunch + tijeras',s:3,r:'20-25',rir:0,mus:'Abdomen'}
+    ]},
+    {dia:'Miércoles',nombre:'Torso + HIIT final',color:'#14b8a6',tipo:'fuerza',exs:[
+      {id:'jalon-m',n:'Jalón al Pecho',s:3,r:'12-15',rir:1,mus:'Dorsal'},
+      {id:'remo-cable-m',n:'Remo Cable',s:3,r:'12-15',rir:1,mus:'Espalda'},
+      {id:'press-hom-m',n:'Press Hombros',s:3,r:'12-15',rir:2,mus:'Deltoides'},
+      {id:'elev-lat-m',n:'Elevaciones Laterales',s:3,r:'15-20',rir:1,mus:'Deltoides lateral'},
+      {id:'curl-m',n:'Curl Bíceps',s:2,r:'15-20',rir:1,mus:'Bíceps'},
+      {id:'ext-tri-m',n:'Extensión Tríceps',s:2,r:'15-20',rir:1,mus:'Tríceps'},
+      {id:'caminata-m',n:'Cardio 15 min post-sesión',s:1,r:'15 min',rir:0,mus:'Cardiovascular'}
+    ]},
+    {dia:'Jueves',nombre:'Cardio Moderado + Movilidad',color:'#22c55e',tipo:'descanso',exs:[
+      {id:'cardio-sab',n:'Caminata o natación 40 min',s:1,r:'40 min',rir:0,mus:'Cardio/Recuperación'},
+      {id:'movilidad',n:'Yoga o estiramientos 15 min',s:1,r:'15 min',rir:0,mus:'Flexibilidad'}
+    ]},
+    {dia:'Viernes',nombre:'Glúteo & Pierna Fuerza + Cardio',color:'#ec4899',tipo:'fuerza',exs:[
+      {id:'peso-muerto-rum-m',n:'Peso Muerto Rumano',s:4,r:'12-15',rir:2,mus:'Isquio/Glúteo'},
+      {id:'prensa-m',n:'Prensa de Pierna (pie alto)',s:3,r:'15-20',rir:1,mus:'Glúteo/Cuád'},
+      {id:'hip-thrust-fb-m',n:'Hip Thrust Unilateral',s:3,r:'15/lado',rir:1,mus:'Glúteo mayor'},
+      {id:'abduccion',n:'Abducción cadera máquina',s:3,r:'20-25',rir:0,mus:'Glúteo medio'},
+      {id:'gemelo-m',n:'Elevación de gemelo',s:3,r:'20-25',rir:1,mus:'Gemelo'},
+      {id:'caminata-m',n:'LISS 20 min post-sesión',s:1,r:'20 min',rir:0,mus:'NEAT'}
+    ]},
+    {dia:'Sábado',nombre:'Cardio activo — NEAT',color:'#22c55e',tipo:'descanso',exs:[
+      {id:'cardio-sab',n:'Caminata 45-60 min ritmo vivo',s:1,r:'45-60 min',rir:0,mus:'NEAT/Recuperación'}
+    ]},
+    {dia:'Domingo',nombre:'Descanso completo',color:'#3a3a5c',tipo:'descanso',exs:[]}
+  ];
+}
+
+// ── MUJER · GANANCIA MUSCULAR ─────────────────────────
+// Mayor carga en glúteo y pierna, superávit, periodización
+function planM_volumen(u){
+  return[
+    {dia:'Lunes',nombre:'Glúteo & Pierna Volumen — Cargas Altas',color:'#ec4899',tipo:'fuerza',exs:[
+      {id:'hip-thrust-m',n:'Hip Thrust con Barra pesada',s:5,r:'6-10',rir:3,mus:'Glúteo mayor'},
+      {id:'squat-sumo',n:'Sentadilla Sumo (carga progresiva)',s:4,r:'8-12',rir:2,mus:'Aductores/Glúteo'},
+      {id:'peso-muerto-rum-m',n:'Peso Muerto Rumano',s:4,r:'8-12',rir:2,mus:'Isquio/Glúteo'},
+      {id:'abduccion',n:'Abducción Cadera 4x20',s:4,r:'15-25',rir:1,mus:'Glúteo medio'},
+      {id:'ext-cuad-m',n:'Extensión Cuádriceps (en estiramiento)',s:4,r:'10-15',rir:1,mus:'Cuádriceps'},
+      {id:'gemelo-m',n:'Gemelo pesado',s:4,r:'10-15',rir:2,mus:'Gastrocnemio'}
+    ]},
+    {dia:'Martes',nombre:'Torso — Espalda · Hombros (Volumen)',color:'#14b8a6',tipo:'fuerza',exs:[
+      {id:'jalon-m',n:'Jalón al pecho agarre ancho',s:5,r:'6-10',rir:3,mus:'Dorsal'},
+      {id:'remo-cable-m',n:'Remo Cable — arco completo',s:4,r:'10-12',rir:2,mus:'Espalda media'},
+      {id:'remo-uni-m',n:'Remo Unilateral pesado',s:4,r:'8-10/lado',rir:2,mus:'Espalda/Romboides'},
+      {id:'press-hom-m',n:'Press Arnold (pico deltoides)',s:4,r:'10-12',rir:2,mus:'Deltoides'},
+      {id:'elev-lat-m',n:'Elevaciones laterales 4x20',s:4,r:'15-25',rir:0,mus:'Deltoides lateral'},
+      {id:'curl-m',n:'Curl Bíceps curl martillo',s:3,r:'10-12',rir:2,mus:'Bíceps/Braquial'}
+    ]},
+    {dia:'Miércoles',nombre:'Glúteo & Pierna Fuerza — Pesado',color:'#ec4899',tipo:'fuerza',exs:[
+      {id:'squat-barra-m',n:'Sentadilla con Barra (trabajo de fuerza)',s:5,r:'4-8',rir:3,mus:'Cuádriceps/Glúteo'},
+      {id:'prensa-m',n:'Prensa de Pierna pie alto — rango completo',s:4,r:'10-15',rir:2,mus:'Glúteo/Cuád'},
+      {id:'hip-thrust-fb-m',n:'Hip Thrust Pausa arriba 2s',s:4,r:'10-15',rir:2,mus:'Glúteo mayor'},
+      {id:'zancadas-m',n:'Zancadas búlgaras pesadas',s:3,r:'8-10/lado',rir:2,mus:'Glúteo/Cuád'},
+      {id:'curl-fem-m',n:'Curl Femoral Nórdico',s:3,r:'8-12',rir:2,mus:'Isquiotibiales'}
+    ]},
+    {dia:'Jueves',nombre:'Descanso activo + Postura',color:'#22c55e',tipo:'descanso',exs:[
+      {id:'movilidad',n:'Yoga / movilidad de cadera',s:1,r:'30 min',rir:0,mus:'Flexibilidad/Recuperación'}
+    ]},
+    {dia:'Viernes',nombre:'Full Body Finisher — Alta Intensidad',color:'#f59e0b',tipo:'fuerza',exs:[
+      {id:'hip-thrust-fb-m',n:'Hip Thrust activación',s:3,r:'15-20',rir:1,mus:'Glúteo'},
+      {id:'press-pec-m',n:'Press Pecho — desarrollo torso',s:4,r:'10-12',rir:2,mus:'Pecho/Hombros'},
+      {id:'jalon-m',n:'Jalón agarre neutro',s:3,r:'10-12',rir:2,mus:'Dorsal'},
+      {id:'goblet',n:'Sentadilla Goblet (técnica)',s:3,r:'15-20',rir:1,mus:'Pierna completa'},
+      {id:'ext-tri-m',n:'Extensión Tríceps cuerda',s:3,r:'15-20',rir:1,mus:'Tríceps'},
+      {id:'plancha-lat',n:'Core lateral + antirotación',s:3,r:'30s/lado',rir:0,mus:'Core'}
+    ]},
+    {dia:'Sábado',nombre:'Cardio suave + Recuperación',color:'#22c55e',tipo:'descanso',exs:[
+      {id:'cardio-sab',n:'Caminata suave o natación 30 min',s:1,r:'30 min',rir:0,mus:'Recuperación'}
+    ]},
+    {dia:'Domingo',nombre:'Descanso completo',color:'#3a3a5c',tipo:'descanso',exs:[]}
+  ];
+}
+
+// ── MUJER · MANTENIMIENTO ─────────────────────────────
+// 3 días fuerza + cardio, equilibrado, sostenible
+function planM_mant(u){
+  return[
+    {dia:'Lunes',nombre:'Glúteo & Pierna — Mantenimiento',color:'#ec4899',tipo:'fuerza',exs:[
+      {id:'hip-thrust-m',n:'Hip Thrust',s:3,r:'12-15',rir:2,mus:'Glúteo mayor'},
+      {id:'squat-sumo',n:'Sentadilla Sumo',s:3,r:'12-15',rir:2,mus:'Aductores/Glúteo'},
+      {id:'peso-muerto-rum-m',n:'Peso Muerto Rumano',s:3,r:'10-12',rir:2,mus:'Isquio'},
+      {id:'abduccion',n:'Abducción Cadera',s:2,r:'20',rir:1,mus:'Glúteo medio'},
+      {id:'gemelo-m',n:'Gemelo de pie',s:3,r:'15-20',rir:1,mus:'Gemelo'}
+    ]},
+    {dia:'Martes',nombre:'Cardio + Core',color:'#14b8a6',tipo:'cardio',exs:[
+      {id:'caminata-m',n:'Caminata inclinada 30 min',s:1,r:'30 min',rir:0,mus:'Cardio'},
+      {id:'plancha-m',n:'Plancha y variantes',s:3,r:'40s',rir:0,mus:'Core'},
+      {id:'crunch-m',n:'Crunch + Elevación piernas',s:2,r:'15-20',rir:0,mus:'Abdomen'}
+    ]},
+    {dia:'Miércoles',nombre:'Torso — Equilibrio muscular',color:'#14b8a6',tipo:'fuerza',exs:[
+      {id:'jalon-m',n:'Jalón al Pecho',s:3,r:'12-15',rir:2,mus:'Dorsal'},
+      {id:'press-hom-m',n:'Press Hombros',s:3,r:'12-15',rir:2,mus:'Deltoides'},
+      {id:'remo-cable-m',n:'Remo Cable',s:3,r:'12-15',rir:1,mus:'Espalda'},
+      {id:'elev-lat-m',n:'Elevaciones Laterales',s:3,r:'15-20',rir:1,mus:'Hombros'},
+      {id:'curl-m',n:'Curl Bíceps + Tríceps polea',s:2,r:'15',rir:1,mus:'Brazos'}
+    ]},
+    {dia:'Jueves',nombre:'Descanso activo',color:'#22c55e',tipo:'descanso',exs:[
+      {id:'cardio-sab',n:'Caminata o bici suave 30 min',s:1,r:'libre',rir:0,mus:'Recuperación'}
+    ]},
+    {dia:'Viernes',nombre:'Full Body + Core',color:'#ec4899',tipo:'fuerza',exs:[
+      {id:'squat-barra-m',n:'Sentadilla',s:3,r:'10-15',rir:2,mus:'Pierna completa'},
+      {id:'press-pec-m',n:'Press Pecho',s:3,r:'12-15',rir:2,mus:'Pecho'},
+      {id:'remo-uni-m',n:'Remo Unilateral',s:3,r:'12/lado',rir:1,mus:'Espalda'},
+      {id:'hip-thrust-fb-m',n:'Hip Thrust activación',s:3,r:'15-20',rir:1,mus:'Glúteo'},
+      {id:'plancha-lat',n:'Core lateral',s:2,r:'30s/lado',rir:0,mus:'Core'}
+    ]},
+    {dia:'Sábado',nombre:'Cardio libre',color:'#22c55e',tipo:'descanso',exs:[
+      {id:'cardio-sab',n:'Actividad libre 30-45 min',s:1,r:'libre',rir:0,mus:'Cardiovascular'}
+    ]},
+    {dia:'Domingo',nombre:'Descanso completo',color:'#3a3a5c',tipo:'descanso',exs:[]}
+  ];
+}
+
 // ── PLAN NUTRICIONAL ──────────────────────────
 function getPlanNutricion(u, mac, rests){
   var esH=u.genero==='H';
   var k=mac.kcal;
+  var obj=u.obj||'recomp';
+  var pais=u.pais||'es';
+  var esCO=pais==='co';
   var noTrg=rests.indexOf('Trigo/Gluten')>=0;
   var noArr=rests.indexOf('Arroz')>=0;
   var noClara=rests.indexOf('Clara de huevo')>=0;
   var noSoja=rests.indexOf('Soja/Tofu')>=0;
   var noLact=rests.indexOf('Lácteos de vaca')>=0;
   var huevos=noClara?'huevo entero (solo yema)':'huevo entero';
-  var carb1=noTrg?'avena certificada sin gluten':'avena';
-  var carb2=noArr?'quinoa':'arroz basmati';
+  // Distribución de macros por comida varía según objetivo
+  // Pérdida: mayor proteína, menos carbs noche
+  // Volumen: más carbs totales, carbs pre/post-entreno elevados
+  // Recomp/Mant: equilibrado
+  var isPerdida=obj==='perdida';
+  var isVolumen=obj==='volumen';
+  var isMant=obj==='mant';
+  // Pesos de cada comida según objetivo
+  var p_des  =isPerdida?0.20:isVolumen?0.25:0.22; // desayuno
+  var p_pre  =isPerdida?0.10:isVolumen?0.14:0.12; // pre-entreno
+  var p_alm  =isPerdida?0.35:isVolumen?0.35:0.32; // almuerzo (mayor en pérdida = proteína)
+  var p_mer  =isPerdida?0.08:isVolumen?0.12:0.10; // merienda
+  var p_cena =isPerdida?0.27:isVolumen?0.14:0.24; // cena (menos carbs si pérdida)
+  // Ajustes nutricionales por objetivo
+  // Pérdida: proteína alta en cada comida, carbs concentrados pre/post
+  // Volumen: más hidratos, grasas moderadas, comidas más calóricas
+  var gramProt=esH?'250':'180'; // aprox gramos proteína total objetivo
+  var notaPerdida=isPerdida?' (sin salsa, sin aceites extra)':'';
+  var notaVol=isVolumen?' (porción generosa, aceite extra)':'';
+  var notaObj=isPerdida?notaPerdida:(isVolumen?notaVol:'');
+  // Carbohidrato nocturno: reducido en pérdida, normal en volumen/recomp
+  var carbNoche=isPerdida
+    ?'Verdura libre (sin carbohidrato de noche)'
+    :(esCO?hidrato1:hidrato3);
+  // Proteína por comida: mayor en pérdida para preservar músculo
+  var protDes=esH?(isPerdida?'4':'3'):(isPerdida?'3':'2');
+  var protAlm=esH?(isPerdida?'240g':'200g'):(isPerdida?'180g':'150g');
+  var protCena=esH?(isPerdida?'220g':'180g'):(isPerdida?'170g':'150g');
+  // Extras volumen
+  var extraVolHidr=isVolumen?(' + 1 '+fruta1+' (energía extra)'):'';
+  var extraVolGrasa=isVolumen?(' + 30g '+grasa3):'';
+  // Nota en etiqueta del día
+  var objTag={recomp:'Recomposición',perdida:'Déficit '+mac.deficitReal+'%',volumen:'Superávit',mant:'Mantenimiento'}[obj]||'';
+  // Carbohidratos base según país
+  var carb1=esCO
+    ?(noTrg?'avena':'avena o maíz peto')
+    :(noTrg?'avena certificada sin gluten':'avena');
+  var carb2=esCO
+    ?(noArr?'quinoa':'arroz blanco cocido')
+    :(noArr?'quinoa':'arroz basmati');
+  // Proteínas locales
+  var prot1=esCO?'pechuga de pollo criollo':'pechuga de pollo';
+  var prot2=esCO?'pechuga de pavo o mojarra':'pechuga de pavo';
+  var pescado1=esCO?'mojarra o tilapia al horno':'salmón al horno';
+  var pescado2=esCO?'tilapia o bagre al vapor':'merluza al vapor';
+  var pescado3=esCO?'atún natural en lata':'atún natural en lata';
+  var carne1=esCO?'carne de res magra (lomo)':'ternera magra';
+  var grasa1=esCO?'aguacate hass (Colombia)':'aguacate';
+  var grasa2=esCO?'aceite de coco o AOVE':'AOVE';
+  var grasa3=esCO?'maní natural (cacahuete)':'nueces';
+  var fruta1=esCO?'plátano maduro o banano':'plátano mediano';
+  var fruta2=esCO?'mango tommy o papaya':'manzana mediana';
+  var hidrato1=esCO?'yuca cocida o papa criolla':'boniato cocido';
+  var hidrato2=esCO?'arepa de maíz integral':'tostada integral';
+  var hidrato3=esCO?'plátano verde cocido':'boniato asado';
+  var legumbre1=esCO?'lentejas o fríjoles negros':'lentejas';
+  var aceite1=esCO?'aceite de coco virgen':'aceite de oliva virgen extra (AOVE)';
+  var lacteo1=esCO?'kumis o yogur natural':(noLact?'yogur vegetal':'yogur natural sin azúcar');
+  var sup1=esCO?'30g proteína de suero':'30g Whey Isolate'+(noSoja?' sin soja':'');
+  // Marca día con kcal y macros
+  var macroLabel='['+objTag+'] '+mac.kcal+' kcal · '+mac.prot+'g P · '+mac.carbs+'g C · '+mac.grasa+'g G';
 
   if(esH){
     return[
       {dia:'Lunes',label:'Entreno Push · '+mac.kcal+' kcal · '+mac.prot+'g P / '+mac.carbs+'g C / '+mac.grasa+'g G',comidas:[
-        {n:'Desayuno',h:'07:30',k:Math.round(k*0.22),items:['3 '+huevos+'s revueltos con AOVE (15g aceite)','80g '+carb1+' cocida en agua con canela','1 plátano mediano (100g)','Café negro sin azúcar']},
-        {n:'Pre-entreno (10:30)',h:'10:30',k:Math.round(k*0.12),items:['30g Whey Isolate'+(noSoja?' sin soja':''),'100g boniato cocido (1 mediano)','15g nueces (≈6 unidades)']},
-        {n:'Almuerzo post (14:00)',h:'14:00',k:Math.round(k*0.32),items:['200g pechuga de pollo a la plancha','150g quinoa cocida (≈55g en seco)','Ensalada verde ilimitada con 10ml AOVE + limón','½ aguacate (75g)']},
-        {n:'Merienda (17:30)',h:'17:30',k:Math.round(k*0.10),items:['2 '+huevos+'s duros (140g)','25g nueces (≈10 unidades)','1 manzana mediana (150g)']},
-        {n:'Cena',h:'21:00',k:Math.round(k*0.24),items:['180g salmón al horno','200g boniato asado','Brócoli + pimiento salteado con AOVE']}
+        {n:'Desayuno',h:'07:30',k:Math.round(k*p_des),items:['3 '+huevos+'s revueltos con '+aceite1+' (15g)','80g '+carb1+' cocida con canela','1 '+fruta1+' (100g)','Café negro sin azúcar']},
+        {n:'Pre-entreno (10:30)',h:'10:30',k:Math.round(k*p_pre),items:[sup1,'100g '+hidrato1,'15g '+grasa3]},
+        {n:'Almuerzo post (14:00)',h:'14:00',k:Math.round(k*p_alm),items:['200g '+prot1+' a la plancha','150g quinoa cocida (≈55g en seco)','Ensalada verde ilimitada con '+aceite1+' + limón','½ '+grasa1+' (75g)']},
+        {n:'Merienda (17:30)',h:'17:30',k:Math.round(k*p_mer),items:['2 '+huevos+'s duros (140g)','25g '+grasa3,'1 '+fruta2+' (150g)']},
+        {n:'Cena',h:'21:00',k:Math.round(k*p_cena),items:['180g '+pescado1,'200g '+hidrato3,'Brócoli o verdura salteada con '+aceite1]}
       ]},
       {dia:'Martes',label:'Entreno Piernas',comidas:[
-        {n:'Desayuno',h:'07:30',k:Math.round(k*0.22),items:['3 '+huevos+'s + jamón serrano','70g '+carb1+' + arándanos','Café negro']},
-        {n:'Pre-entreno',h:'10:00',k:Math.round(k*0.12),items:['25g Whey Isolate','1 boniato mediano','Agua con limón']},
-        {n:'Almuerzo',h:'14:00',k:Math.round(k*0.32),items:['220g pechuga de pavo','130g quinoa o trigo sarraceno','Tomate + pepino + AOVE','½ aguacate']},
-        {n:'Merienda',h:'17:30',k:Math.round(k*0.10),items:['3 '+huevos+'s duros','20g cacahuetes']},
-        {n:'Cena',h:'21:00',k:Math.round(k*0.24),items:['200g merluza al vapor con limón','150g mijo cocido','Espinacas salteadas con ajo']}
+        {n:'Desayuno',h:'07:30',k:Math.round(k*p_des),items:['3 '+huevos+'s + '+(esCO?'chicharrón de pollo (20g)':'jamón serrano (30g)'),'70g '+carb1+(esCO?' + papaya troceada':' + arándanos'),'Café negro']},
+        {n:'Pre-entreno',h:'10:00',k:Math.round(k*p_pre),items:[sup1,'1 '+(esCO?'banano maduro':'boniato mediano'),'Agua con limón']},
+        {n:'Almuerzo',h:'14:00',k:Math.round(k*p_alm),items:['220g '+prot2,'130g '+carb2+(esCO?' o plátano verde':' o trigo sarraceno'),'Tomate + pepino + '+aceite1,'½ '+grasa1]},
+        {n:'Merienda',h:'17:30',k:Math.round(k*p_mer),items:['3 '+huevos+'s duros','20g '+grasa3]},
+        {n:'Cena',h:'21:00',k:Math.round(k*p_cena),items:['200g '+pescado2+' con limón','150g '+(esCO?'yuca cocida':'mijo cocido'),'Espinacas o espárragos salteados con ajo']}
       ]},
       {dia:'Miércoles',label:'Cardio LISS',comidas:[
-        {n:'Desayuno',h:'07:30',k:Math.round(k*0.20),items:['4 '+huevos+'s revueltos con AOVE','40g '+carb1+' + fruta','Café negro']},
-        {n:'Media mañana',h:'11:00',k:Math.round(k*0.10),items:['25g Whey Isolate en agua','1 plátano']},
-        {n:'Almuerzo',h:'14:00',k:Math.round(k*0.30),items:['180g ternera magra a la plancha','130g trigo sarraceno','Ensalada variada con AOVE']},
-        {n:'Merienda',h:'17:30',k:Math.round(k*0.10),items:['2 '+huevos+'s duros','25g nueces']},
-        {n:'Cena',h:'21:00',k:Math.round(k*0.30),items:['180g salmón o atún natural','100g quinoa','Verduras al horno (pimiento, berenjena)']}
+        {n:'Desayuno',h:'07:30',k:Math.round(k*p_des),items:['4 '+huevos+'s revueltos con '+aceite1,'40g '+carb1+' + fruta variada','Café negro']},
+        {n:'Media mañana',h:'11:00',k:Math.round(k*p_mer),items:[sup1,'1 '+fruta1]},
+        {n:'Almuerzo',h:'14:00',k:Math.round(k*p_alm),items:['180g '+carne1+' a la plancha','130g '+(esCO?'fríjoles negros con arroz (sancocho ligero)':'trigo sarraceno'),'Ensalada variada con '+aceite1]},
+        {n:'Merienda',h:'17:30',k:Math.round(k*p_mer),items:['2 '+huevos+'s duros','25g '+grasa3]},
+        {n:'Cena',h:'21:00',k:Math.round(k*p_alm),items:['180g '+(esCO?'tilapia o bagre':'salmón')+ ' o '+pescado3,'100g quinoa','Verduras al horno (pimiento, berenjena o tomate)']}
       ]},
       {dia:'Jueves',label:'Entreno Pull',comidas:[
-        {n:'Desayuno',h:'07:30',k:Math.round(k*0.22),items:['3 '+huevos+'s + jamón serrano','70g '+carb1+' con canela','Café negro']},
-        {n:'Pre-entreno',h:'10:00',k:Math.round(k*0.12),items:['30g Whey Isolate','1 boniato + AOVE']},
-        {n:'Almuerzo post',h:'14:00',k:Math.round(k*0.32),items:['220g pollo o pavo','150g quinoa','Ensalada con aguacate y nueces']},
-        {n:'Merienda',h:'17:30',k:Math.round(k*0.10),items:['3 '+huevos+'s duros','15g cacahuetes']},
-        {n:'Cena',h:'21:00',k:Math.round(k*0.24),items:['200g gambas al ajillo con AOVE','120g mijo','Brócoli al vapor']}
+        {n:'Desayuno',h:'07:30',k:Math.round(k*p_des),items:['3 '+huevos+'s + '+(esCO?'hogao y aguacate':'jamón serrano'),'70g '+carb1+' con canela','Café negro']},
+        {n:'Pre-entreno',h:'10:00',k:Math.round(k*p_pre),items:[sup1,'1 '+(esCO?'banano o papaya':'boniato')+ ' + '+aceite1]},
+        {n:'Almuerzo post',h:'14:00',k:Math.round(k*p_alm),items:['220g '+prot1+' o '+prot2,'150g '+carb2,'Ensalada con '+grasa1+' y '+grasa3]},
+        {n:'Merienda',h:'17:30',k:Math.round(k*p_mer),items:['3 '+huevos+'s duros','15g '+grasa3]},
+        {n:'Cena',h:'21:00',k:Math.round(k*p_cena),items:['200g '+(esCO?'camarones al ajillo con ajo y cilantro':'gambas al ajillo con AOVE'),'120g '+(esCO?'yuca o plátano':'mijo'),'Brócoli o espinacas al vapor']}
       ]},
       {dia:'Viernes',label:'Pierna 2 + Full Body',comidas:[
-        {n:'Desayuno',h:'07:30',k:Math.round(k*0.22),items:['4 '+huevos+'s tortilla francesa','60g '+carb1+' + plátano','Café negro']},
-        {n:'Pre-entreno',h:'09:30',k:Math.round(k*0.12),items:['30g Whey Isolate','100g boniato cocido']},
-        {n:'Almuerzo',h:'13:30',k:Math.round(k*0.32),items:['200g atún natural','130g trigo sarraceno','Ensalada grande con AOVE + aguacate']},
-        {n:'Merienda',h:'17:30',k:Math.round(k*0.10),items:['25g Whey Isolate','20g nueces']},
-        {n:'Cena',h:'21:00',k:Math.round(k*0.24),items:['180g ternera magra','Ensalada mediterránea con AOVE','½ aguacate']}
+        {n:'Desayuno',h:'07:30',k:Math.round(k*p_des),items:['4 '+huevos+'s tortilla o revueltos','60g '+carb1+' + '+fruta1,'Café negro']},
+        {n:'Pre-entreno',h:'09:30',k:Math.round(k*p_pre),items:[sup1,'100g '+hidrato1]},
+        {n:'Almuerzo',h:'13:30',k:Math.round(k*p_alm),items:['200g '+pescado3,'130g '+(esCO?'arroz integral':'trigo sarraceno'),'Ensalada grande con '+aceite1+' + '+grasa1]},
+        {n:'Merienda',h:'17:30',k:Math.round(k*p_mer),items:[sup1,'20g '+grasa3]},
+        {n:'Cena',h:'21:00',k:Math.round(k*p_cena),items:['180g '+carne1+' a la plancha','Ensalada '+(esCO?'criolla':'mediterránea')+' con '+aceite1,'½ '+grasa1]}
       ]},
       {dia:'Sábado',label:'Descanso activo',comidas:[
-        {n:'Desayuno',h:'08:30',k:Math.round(k*0.22),items:['3 '+huevos+'s + ½ aguacate','Tostada de centeno (si tolera)','Café o té verde']},
-        {n:'Almuerzo',h:'14:00',k:Math.round(k*0.40),items:['200g salmón + ensalada completa','100g quinoa','AOVE + limón']},
-        {n:'Cena',h:'21:00',k:Math.round(k*0.30),items:['3 '+huevos+'s + verduras salteadas','Fruta variada','Nueces']}
+        {n:'Desayuno',h:'08:30',k:Math.round(k*p_des),items:['3 '+huevos+'s + ½ '+grasa1,(esCO?'Arepa integral de maíz':'Tostada de centeno (si tolera)'),'Café o té verde']},
+        {n:'Almuerzo',h:'14:00',k:Math.round(k*(p_alm+p_mer)),items:['200g '+(esCO?'trucha o salmón del Pacífico':'salmón')+' + ensalada completa','100g quinoa',aceite1+' + limón']},
+        {n:'Cena',h:'21:00',k:Math.round(k*p_alm),items:['3 '+huevos+'s + verduras salteadas con ajo','Fruta variada ('+fruta2+')','25g '+grasa3]}
       ]},
       {dia:'Domingo',label:'Descanso',comidas:[
-        {n:'Desayuno tardío',h:'09:30',k:Math.round(k*0.28),items:['4 '+huevos+'s con aguacate y jamón','Fruta de temporada','Café o té']},
-        {n:'Comida',h:'14:30',k:Math.round(k*0.45),items:['Comida libre saludable (sin alimentos prohibidos)','Pollo / pescado + verduras + carbohidrato permitido']},
-        {n:'Cena ligera',h:'21:00',k:Math.round(k*0.27),items:['180g pescado blanco al vapor','Verduras al horno','Fruta']}
+        {n:'Desayuno tardío',h:'09:30',k:Math.round(k*(p_des+0.06)),items:['4 '+huevos+'s con '+grasa1+' + '+(esCO?'hogao':'jamón'),'Fruta de temporada','Café o té']},
+        {n:'Comida',h:'14:30',k:Math.round(k*(p_alm+p_pre)),items:['Comida libre saludable (sin alimentos prohibidos)',(esCO?'Sancocho de pollo light / Bandeja paisa fit (sin chicharrón extra)':'Pollo / pescado + verduras + carbohidrato')]},
+        {n:'Cena ligera',h:'21:00',k:Math.round(k*p_cena),items:['180g '+pescado2,'Verduras al horno o ensalada',fruta2]}
       ]}
     ];
   } else {
     // Plan Mujer
     return[
       {dia:'Lunes',label:'Glúteo & Pierna',comidas:[
-        {n:'Desayuno',h:'07:30',k:Math.round(k*0.22),items:['2 huevos + tortita de avena','Yogur natural'+(noLact?' vegetal':' sin azúcar'),'Frutos rojos','Café o té']},
-        {n:'Pre-entreno',h:'11:00',k:Math.round(k*0.12),items:['25g proteína en agua','1 plátano pequeño']},
-        {n:'Almuerzo',h:'14:00',k:Math.round(k*0.30),items:['150g pechuga de pollo','100g '+carb2,'Ensalada variada + AOVE']},
-        {n:'Merienda',h:'17:00',k:Math.round(k*0.10),items:['Manzana + 20g nueces']},
-        {n:'Cena',h:'20:30',k:Math.round(k*0.26),items:['150g salmón al horno','Verduras al vapor (brócoli)','½ aguacate']}
+        {n:'Desayuno',h:'07:30',k:Math.round(k*p_des),items:['2 '+huevos+'s + tortita de '+carb1,lacteo1,'Frutos rojos o '+(esCO?'papaya troceada':'arándanos'),'Café o té']},
+        {n:'Pre-entreno',h:'11:00',k:Math.round(k*p_pre),items:['25g proteína en agua','1 '+(esCO?'banano pequeño':'plátano pequeño')]},
+        {n:'Almuerzo',h:'14:00',k:Math.round(k*p_alm),items:['150g '+prot1,'100g '+carb2,'Ensalada variada + '+aceite1]},
+        {n:'Merienda',h:'17:00',k:Math.round(k*p_mer),items:[fruta2+' + 20g '+grasa3]},
+        {n:'Cena',h:'20:30',k:Math.round(k*p_cena),items:['150g '+pescado1,'Verduras al vapor (brócoli o espinacas)','½ '+grasa1]}
       ]},
       {dia:'Martes',label:'Torso',comidas:[
-        {n:'Desayuno',h:'07:30',k:Math.round(k*0.22),items:['2 huevos + 60g avena + frutos rojos','Café negro']},
-        {n:'Pre-entreno',h:'11:00',k:Math.round(k*0.12),items:['25g proteína en agua','1 plátano']},
-        {n:'Almuerzo',h:'14:00',k:Math.round(k*0.30),items:['150g pavo','100g quinoa','Ensalada + AOVE']},
-        {n:'Merienda',h:'17:00',k:Math.round(k*0.10),items:['2 huevos duros + 15g nueces']},
-        {n:'Cena',h:'20:30',k:Math.round(k*0.26),items:['150g merluza al vapor','Verduras al horno']}
+        {n:'Desayuno',h:'07:30',k:Math.round(k*p_des),items:['2 '+huevos+'s + 60g '+carb1+' + frutos rojos','Café negro']},
+        {n:'Pre-entreno',h:'11:00',k:Math.round(k*p_pre),items:['25g proteína en agua','1 '+fruta1]},
+        {n:'Almuerzo',h:'14:00',k:Math.round(k*p_alm),items:['150g '+prot2,'100g '+carb2,'Ensalada + '+aceite1]},
+        {n:'Merienda',h:'17:00',k:Math.round(k*p_mer),items:['2 '+huevos+'s duros + 15g '+grasa3]},
+        {n:'Cena',h:'20:30',k:Math.round(k*p_cena),items:['150g '+pescado2,'Verduras al horno o salteadas']}
       ]},
       {dia:'Miércoles',label:'Cardio + Core',comidas:[
-        {n:'Desayuno',h:'07:30',k:Math.round(k*0.20),items:['2 huevos + tostada integral (si tolera)','Fruta de temporada','Café o té']},
-        {n:'Media mañana',h:'11:00',k:Math.round(k*0.10),items:['Yogur proteínas + puñado de nueces']},
-        {n:'Almuerzo',h:'14:00',k:Math.round(k*0.30),items:['150g ternera magra','100g quinoa o mijo','Ensalada grande']},
-        {n:'Merienda',h:'17:00',k:Math.round(k*0.10),items:['1 manzana + frutos secos']},
-        {n:'Cena',h:'20:30',k:Math.round(k*0.30),items:['150g salmón o atún','Verduras salteadas','½ aguacate']}
+        {n:'Desayuno',h:'07:30',k:Math.round(k*p_des),items:['2 '+huevos+'s + '+(esCO?'arepa de maíz integral':( noTrg?'fruta':'tostada integral (si tolera)')),'Fruta de temporada','Café o té']},
+        {n:'Media mañana',h:'11:00',k:Math.round(k*p_mer),items:[lacteo1+' + puñado de '+grasa3]},
+        {n:'Almuerzo',h:'14:00',k:Math.round(k*p_alm),items:['150g '+carne1,(esCO?'100g fríjoles o lentejas':'100g quinoa o mijo'),'Ensalada grande con '+aceite1]},
+        {n:'Merienda',h:'17:00',k:Math.round(k*p_mer),items:['1 '+fruta2+' + frutos secos ('+grasa3+')']},
+        {n:'Cena',h:'20:30',k:Math.round(k*p_alm),items:['150g '+pescado1+' o '+pescado3,'Verduras salteadas','½ '+grasa1]}
       ]},
       {dia:'Jueves',label:'Glúteo & Pierna (fuerza)',comidas:[
-        {n:'Desayuno',h:'07:30',k:Math.round(k*0.22),items:['2 huevos + 60g avena + fruta','Café']},
-        {n:'Pre-entreno',h:'11:00',k:Math.round(k*0.12),items:['Batido proteína + plátano']},
-        {n:'Almuerzo',h:'14:00',k:Math.round(k*0.30),items:['150g pollo','100g '+carb2,'Ensalada con AOVE']},
-        {n:'Merienda',h:'17:00',k:Math.round(k*0.10),items:['2 huevos duros + nueces']},
-        {n:'Cena',h:'20:30',k:Math.round(k*0.26),items:['150g gambas o pescado','Verduras variadas','½ aguacate']}
+        {n:'Desayuno',h:'07:30',k:Math.round(k*p_des),items:['2 '+huevos+'s + 60g '+carb1+' + '+fruta1,'Café']},
+        {n:'Pre-entreno',h:'11:00',k:Math.round(k*p_pre),items:['Batido proteína + '+fruta1]},
+        {n:'Almuerzo',h:'14:00',k:Math.round(k*p_alm),items:['150g '+prot1,'100g '+carb2,'Ensalada con '+aceite1]},
+        {n:'Merienda',h:'17:00',k:Math.round(k*p_mer),items:['2 '+huevos+'s duros + '+grasa3]},
+        {n:'Cena',h:'20:30',k:Math.round(k*p_cena),items:['150g '+(esCO?'camarones o tilapia':'gambas o pescado'),'Verduras variadas','½ '+grasa1]}
       ]},
       {dia:'Viernes',label:'Full Body + Finisher',comidas:[
-        {n:'Desayuno',h:'07:30',k:Math.round(k*0.22),items:['2 huevos + tortita avena','Yogur + frutos rojos','Café']},
-        {n:'Pre-entreno',h:'09:30',k:Math.round(k*0.12),items:['Batido proteína','Boniato pequeño']},
-        {n:'Almuerzo',h:'13:30',k:Math.round(k*0.30),items:['150g pechuga de pavo o atún','100g quinoa','Ensalada grande']},
-        {n:'Merienda',h:'17:00',k:Math.round(k*0.10),items:['Fruta + nueces']},
-        {n:'Cena',h:'20:30',k:Math.round(k*0.26),items:['150g salmón','Verduras al vapor','Infusión']}
+        {n:'Desayuno',h:'07:30',k:Math.round(k*p_des),items:['2 '+huevos+'s + tortita de '+carb1,lacteo1+' + frutos rojos','Café']},
+        {n:'Pre-entreno',h:'09:30',k:Math.round(k*p_pre),items:['Batido proteína','1 '+(esCO?'banano o plátano maduro':'boniato pequeño')]},
+        {n:'Almuerzo',h:'13:30',k:Math.round(k*p_alm),items:['150g '+prot2+' o '+pescado3,'100g '+carb2,'Ensalada grande con '+aceite1]},
+        {n:'Merienda',h:'17:00',k:Math.round(k*p_mer),items:[fruta2+' + '+grasa3]},
+        {n:'Cena',h:'20:30',k:Math.round(k*p_cena),items:['150g '+pescado1,'Verduras al vapor o salteadas','Infusión']}
       ]},
       {dia:'Sábado',label:'Descanso activo',comidas:[
-        {n:'Desayuno',h:'08:30',k:Math.round(k*0.22),items:['2 huevos + fruta','Avena o tostada','Café']},
-        {n:'Almuerzo',h:'14:00',k:Math.round(k*0.40),items:['150g proteína magra','Carbohidrato (quinoa o boniato)','Ensalada completa']},
-        {n:'Cena',h:'20:30',k:Math.round(k*0.30),items:['150g pescado','Verduras al horno','Infusión']}
+        {n:'Desayuno',h:'08:30',k:Math.round(k*p_des),items:['2 '+huevos+'s + '+fruta1,(esCO?'Avena o arepa de maíz integral':'Avena o tostada'),'Café']},
+        {n:'Almuerzo',h:'14:00',k:Math.round(k*(p_alm+p_mer)),items:['150g '+prot1+' o '+pescado2,'Carbohidrato ('+(esCO?'arroz con fríjoles o yuca':'quinoa o boniato')+')','Ensalada completa con '+aceite1]},
+        {n:'Cena',h:'20:30',k:Math.round(k*p_alm),items:['150g '+pescado2,'Verduras al horno o crema de verduras','Infusión']}
       ]},
       {dia:'Domingo',label:'Descanso',comidas:[
-        {n:'Brunch',h:'10:00',k:Math.round(k*0.30),items:['2-3 huevos + aguacate','Fruta variada','Café o té']},
-        {n:'Comida',h:'14:30',k:Math.round(k*0.45),items:['Comida saludable libre','Proteína + verduras + carbohidrato']},
-        {n:'Cena ligera',h:'20:30',k:Math.round(k*0.25),items:['Crema de verduras','2 huevos o queso fresco','Infusión']}
+        {n:'Brunch',h:'10:00',k:Math.round(k*p_alm),items:['2-3 '+huevos+'s + '+grasa1,'Fruta variada ('+fruta1+', '+fruta2+')','Café o té']},
+        {n:'Comida',h:'14:30',k:Math.round(k*(p_alm+p_pre)),items:['Comida saludable libre',(esCO?'Ajiaco fit / Sopa de verduras con pollo / Ensalada de frutas':'Proteína + verduras + carbohidrato')]},
+        {n:'Cena ligera',h:'20:30',k:Math.round(k*p_cena),items:['Crema de verduras o gazpacho','2 '+huevos+'s o queso fresco','Infusión']}
       ]}
     ];
   }
@@ -1248,6 +1766,9 @@ function selGenero(g){
   ONB.genero=g;
   $('gc-h').className='gender-card'+(g==='H'?' sel-m':'');
   $('gc-m').className='gender-card'+(g==='M'?' sel-f':'');
+  // Mostrar campo cadera solo para mujeres (necesario para fórmula Navy)
+  var fc=$('fg-cadera'); if(fc) fc.style.display=(g==='M')?'':'none';
+  calcGrasaAuto();
 }
 function obShow(id){['s1','s2','s3','s4','s-login'].forEach(function(s){var el=$(s);if(el)el.style.display='none';});$(id).style.display='';}
 
@@ -1286,12 +1807,16 @@ function crearPerfil(rests){
     fnac:$('ob-fnac').value,
     alt:$('ob-alt').value,
     peso:$('ob-peso').value,
-    grasa:$('ob-grasa').value,
+    grasa:$('ob-grasa').value||'',
+    cin:$('ob-cin')&&$('ob-cin').value||'',
+    cue:$('ob-cue')&&$('ob-cue').value||'',
+    cad:$('ob-cad')&&$('ob-cad').value||'',
     obj:$('ob-obj').value,
     deficit:$('ob-deficit').value||'20',
     dieta:$('ob-dieta').value||'equilibrada',
     act:$('ob-act').value,
     exp:$('ob-exp').value,
+    pais:$('ob-pais').value||'es',
     rests:rests,
     sessions:[],
     measures:[],
@@ -1408,6 +1933,7 @@ function initApp(){
       var newDef=$('edit-deficit').value||'20';
       var newDieta=$('edit-dieta').value||'equilibrada';
       var newPeso=$('edit-peso').value;
+      u.pais=$('edit-pais').value||'es';
       u.obj=newObj;
       u.deficit=newDef;
       u.dieta=newDieta;
@@ -1470,7 +1996,7 @@ function switchUser(i){
 }
 
 // ── NAVEGACIÓN ────────────────────────────────
-var TITLES={home:'Hoy',plan:'Plan semanal',sesion:'Nueva sesión',hist:'Historial',medidas:'Progreso',perfil:'Mi perfil'};
+var TITLES={home:'Hoy',plan:'Plan semanal',sesion:'Nueva sesión',hist:'Historial',medidas:'Progreso',perfil:'Mi perfil',kongo:'Kongo — Entrenador IA'};
 function goTo(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
   document.querySelectorAll('.bn').forEach(function(b){b.classList.remove('on');});
@@ -1485,6 +2011,7 @@ function goTo(id){
   else if(id==='hist')renderHist();
   else if(id==='medidas')renderMedidas();
   else if(id==='perfil')renderPerfil();
+  else if(id==='kongo')renderKongo();
 }
 
 // ── HOME ──────────────────────────────────────
@@ -2443,6 +2970,7 @@ function renderPerfil(){
   renderCalcMetabolica(u, mac);
 
   // Populate edit selectors with current user values
+  var ep2=$('edit-pais'); if(ep2)ep2.value=u.pais||'es';
   var eo=$('edit-obj'); if(eo)eo.value=u.obj||'recomp';
   var ed=$('edit-deficit'); if(ed)ed.value=u.deficit||'20';
   var edt=$('edit-dieta'); if(edt)edt.value=u.dieta||'equilibrada';
@@ -2489,6 +3017,703 @@ function togglePw(inputId,btn){
     ?'<svg viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
     :'<svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
 }
+
+
+// ── NUEVA FUNCIÓN: calcGrasaAuto ─────────────────────────────
+// Calcula % grasa con Fórmula Navy EEUU (validada clínicamente ±3-4%)
+// Hombre: 495/(1.0324-0.19077*log10(cintura-cuello)+0.15456*log10(altura))-450
+// Mujer:  495/(1.29579-0.35004*log10(cintura+cadera-cuello)+0.22100*log10(altura))-450
+// Fallback: Deurenberg (si faltan medidas): 1.20*IMC + 0.23*edad - 10.8*(genero) - 5.4
+function calcGrasaAuto(){
+  var alt=parseFloat($('ob-alt')&&$('ob-alt').value)||0;
+  var peso=parseFloat($('ob-peso')&&$('ob-peso').value)||0;
+  var cin=parseFloat($('ob-cin')&&$('ob-cin').value)||0;
+  var cue=parseFloat($('ob-cue')&&$('ob-cue').value)||0;
+  var cad=parseFloat($('ob-cad')&&$('ob-cad').value)||0;
+  var fnac=$('ob-fnac')&&$('ob-fnac').value;
+  var genero=ONB.genero||'H';
+  var resDiv=$('grasa-result');
+  var oGrasa=$('ob-grasa');
+  if(!resDiv||!oGrasa) return;
+
+  var pct=null, metodo='';
+
+  // ── Método 1: Navy (más preciso, necesita cintura+cuello+altura)
+  if(alt>0 && cin>0 && cue>0 && cin>cue){
+    if(genero==='H'){
+      // Hombre: solo cintura y cuello
+      var val=495/(1.0324-0.19077*Math.log10(cin-cue)+0.15456*Math.log10(alt))-450;
+      pct=Math.round(val*10)/10;
+      metodo='Navy EEUU · Hombre';
+    } else if(genero==='M' && cad>0){
+      // Mujer: cintura + cadera + cuello
+      var val2=495/(1.29579-0.35004*Math.log10(cin+cad-cue)+0.22100*Math.log10(alt))-450;
+      pct=Math.round(val2*10)/10;
+      metodo='Navy EEUU · Mujer';
+    } else if(genero==='M' && cad===0){
+      // Mujer sin cadera: Deurenberg como fallback
+      metodo='fallback';
+    }
+  }
+
+  // ── Método 2: Deurenberg (fallback si faltan medidas de cintura/cuello)
+  if(pct===null && alt>0 && peso>0){
+    var imc=peso/((alt/100)*(alt/100));
+    var edad=fnac?Math.floor((new Date()-new Date(fnac))/(365.25*24*3600*1000)):30;
+    var sexNum=genero==='H'?1:0;
+    var val3=1.20*imc+0.23*edad-10.8*sexNum-5.4;
+    pct=Math.round(val3*10)/10;
+    metodo='Deurenberg · estimado por IMC y edad';
+  }
+
+  // ── Sanitize: clamp to realistic range
+  if(pct!==null){
+    pct=Math.max(genero==='H'?3:8, Math.min(60, pct));
+  }
+
+  if(pct!==null){
+    oGrasa.value=pct;
+    resDiv.style.display='';
+    $('grasa-val').textContent=pct+'%';
+    // Categoría clínica
+    var cat='', ico='';
+    if(genero==='H'){
+      if(pct<6){cat='Atleta élite (muy bajo)';ico='🏆';}
+      else if(pct<13){cat='Atlético — muy definido';ico='💪';}
+      else if(pct<18){cat='En forma — buena definición';ico='✅';}
+      else if(pct<25){cat='Promedio — leve grasa abdominal';ico='📊';}
+      else if(pct<30){cat='Sobrepeso — exceso de grasa';ico='⚠️';}
+      else{cat='Obesidad — se recomienda consultar médico';ico='🩺';}
+    } else {
+      if(pct<14){cat='Atleta élite (muy bajo para mujer)';ico='🏆';}
+      else if(pct<20){cat='Atlético — muy definida';ico='💪';}
+      else if(pct<25){cat='En forma';ico='✅';}
+      else if(pct<32){cat='Promedio';ico='📊';}
+      else if(pct<38){cat='Sobrepeso';ico='⚠️';}
+      else{cat='Obesidad — se recomienda consultar médico';ico='🩺';}
+    }
+    $('grasa-cat').textContent=cat+(metodo?' · '+metodo:'');
+    $('grasa-ico').textContent=ico;
+  } else {
+    resDiv.style.display='none';
+    oGrasa.value='';
+  }
+}
+window.calcGrasaAuto=calcGrasaAuto;
+// ── FIN calcGrasaAuto ─────────────────────────────────────────
+
+// ════════════════════════════════════════════════════════════════
+// BÚSQUEDA DE ALIMENTOS — USDA FoodData Central + base local
+// ════════════════════════════════════════════════════════════════
+
+// Base de datos local offline (alimentos más comunes en fitness)
+var FOOD_LOCAL=[
+  {n:'Pechuga de pollo (cocida)',p100:{kcal:165,prot:31,carbs:0,grasa:3.6},cat:'Proteína'},
+  {n:'Pechuga de pavo (cocida)',p100:{kcal:135,prot:29,carbs:0,grasa:1.7},cat:'Proteína'},
+  {n:'Salmón al horno',p100:{kcal:208,prot:20,carbs:0,grasa:13},cat:'Proteína'},
+  {n:'Atún natural en lata',p100:{kcal:116,prot:25.5,carbs:0,grasa:1},cat:'Proteína'},
+  {n:'Huevo entero',p100:{kcal:143,prot:12.6,carbs:0.7,grasa:9.5},cat:'Proteína'},
+  {n:'Clara de huevo',p100:{kcal:52,prot:10.9,carbs:0.7,grasa:0.2},cat:'Proteína'},
+  {n:'Ternera magra (90%)',p100:{kcal:170,prot:20,carbs:0,grasa:9},cat:'Proteína'},
+  {n:'Bacalao fresco',p100:{kcal:82,prot:17.8,carbs:0,grasa:0.7},cat:'Proteína'},
+  {n:'Merluza',p100:{kcal:78,prot:16.5,carbs:0,grasa:0.8},cat:'Proteína'},
+  {n:'Gambas cocidas',p100:{kcal:99,prot:20.9,carbs:0.9,grasa:1.1},cat:'Proteína'},
+  {n:'Whey Protein Isolate',p100:{kcal:370,prot:90,carbs:2,grasa:1},cat:'Suplemento'},
+  {n:'Yogur griego 0%',p100:{kcal:57,prot:10,carbs:3.6,grasa:0.4},cat:'Lácteo'},
+  {n:'Queso cottage',p100:{kcal:98,prot:11.1,carbs:3.4,grasa:4.3},cat:'Lácteo'},
+  {n:'Queso fresco 0%',p100:{kcal:45,prot:7.9,carbs:1.4,grasa:0.5},cat:'Lácteo'},
+  {n:'Leche desnatada',p100:{kcal:35,prot:3.4,carbs:5,grasa:0.1},cat:'Lácteo'},
+  {n:'Avena en copos',p100:{kcal:379,prot:13.2,carbs:68,grasa:6.5},cat:'Hidrato'},
+  {n:'Arroz basmati (cocido)',p100:{kcal:130,prot:2.7,carbs:28,grasa:0.3},cat:'Hidrato'},
+  {n:'Quinoa (cocida)',p100:{kcal:120,prot:4.4,carbs:21.3,grasa:1.9},cat:'Hidrato'},
+  {n:'Boniato / batata (cocido)',p100:{kcal:90,prot:2,carbs:20.7,grasa:0.1},cat:'Hidrato'},
+  {n:'Pan integral',p100:{kcal:247,prot:8.5,carbs:47,grasa:3.4},cat:'Hidrato'},
+  {n:'Pasta integral (cocida)',p100:{kcal:124,prot:5.3,carbs:23.2,grasa:0.9},cat:'Hidrato'},
+  {n:'Patata cocida',p100:{kcal:86,prot:1.9,carbs:20,grasa:0.1},cat:'Hidrato'},
+  {n:'Lentejas cocidas',p100:{kcal:116,prot:9,carbs:20,grasa:0.4},cat:'Legumbre'},
+  {n:'Garbanzos cocidos',p100:{kcal:164,prot:8.9,carbs:27,grasa:2.6},cat:'Legumbre'},
+  {n:'Tofu firme',p100:{kcal:76,prot:8.1,carbs:1.9,grasa:4.2},cat:'Proteína vegetal'},
+  {n:'Edamame',p100:{kcal:121,prot:11.9,carbs:8.9,grasa:5.2},cat:'Proteína vegetal'},
+  {n:'Aceite de oliva',p100:{kcal:884,prot:0,carbs:0,grasa:100},cat:'Grasa'},
+  {n:'Aguacate',p100:{kcal:160,prot:2,carbs:8.5,grasa:14.7},cat:'Grasa'},
+  {n:'Nueces',p100:{kcal:654,prot:15.2,carbs:13.7,grasa:65.2},cat:'Grasa'},
+  {n:'Almendras',p100:{kcal:579,prot:21.2,carbs:21.6,grasa:49.9},cat:'Grasa'},
+  {n:'Mantequilla de cacahuete',p100:{kcal:589,prot:25,carbs:20,grasa:50},cat:'Grasa'},
+  {n:'Plátano',p100:{kcal:89,prot:1.1,carbs:22.8,grasa:0.3},cat:'Fruta'},
+  {n:'Manzana',p100:{kcal:52,prot:0.3,carbs:13.8,grasa:0.2},cat:'Fruta'},
+  {n:'Naranja',p100:{kcal:47,prot:0.9,carbs:11.8,grasa:0.1},cat:'Fruta'},
+  {n:'Fresas',p100:{kcal:32,prot:0.7,carbs:7.7,grasa:0.3},cat:'Fruta'},
+  {n:'Arándanos',p100:{kcal:57,prot:0.7,carbs:14.5,grasa:0.3},cat:'Fruta'},
+  {n:'Brócoli crudo',p100:{kcal:34,prot:2.8,carbs:6.6,grasa:0.4},cat:'Verdura'},
+  {n:'Espinacas crudas',p100:{kcal:23,prot:2.9,carbs:3.6,grasa:0.4},cat:'Verdura'},
+  {n:'Tomate',p100:{kcal:18,prot:0.9,carbs:3.9,grasa:0.2},cat:'Verdura'},
+  {n:'Pepino',p100:{kcal:15,prot:0.7,carbs:3.6,grasa:0.1},cat:'Verdura'},
+  {n:'Zanahoria',p100:{kcal:41,prot:0.9,carbs:9.6,grasa:0.2},cat:'Verdura'},
+  {n:'Lechuga romana',p100:{kcal:17,prot:1.2,carbs:3.3,grasa:0.3},cat:'Verdura'},
+  {n:'Pimiento rojo',p100:{kcal:31,prot:1,carbs:6,grasa:0.3},cat:'Verdura'},
+  {n:'Champiñón',p100:{kcal:22,prot:3.1,carbs:3.3,grasa:0.3},cat:'Verdura'},
+  {n:'Calabacín',p100:{kcal:17,prot:1.2,carbs:3.1,grasa:0.3},cat:'Verdura'},
+  {n:'Creatina monohidrato',p100:{kcal:0,prot:0,carbs:0,grasa:0},cat:'Suplemento'},
+  {n:'Plátano macho cocido',p100:{kcal:122,prot:1.3,carbs:31.9,grasa:0.4},cat:'Hidrato'},
+  {n:'Salmon ahumado',p100:{kcal:117,prot:18.3,carbs:0,grasa:4.3},cat:'Proteína'},
+  {n:'Sardinas en lata (aceite)',p100:{kcal:208,prot:24.6,carbs:0,grasa:11.5},cat:'Proteína'},
+  {n:'Jamón serrano',p100:{kcal:241,prot:30.5,carbs:0.4,grasa:13},cat:'Proteína'},
+  {n:'Chocolate negro 85%',p100:{kcal:598,prot:7.8,carbs:40,grasa:42.6},cat:'Otro'}
+];
+
+// Estado del buscador de alimentos
+var _foodSrch={timer:null,sel:null,query:'',filter:''};
+
+function openFoodSearch(){
+  _foodSrch.sel=null;
+  $('food-srch-inp').value='';
+  $('food-srch-results').innerHTML='';
+  $('food-add-panel').style.display='none';
+  // Populate meal selector
+  var u=U(); var dow=new Date().getDay(); var idxMap=[6,0,1,2,3,4,5]; var hoyIdx=idxMap[dow];
+  var diaHoy=(u.planNut||[])[hoyIdx];
+  var sel=$('food-add-meal'); sel.innerHTML='';
+  if(diaHoy&&diaHoy.comidas){
+    diaHoy.comidas.forEach(function(c,i){
+      var o=document.createElement('option'); o.value=i; o.textContent=c.n+' ('+c.h+')'; sel.appendChild(o);
+    });
+  } else {
+    ['Desayuno','Pre-entreno','Almuerzo','Merienda','Cena'].forEach(function(n,i){
+      var o=document.createElement('option'); o.value=i; o.textContent=n; sel.appendChild(o);
+    });
+  }
+  foodShowLocal('');
+  openM('m-food-srch');
+  setTimeout(function(){$('food-srch-inp').focus();},300);
+}
+
+function foodSrchDebounce(){
+  clearTimeout(_foodSrch.timer);
+  _foodSrch.timer=setTimeout(foodDoSearch, 350);
+}
+
+function foodDoSearch(){
+  var q=($('food-srch-inp').value||'').trim().toLowerCase();
+  _foodSrch.query=q;
+  if(q.length<2){foodShowLocal('');return;}
+  foodShowLocal(q);
+  // Also try USDA API online
+  foodSearchUSDA(q);
+}
+
+function foodShowLocal(q){
+  var res=q
+    ?FOOD_LOCAL.filter(function(f){return f.n.toLowerCase().indexOf(q)>=0||f.cat.toLowerCase().indexOf(q)>=0;})
+    :FOOD_LOCAL.slice(0,20);
+  var div=$('food-srch-results');
+  if(!res.length){div.innerHTML='<div class="srch-empty">Sin resultados locales. Buscando online...</div>';return;}
+  var html='<div class="srch-section-title">Base de datos local ('+(q?res.length+' resultados':'más comunes')+')</div>';
+  html+=res.slice(0,15).map(function(f){
+    var safe=JSON.stringify(f).replace(/'/g,"\\'");
+    return '<div class="srch-item" onclick="foodSelect('+safe+')">'
+      +'<div class="srch-item-name">'+f.n+'</div>'
+      +'<div class="srch-item-macros">'+f.p100.kcal+' kcal · '+f.p100.prot+'g prot · '+f.p100.carbs+'g carbs · '+f.p100.grasa+'g grasa <span style="color:var(--t3);">/ 100g</span></div>'
+      +'<div class="srch-item-sub">'+f.cat+'</div>'
+      +'</div>';
+  }).join('');
+  div.innerHTML=html;
+}
+
+async function foodSearchUSDA(q){
+  // USDA FoodData Central API — free, no key required for basic search
+  try{
+    var url='https://api.nal.usda.gov/fdc/v1/foods/search?query='+encodeURIComponent(q)+'&pageSize=8&dataType=Foundation,SR Legacy&api_key=DEMO_KEY';
+    var r=await fetch(url,{signal:AbortSignal.timeout(5000)});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    var d=await r.json();
+    var foods=(d.foods||[]).slice(0,8).map(function(f){
+      var nutrients={}; 
+      (f.foodNutrients||[]).forEach(function(n){
+        if(n.nutrientId===1008||n.nutrientName==='Energy') nutrients.kcal=Math.round(n.value||0);
+        if(n.nutrientId===1003||n.nutrientName==='Protein') nutrients.prot=Math.round((n.value||0)*10)/10;
+        if(n.nutrientId===1005) nutrients.carbs=Math.round((n.value||0)*10)/10;
+        if(n.nutrientId===1004||n.nutrientName==='Total lipid (fat)') nutrients.grasa=Math.round((n.value||0)*10)/10;
+      });
+      nutrients.kcal=nutrients.kcal||0; nutrients.prot=nutrients.prot||0;
+      nutrients.carbs=nutrients.carbs||0; nutrients.grasa=nutrients.grasa||0;
+      return {n:f.description, p100:nutrients, cat:'USDA · '+( f.foodCategory||'')};
+    }).filter(function(f){return f.p100.kcal>0;});
+    if(!foods.length) return;
+    // Append USDA results
+    var div=$('food-srch-results');
+    var existing=div.innerHTML;
+    var html='<div class="srch-section-title">Resultados online — USDA FoodData Central</div>';
+    html+=foods.map(function(f){
+      var safe=JSON.stringify(f).replace(/'/g,"\\'");
+      return '<div class="srch-item" onclick="foodSelect('+safe+')">'
+        +'<div class="srch-item-name">'+f.n+'</div>'
+        +'<div class="srch-item-macros">'+f.p100.kcal+' kcal · '+f.p100.prot+'g prot · '+f.p100.carbs+'g carbs · '+f.p100.grasa+'g grasa <span style="color:var(--t3);">/ 100g</span></div>'
+        +'<div class="srch-item-sub">'+f.cat+'</div>'
+        +'</div>';
+    }).join('');
+    div.innerHTML=existing+html;
+  }catch(e){
+    // Silently fail — local results are shown anyway
+    console.log('USDA offline:',e.message);
+  }
+}
+
+function foodSelect(f){
+  _foodSrch.sel=f;
+  $('food-add-name').textContent=f.n;
+  $('food-add-panel').style.display='';
+  $('food-add-qty').value='100';
+  foodUpdateMacros();
+  $('food-add-qty').focus();
+}
+
+function foodUpdateMacros(){
+  var f=_foodSrch.sel; if(!f) return;
+  var g=parseFloat($('food-add-qty').value)||100;
+  var ratio=g/100;
+  $('food-add-macros').innerHTML=
+    Math.round(f.p100.kcal*ratio)+' kcal<br>'
+    +Math.round(f.p100.prot*ratio*10)/10+'g prot<br>'
+    +Math.round(f.p100.carbs*ratio*10)/10+'g carbs<br>'
+    +Math.round(f.p100.grasa*ratio*10)/10+'g grasa';
+}
+
+function foodConfirmAdd(){
+  var f=_foodSrch.sel; if(!f){toast('Selecciona un alimento','var(--red)');return;}
+  var g=parseFloat($('food-add-qty').value)||100;
+  var ratio=g/100;
+  var kcal=Math.round(f.p100.kcal*ratio);
+  var u=U(); var dow=new Date().getDay(); var idxMap=[6,0,1,2,3,4,5]; var hoyIdx=idxMap[dow];
+  var mealIdx=parseInt($('food-add-meal').value)||0;
+  var textoAlimento=g+'g '+f.n+' ('+kcal+' kcal · '+Math.round(f.p100.prot*ratio*10)/10+'g P)';
+  // Add to today's plan
+  if(!u.planNut) u.planNut=[];
+  if(!u.planNut[hoyIdx]) u.planNut[hoyIdx]={dia:'Hoy',label:'Personalizado',comidas:[]};
+  if(!u.planNut[hoyIdx].comidas[mealIdx]) u.planNut[hoyIdx].comidas[mealIdx]={n:'Extra',h:'',k:0,items:[]};
+  var comida=u.planNut[hoyIdx].comidas[mealIdx];
+  comida.items.push(textoAlimento);
+  comida.k=(comida.k||0)+kcal;
+  saveAll();
+  closeM('m-food-srch');
+  renderPlanNut();
+  toast('Añadido: '+f.n+' ('+g+'g)','var(--green)');
+}
+window.openFoodSearch=openFoodSearch;
+window.foodSrchDebounce=foodSrchDebounce;
+window.foodSelect=foodSelect;
+window.foodUpdateMacros=foodUpdateMacros;
+window.foodConfirmAdd=foodConfirmAdd;
+
+// ════════════════════════════════════════════════════════════════
+// BÚSQUEDA DE EJERCICIOS — Wger.de API + base local ampliada
+// ════════════════════════════════════════════════════════════════
+
+var EX_LOCAL=[
+  // PECHO
+  {n:'Press banca con barra',mus:'Pecho',mus2:'Tríceps, Deltoides',eq:'Barra + banco',id:'press-banca'},
+  {n:'Press banca inclinado',mus:'Pecho',mus2:'Pecho superior, Tríceps',eq:'Barra/Mancuernas + banco',id:'press-incl'},
+  {n:'Press banca declinado',mus:'Pecho',mus2:'Pecho inferior, Tríceps',eq:'Barra + banco declinado',id:'press-banca'},
+  {n:'Press con mancuernas',mus:'Pecho',mus2:'Tríceps, Deltoides',eq:'Mancuernas + banco',id:'press-banca'},
+  {n:'Aperturas en cable',mus:'Pecho',mus2:'Deltoides anterior',eq:'Poleas cruzadas',id:'aperturas-cable'},
+  {n:'Aperturas con mancuernas',mus:'Pecho',mus2:'Pecho, Coracobrachial',eq:'Mancuernas + banco',id:'aperturas-cable'},
+  {n:'Fondos en paralelas',mus:'Pecho',mus2:'Tríceps, Deltoides',eq:'Barras paralelas',id:'fondos'},
+  {n:'Pullover con mancuerna',mus:'Pecho',mus2:'Dorsal, Serrato',eq:'Mancuerna + banco',id:'pullover'},
+  {n:'Push-up / Flexiones',mus:'Pecho',mus2:'Tríceps, Core',eq:'Sin material',id:'press-banca'},
+  {n:'Máquina peck-deck',mus:'Pecho',mus2:'Deltoides anterior',eq:'Máquina peck-deck',id:'aperturas-cable'},
+  // ESPALDA
+  {n:'Dominadas / Pull-up',mus:'Espalda',mus2:'Bíceps, Dorsal',eq:'Barra fija',id:'dominadas'},
+  {n:'Jalón al pecho (polea alta)',mus:'Espalda',mus2:'Bíceps, Romboides',eq:'Polea alta',id:'jalon-m'},
+  {n:'Jalón tras nuca',mus:'Espalda',mus2:'Trapecios, Deltoides',eq:'Polea alta',id:'jalon-m'},
+  {n:'Remo con barra',mus:'Espalda',mus2:'Bíceps, Romboides',eq:'Barra',id:'remo-barra'},
+  {n:'Remo en polea baja',mus:'Espalda',mus2:'Bíceps, Trapecios',eq:'Polea baja',id:'remo-cable'},
+  {n:'Remo unilateral con mancuerna',mus:'Espalda',mus2:'Bíceps, Core',eq:'Mancuerna + banco',id:'remo-uni'},
+  {n:'Remo en máquina',mus:'Espalda',mus2:'Romboides, Trapecios',eq:'Máquina remo',id:'remo-cable'},
+  {n:'Pullover en cable',mus:'Espalda',mus2:'Serrato, Pecho',eq:'Polea alta',id:'pullover'},
+  {n:'Encogimientos de hombros (trapecios)',mus:'Espalda',mus2:'Trapecios superiores',eq:'Barra/Mancuernas',id:'remo-barra'},
+  {n:'Superman / Extensión lumbar',mus:'Espalda',mus2:'Erectores, Glúteo',eq:'Sin material / banco romano',id:'peso-muerto'},
+  // PIERNA
+  {n:'Sentadilla con barra',mus:'Pierna',mus2:'Cuádriceps, Glúteo, Core',eq:'Barra + rack',id:'sentadilla'},
+  {n:'Sentadilla sumo',mus:'Pierna',mus2:'Aductores, Glúteo',eq:'Barra o mancuerna',id:'squat-sumo'},
+  {n:'Sentadilla frontal',mus:'Pierna',mus2:'Cuádriceps, Core',eq:'Barra + rack',id:'sentadilla'},
+  {n:'Sentadilla goblet',mus:'Pierna',mus2:'Cuádriceps, Glúteo',eq:'Kettlebell o mancuerna',id:'goblet'},
+  {n:'Prensa de pierna',mus:'Pierna',mus2:'Cuádriceps, Glúteo, Isquio',eq:'Máquina prensa',id:'prensa'},
+  {n:'Extensión de cuádriceps',mus:'Pierna',mus2:'Cuádriceps',eq:'Máquina extensión',id:'ext-cuad'},
+  {n:'Curl femoral tumbado',mus:'Pierna',mus2:'Isquiotibiales',eq:'Máquina curl femoral',id:'curl-fem'},
+  {n:'Curl femoral sentado',mus:'Pierna',mus2:'Isquiotibiales',eq:'Máquina curl sentado',id:'curl-fem-m'},
+  {n:'Peso muerto rumano',mus:'Pierna',mus2:'Isquiotibiales, Glúteo, Lumbar',eq:'Barra o mancuernas',id:'peso-muerto-rum'},
+  {n:'Peso muerto convencional',mus:'Pierna',mus2:'Isquio, Lumbar, Trapecios',eq:'Barra',id:'peso-muerto'},
+  {n:'Zancadas caminando',mus:'Pierna',mus2:'Cuádriceps, Glúteo',eq:'Sin material o mancuernas',id:'zancadas'},
+  {n:'Zancadas búlgaras',mus:'Pierna',mus2:'Cuádriceps, Glúteo',eq:'Banco + mancuernas',id:'zancadas'},
+  {n:'Elevación de gemelo de pie',mus:'Pierna',mus2:'Gastrocnemio, Sóleo',eq:'Step o máquina',id:'gemelo-pie'},
+  {n:'Elevación de gemelo sentado',mus:'Pierna',mus2:'Sóleo, Gastrocnemio',eq:'Máquina sentado',id:'gemelo-m'},
+  {n:'Abducción de cadera en máquina',mus:'Pierna',mus2:'Glúteo medio, TFL',eq:'Máquina abducción',id:'abduccion'},
+  {n:'Abducción de cadera con cable',mus:'Pierna',mus2:'Glúteo medio',eq:'Polea baja',id:'abduccion'},
+  // GLÚTEO
+  {n:'Hip thrust con barra',mus:'Glúteo',mus2:'Isquiotibiales, Core',eq:'Barra + banco',id:'hip-thrust'},
+  {n:'Hip thrust con máquina',mus:'Glúteo',mus2:'Isquiotibiales',eq:'Máquina hip thrust',id:'hip-thrust-m'},
+  {n:'Puente de glúteo',mus:'Glúteo',mus2:'Isquiotibiales, Core',eq:'Sin material',id:'hip-thrust'},
+  {n:'Patada de glúteo en cable',mus:'Glúteo',mus2:'Isquiotibiales',eq:'Polea baja + tobillera',id:'hip-thrust'},
+  {n:'Peso muerto a una pierna',mus:'Glúteo',mus2:'Isquiotibiales, Equilibrio',eq:'Mancuerna o barra',id:'peso-muerto-rum'},
+  {n:'Frog pump',mus:'Glúteo',mus2:'Aductores, Core',eq:'Sin material',id:'hip-thrust'},
+  // HOMBRO
+  {n:'Press militar con barra',mus:'Hombro',mus2:'Tríceps, Trapecios',eq:'Barra',id:'press-militar'},
+  {n:'Press Arnold',mus:'Hombro',mus2:'Deltoides, Tríceps',eq:'Mancuernas',id:'press-hom-m'},
+  {n:'Press con mancuernas sentado',mus:'Hombro',mus2:'Tríceps, Deltoides',eq:'Mancuernas + banco',id:'press-hom-m'},
+  {n:'Elevaciones laterales',mus:'Hombro',mus2:'Deltoides lateral',eq:'Mancuernas o cable',id:'elev-lat'},
+  {n:'Elevaciones frontales',mus:'Hombro',mus2:'Deltoides anterior',eq:'Mancuernas o disco',id:'elev-lat-m'},
+  {n:'Pájaros / elevación posterior',mus:'Hombro',mus2:'Deltoides posterior, Romboides',eq:'Mancuernas o cable',id:'elev-lat'},
+  {n:'Tirón al cuello (upright row)',mus:'Hombro',mus2:'Trapecios, Deltoides',eq:'Barra o cable',id:'press-militar'},
+  // BÍCEPS
+  {n:'Curl con barra',mus:'Bíceps',mus2:'Braquial, Supinador',eq:'Barra',id:'curl-barra'},
+  {n:'Curl con mancuernas alternado',mus:'Bíceps',mus2:'Braquial, Supinador',eq:'Mancuernas',id:'curl-m'},
+  {n:'Curl concentrado',mus:'Bíceps',mus2:'Bíceps (pico)',eq:'Mancuerna',id:'curl-conc'},
+  {n:'Curl martillo',mus:'Bíceps',mus2:'Braquiorradial, Braquial',eq:'Mancuernas',id:'curl-barra'},
+  {n:'Curl en polea baja',mus:'Bíceps',mus2:'Bíceps, Antebrazo',eq:'Polea baja',id:'curl-m'},
+  {n:'Curl en barra Z (EZ)',mus:'Bíceps',mus2:'Bíceps, Braquial',eq:'Barra EZ',id:'curl-barra'},
+  {n:'Curl Scott / predicador',mus:'Bíceps',mus2:'Bíceps (cabeza larga)',eq:'Banco Scott + barra',id:'curl-conc'},
+  // TRÍCEPS
+  {n:'Extensión en polea alta',mus:'Tríceps',mus2:'Tríceps cabeza larga',eq:'Polea alta',id:'ext-polea'},
+  {n:'Extensión con cuerda',mus:'Tríceps',mus2:'Tríceps, Antebrazo',eq:'Polea alta + cuerda',id:'ext-tri-m'},
+  {n:'Press francés (skull crusher)',mus:'Tríceps',mus2:'Tríceps cabeza larga',eq:'Barra EZ + banco',id:'ext-polea'},
+  {n:'Patada de tríceps',mus:'Tríceps',mus2:'Tríceps cabeza larga',eq:'Mancuerna',id:'ext-tri-m'},
+  {n:'Extensión sobre cabeza con mancuerna',mus:'Tríceps',mus2:'Tríceps cabeza larga',eq:'Mancuerna',id:'ext-polea'},
+  {n:'Dips en banco (fondos)',mus:'Tríceps',mus2:'Pecho inferior, Hombros',eq:'Banco',id:'fondos'},
+  // CORE
+  {n:'Plancha abdominal',mus:'Core',mus2:'Abdominales, Oblicuos',eq:'Sin material',id:'plancha'},
+  {n:'Plancha lateral',mus:'Core',mus2:'Oblicuos, Cuadrado lumbar',eq:'Sin material',id:'plancha-lat'},
+  {n:'Crunch abdominal',mus:'Core',mus2:'Recto abdominal',eq:'Colchoneta',id:'crunch-m'},
+  {n:'Crunch en polea',mus:'Core',mus2:'Recto abdominal, Oblicuos',eq:'Polea alta',id:'crunch-m'},
+  {n:'Elevación de piernas tumbado',mus:'Core',mus2:'Flexores de cadera, Abdominales',eq:'Sin material o barra',id:'plancha'},
+  {n:'Rueda abdominal (ab wheel)',mus:'Core',mus2:'Recto abdominal, Dorsal',eq:'Rueda abdominal',id:'plancha'},
+  {n:'Russian twist',mus:'Core',mus2:'Oblicuos, Transverso',eq:'Sin material o disco',id:'crunch-m'},
+  {n:'Dead bug',mus:'Core',mus2:'Transverso, Estabilizadores',eq:'Sin material',id:'plancha'},
+  {n:'Vacío abdominal / Bracing',mus:'Core',mus2:'Transverso del abdomen',eq:'Sin material',id:'plancha'},
+  // CARDIO / FUNCIONAL
+  {n:'Burpees',mus:'Cardio',mus2:'Full body, Cardio',eq:'Sin material',id:'caminata'},
+  {n:'Salto a la comba',mus:'Cardio',mus2:'Gemelos, Cardio',eq:'Comba',id:'caminata'},
+  {n:'Battle ropes',mus:'Cardio',mus2:'Hombros, Core, Cardio',eq:'Cuerdas battle',id:'caminata'},
+  {n:'Remo en máquina (cardio)',mus:'Cardio',mus2:'Espalda, Piernas, Cardio',eq:'Máquina remo ergómetro',id:'remo-cable'},
+  {n:'Caminata en cinta inclinada',mus:'Cardio',mus2:'Glúteo, Gemelos',eq:'Cinta de correr',id:'caminata'},
+  {n:'Bicicleta estática',mus:'Cardio',mus2:'Cuádriceps, Cardio',eq:'Bicicleta estática',id:'eliptica'},
+  {n:'Elíptica',mus:'Cardio',mus2:'Full body, Cardio',eq:'Elíptica',id:'eliptica'},
+  {n:'HIIT en cinta',mus:'Cardio',mus2:'Full body, Cardio',eq:'Cinta de correr',id:'caminata'},
+  {n:'Kettlebell swing',mus:'Cardio',mus2:'Glúteo, Isquio, Core',eq:'Kettlebell',id:'hip-thrust'},
+  {n:'Box jumps / Salto al cajón',mus:'Cardio',mus2:'Cuádriceps, Glúteo',eq:'Cajón pliométrico',id:'sentadilla'}
+];
+
+// Estado buscador ejercicios
+var _exSrch={timer:null,filter:'',query:'',results:[]};
+
+function openExSearch(){
+  _exSrch.filter=''; _exSrch.query='';
+  $('ex-srch-inp').value='';
+  exSrchRender(EX_LOCAL.slice(0,20));
+  openM('m-ex-srch');
+  setTimeout(function(){$('ex-srch-inp').focus();},300);
+}
+
+function exSrchFilter(btn,filter){
+  _exSrch.filter=filter;
+  document.querySelectorAll('#ex-srch-filters .srch-tag').forEach(function(b){
+    b.style.background='';b.style.color='';
+  });
+  btn.style.background='var(--acc)';btn.style.color='#fff';
+  exDoSearch();
+}
+window.exSrchFilter=exSrchFilter;
+
+function exSrchDebounce(){
+  clearTimeout(_exSrch.timer);
+  _exSrch.timer=setTimeout(exDoSearch,300);
+}
+
+function exDoSearch(){
+  var q=($('ex-srch-inp').value||'').trim().toLowerCase();
+  _exSrch.query=q;
+  var local=EX_LOCAL.filter(function(e){
+    var matchQ=!q||(e.n.toLowerCase().indexOf(q)>=0||e.mus.toLowerCase().indexOf(q)>=0||e.mus2.toLowerCase().indexOf(q)>=0||e.eq.toLowerCase().indexOf(q)>=0);
+    var matchF=!_exSrch.filter||(e.mus.indexOf(_exSrch.filter)>=0||e.mus2.indexOf(_exSrch.filter)>=0);
+    return matchQ&&matchF;
+  });
+  exSrchRender(local);
+  // Try Wger.de API online
+  if(q.length>=2) exSearchWger(q);
+}
+
+function exSrchRender(list){
+  var div=$('ex-srch-results');
+  if(!list.length){div.innerHTML='<div class="srch-empty">Sin resultados. Intenta con otro término.</div>';return;}
+  var html='<div class="srch-section-title">Base de datos local ('+list.length+' ejercicios)</div>';
+  html+=list.slice(0,25).map(function(e){
+    var safe=JSON.stringify(e).replace(/'/g,"\\'");
+    return '<div class="srch-item" onclick="exSelectAndAdd('+safe+')">'
+      +'<div class="srch-item-name">'+e.n+'</div>'
+      +'<div class="srch-item-macros" style="color:var(--acc2);">'+e.mus+' · '+e.mus2+'</div>'
+      +'<div class="srch-item-sub">'+e.eq+'</div>'
+      +'</div>';
+  }).join('');
+  div.innerHTML=html;
+}
+
+async function exSearchWger(q){
+  try{
+    // Wger.de open source API — free, no auth required
+    var url='https://wger.de/api/v2/exercise/search/?term='+encodeURIComponent(q)+'&language=spanish&format=json';
+    var r=await fetch(url,{signal:AbortSignal.timeout(5000)});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    var d=await r.json();
+    var suggestions=(d.suggestions||[]).slice(0,8);
+    if(!suggestions.length) return;
+    var div=$('ex-srch-results');
+    var existing=div.innerHTML;
+    var html='<div class="srch-section-title">Resultados online — Wger.de (base de datos abierta)</div>';
+    html+=suggestions.map(function(s){
+      var ex={n:s.name||s.value, mus:'Ejercicio', mus2:s.category||'', eq:'Ver indicaciones', id:'default'};
+      var safe=JSON.stringify(ex).replace(/'/g,"\\'");
+      return '<div class="srch-item" onclick="exSelectAndAdd('+safe+')">'
+        +'<div class="srch-item-name">'+ex.n+'</div>'
+        +'<div class="srch-item-macros" style="color:var(--acc2);">'+ex.mus2+'</div>'
+        +'<div class="srch-item-sub">Fuente: Wger.de</div>'
+        +'</div>';
+    }).join('');
+    div.innerHTML=existing+html;
+  }catch(e){
+    console.log('Wger offline:',e.message);
+  }
+}
+
+function exSelectAndAdd(ex){
+  // Add directly to session exTemp (if in session screen) OR just confirm
+  var numSeries=3;
+  var newEx={
+    id:ex.id||'default', n:ex.n, mus:ex.mus+(ex.mus2?' · '+ex.mus2:''),
+    seriesPlan:numSeries, repsPlan:'8-12', rir:2,
+    series:buildSeries(numSeries,'12'), notas:'', extra:true
+  };
+  APP.exTemp.push(newEx);
+  closeM('m-ex-srch');
+  // If not in sesion screen, go there
+  if(!document.getElementById('sc-sesion').classList.contains('active')){
+    goTo('sesion');
+  }
+  renderExList();
+  toast('Añadido: '+ex.n,'var(--acc2)');
+}
+window.openExSearch=openExSearch;
+window.exSrchDebounce=exSrchDebounce;
+window.exSelectAndAdd=exSelectAndAdd;
+
+
+// ════════════════════════════════════════════════════════════════
+// KONGO — Entrenador Personal IA
+// ════════════════════════════════════════════════════════════════
+
+var _kongo={
+  msgs:[],      // {role:'user'|'assistant', content:'...', ts:Date}
+  typing:false
+};
+
+// Preguntas rápidas de ejemplo
+var KONGO_QUICK=[
+  '¿Qué como antes de entrenar?',
+  '¿Cuánta proteína necesito?',
+  '¿Cómo mejorar mis sentadillas?',
+  '¿Qué hago si tengo agujetas?',
+  '¿Puedo entrenar con fiebre?',
+  '¿Cómo acelerar la pérdida de grasa?',
+  '¿Qué suplementos recomiendas?',
+  '¿Cuánto tiempo descansar entre series?'
+];
+
+function renderKongo(){
+  var hasKey=!!(ANTHROPIC_KEY||GEMINI_KEY);
+  $('kongo-nokey').style.display=hasKey?'none':'';
+  $('kongo-chat').style.display=hasKey?'':'none';
+  if(!hasKey) return;
+
+  // Preguntas rápidas
+  var qDiv=$('kongo-quick');
+  if(qDiv&&!qDiv.children.length){
+    qDiv.innerHTML=KONGO_QUICK.map(function(q){
+      return '<button class="chat-quick-btn" onclick="kongoQuick(\''+q.replace(/'/g,"\\'")+'\')">'
+        +q+'</button>';
+    }).join('');
+  }
+
+  // Si no hay mensajes, mostrar bienvenida de Kongo
+  if(!_kongo.msgs.length){
+    var u=U();
+    var nombre=u&&u.nombre?u.nombre.split(' ')[0]:'campeón';
+    var obj=u&&u.obj?({recomp:'recomposición corporal',perdida:'pérdida de grasa',volumen:'ganancia muscular',mant:'mantenimiento'}[u.obj]||u.obj):'tu objetivo';
+    var bienvenida='¡Qué tal, '+nombre+'! Soy Kongo, tu entrenador personal. 🦍💪\n\n'
+      +'Estoy al tanto de tu perfil: trabajamos en tu **'+obj+'**. '
+      +'Puedes preguntarme lo que quieras sobre:\n\n'
+      +'• Técnica de ejercicios\n'
+      +'• Tu dieta y nutrición\n'
+      +'• Suplementación\n'
+      +'• Recuperación y descanso\n'
+      +'• Ajustes a tu plan\n\n'
+      +'¿Qué necesitas hoy?';
+    _kongo.msgs.push({role:'assistant',content:bienvenida,ts:new Date()});
+  }
+
+  kongoRenderMsgs();
+}
+
+function kongoRenderMsgs(){
+  var div=$('kongo-msgs');
+  if(!div) return;
+  div.innerHTML=_kongo.msgs.map(function(m){
+    var isUser=m.role==='user';
+    var timeStr=m.ts?m.ts.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}):'';
+    // Render markdown básico: **bold**, \n\n párrafos, • listas
+    var html=m.content
+      .replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>')
+      .replace(/\n\n/g,'</p><p>')
+      .replace(/\n/g,'<br>')
+      .replace(/^•/gm,'<span style="color:var(--acc2)">›</span>');
+    html='<p style="margin:0;">'+html+'</p>';
+    return '<div class="chat-msg '+(isUser?'user':'kongo')+'">'
+      +'<div class="chat-avatar '+(isUser?'user':'kongo')+'">'+(isUser?'👤':'🦍')+'</div>'
+      +'<div>'
+        +'<div class="chat-bubble">'+html+'</div>'
+        +'<div class="chat-time">'+timeStr+'</div>'
+      +'</div>'
+      +'</div>';
+  }).join('');
+
+  // Typing indicator
+  if(_kongo.typing){
+    div.innerHTML+='<div class="chat-msg kongo">'
+      +'<div class="chat-avatar kongo">🦍</div>'
+      +'<div class="chat-bubble">'
+        +'<div class="chat-typing">'
+          +'<div class="chat-dot"></div><div class="chat-dot"></div><div class="chat-dot"></div>'
+        +'</div>'
+      +'</div>'
+      +'</div>';
+  }
+
+  // Scroll al final
+  div.scrollTop=div.scrollHeight;
+}
+
+function kongoQuick(q){
+  $('kongo-inp').value=q;
+  kongoSend();
+}
+window.kongoQuick=kongoQuick;
+
+async function kongoSend(){
+  var inp=$('kongo-inp');
+  var msg=(inp.value||'').trim();
+  if(!msg||_kongo.typing) return;
+  inp.value='';
+  inp.style.height='auto';
+
+  // Add user message
+  _kongo.msgs.push({role:'user',content:msg,ts:new Date()});
+  _kongo.typing=true;
+  kongoRenderMsgs();
+
+  // Build context-rich system prompt with user data
+  var u=U();
+  var mac=u.macros||calcMacros(u);
+  var objLabel={recomp:'recomposición corporal',perdida:'pérdida de grasa',volumen:'ganancia muscular',mant:'mantenimiento'}[u.obj||'recomp'];
+  var pais=u.pais==='co'?'Colombia':'España';
+  var sesCount=(u.sessions||[]).length;
+
+  var systemPrompt='Eres Kongo, un entrenador personal y nutricionista experto con 15 años de experiencia. '
+    +'Eres directo, motivador y cercano. Usas lenguaje natural y amigable pero con precisión científica. '
+    +'NUNCA digas que eres una IA — eres Kongo, punto. '
+    +'Responde siempre en español. Sé conciso pero completo (máximo 250 palabras por respuesta). '
+    +'Usa **negrita** para términos clave. Usa saltos de línea para separar ideas. '
+    +'Cuando des consejos de alimentación, adapta los alimentos al país del usuario ('+ pais+'). '
+    +'\n\nPERFIL DEL ATLETA CON EL QUE HABLAS:\n'
+    +'- Nombre: '+u.nombre+'\n'
+    +'- Género: '+(u.genero==='H'?'Hombre':'Mujer')+'\n'
+    +'- Edad: '+calcEdad(u.fnac)+' años\n'
+    +'- Peso: '+u.peso+' kg · Altura: '+u.alt+' cm\n'
+    +'- % Grasa estimado: '+(u.grasa||'no especificado')+'%\n'
+    +'- Objetivo: '+objLabel+'\n'
+    +'- País: '+pais+'\n'
+    +'- Experiencia gym: '+({prin:'principiante',inter:'intermedio',avanz:'avanzado'}[u.exp]||u.exp)+'\n'
+    +'- Actividad: '+({1.375:'ligera',1.55:'moderada',1.725:'alta'}[u.act]||u.act)+'\n'
+    +'- BMR: '+mac.bmr+' kcal · TDEE: '+mac.tdee+' kcal · Objetivo: '+mac.kcal+' kcal/día\n'
+    +'- Proteína: '+mac.prot+'g · Carbs: '+mac.carbs+'g · Grasa: '+mac.grasa+'g\n'
+    +'- Déficit: '+(mac.deficitReal||0)+'% · Dieta: '+(u.dieta||'equilibrada')+'\n'
+    +'- Sesiones totales registradas: '+sesCount+'\n'
+    +(u.rests&&u.rests.length?'- Intolerancias: '+u.rests.join(', ')+'\n':'')
+    +'\nResponde al mensaje del atleta teniendo en cuenta SIEMPRE su perfil específico.';
+
+  // Build messages for API (last 10 messages for context)
+  var apiMsgs=_kongo.msgs.slice(-11,-1).map(function(m){
+    return {role:m.role,content:m.content};
+  });
+  apiMsgs.push({role:'user',content:msg});
+
+  try{
+    var respText='';
+    if(ANTHROPIC_KEY){
+      var r=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01'},
+        body:JSON.stringify({
+          model:'claude-sonnet-4-6',
+          max_tokens:600,
+          system:systemPrompt,
+          messages:apiMsgs
+        })
+      });
+      var d=await r.json();
+      if(d.error) throw new Error('Claude: '+d.error.message);
+      respText=d.content[0].text;
+    } else if(GEMINI_KEY){
+      // Gemini: system prompt as first user message + model response
+      var geminiMsgs=[{role:'user',content:systemPrompt+'\n\nConfirma que entendiste el perfil.'},
+                      {role:'assistant',content:'Entendido. Soy Kongo y conozco el perfil del atleta. ¿En qué puedo ayudarte?'}]
+                      .concat(apiMsgs);
+      var gr=await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':'Bearer '+GEMINI_KEY},
+        body:JSON.stringify({
+          model:'gemini-2.5-flash',
+          messages:geminiMsgs.map(function(m){return {role:m.role,content:m.content};}),
+          max_tokens:600,
+          temperature:0.7
+        })
+      });
+      var gd=await gr.json();
+      if(gd.error) throw new Error('Gemini: '+gd.error.message);
+      respText=gd.choices[0].message.content;
+    }
+
+    _kongo.msgs.push({role:'assistant',content:respText,ts:new Date()});
+  } catch(e){
+    _kongo.msgs.push({role:'assistant',content:'Vaya, parece que hay un problema con la conexión. Verifica tu API key en Perfil → Configuración. Error: '+e.message,ts:new Date()});
+  }
+
+  _kongo.typing=false;
+  kongoRenderMsgs();
+}
+
+// ── Event listeners del chat ──────────────────────────
+function initKongoListeners(){
+  var sendBtn=$('kongo-send');
+  var inp=$('kongo-inp');
+  if(sendBtn) sendBtn.addEventListener('click',kongoSend);
+  if(inp){
+    inp.addEventListener('keydown',function(e){
+      if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();kongoSend();}
+    });
+    // Auto-resize textarea
+    inp.addEventListener('input',function(){
+      this.style.height='auto';
+      this.style.height=Math.min(this.scrollHeight,100)+'px';
+    });
+  }
+}
+
 
 // ── BOOT ──────────────────────────────────────
 (function boot(){
