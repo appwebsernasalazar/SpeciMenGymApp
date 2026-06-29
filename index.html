@@ -48,7 +48,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .bn.on{color:var(--acc2);}
 .bn-ico{font-size:19px;line-height:1;}
 
-.screen{display:none;}.screen.active{display:block;}
+.screen{display:none;}.screen.active{display:block;}#sc-kongo.active{display:flex;flex-direction:column;}
 
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:15px;margin-bottom:11px;}
 .card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
@@ -281,7 +281,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .modal-srch{max-height:90vh;overflow-y:auto;padding-bottom:calc(var(--safe)+10px);}
 
 /* ── Chat Kongo ─────────────────────────────── */
-.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 110px - var(--safe));max-height:calc(100vh - 110px - var(--safe));}
+.chat-wrap{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
 .chat-msgs{flex:1;overflow-y:auto;padding:12px 0 8px;display:flex;flex-direction:column;gap:10px;}
 .chat-msg{display:flex;gap:9px;align-items:flex-end;}
 .chat-msg.user{flex-direction:row-reverse;}
@@ -308,6 +308,14 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .chat-quick-btn{padding:6px 12px;border-radius:100px;border:1px solid var(--border2);background:var(--bg3);color:var(--acc2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all 0.15s;}
 .chat-quick-btn:active{background:var(--accb);}
 .kongo-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border-radius:100px;padding:4px 12px 4px 6px;font-size:12px;font-weight:700;margin-bottom:12px;}
+
+/* ── Fix adicional chat Kongo ──────────────── */
+#sc-kongo.active{padding:0!important;}
+.chat-msgs{flex:1;overflow-y:auto;padding:8px 0;display:flex;flex-direction:column;gap:8px;min-height:0;}
+.chat-msg{display:flex;gap:8px;align-items:flex-end;width:100%;}
+.chat-msg.user{flex-direction:row-reverse;}
+.chat-msg.user .chat-bubble{background:var(--acc);color:#fff;border-bottom-right-radius:4px;text-align:left;}
+.chat-msg.kongo .chat-bubble{background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-bottom-left-radius:4px;}
 </style>
 </head>
 <body>
@@ -339,7 +347,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <div class="onb-logo">SpeciMen</div>
     <div class="prog-bar"><div class="prog-fill" style="width:50%"></div></div>
     <div class="onb-title">Bienvenido/a de vuelta</div>
-    <div class="onb-sub">Accede para ver tu progreso y plan del día.</div>
+    <div class="onb-sub">Tus datos, historial de sesiones y plan se recuperan automáticamente con tu email y contraseña.</div>
     <div class="fg"><label>Email</label><input type="email" id="lg-email" inputmode="email" placeholder="tu@email.com"></div>
     <div class="fg"><label>Contraseña</label><div class="pw-wrap"><input type="password" id="lg-pw" placeholder="Tu contraseña"><button class="pw-eye" type="button" onclick="togglePw('lg-pw',this)" tabindex="-1"><svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
     <div id="lg-err" style="color:var(--red);font-size:13px;margin-bottom:10px;display:none;"></div>
@@ -717,12 +725,14 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </div>
 
 <!-- PANTALLA CHAT KONGO ══════════════════════ -->
-<div id="sc-kongo" class="screen">
-  <div class="kongo-badge">
-    <span style="font-size:20px;">🦍</span>
-    <span>Kongo — Tu entrenador personal IA</span>
+<div id="sc-kongo" class="screen" style="display:none;padding:0!important;">
+  <div style="padding:12px 16px 0;">
+    <div class="kongo-badge">
+      <span style="font-size:20px;">🦍</span>
+      <span>Kongo — Tu entrenador personal IA</span>
+    </div>
   </div>
-  <div id="kongo-nokey" style="display:none;" class="chat-nokey">
+  <div id="kongo-nokey" style="display:none;padding:16px;" class="chat-nokey">
     <div style="font-size:28px;margin-bottom:8px;">🔑</div>
     <b style="color:var(--amber);">API Key requerida</b><br>
     Configura tu clave de Anthropic Claude o Gemini en<br>
@@ -731,7 +741,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <br><br>
     <button class="btn btn-acc btn-sm" onclick="goTo('perfil')">Ir a Configuración →</button>
   </div>
-  <div id="kongo-chat" style="display:none;" class="chat-wrap">
+  <div id="kongo-chat" style="display:none;padding:0 16px 0;height:calc(100vh - 160px - var(--safe));max-height:calc(100vh - 160px - var(--safe));" class="chat-wrap">
     <div class="chat-quick" id="kongo-quick"></div>
     <div class="chat-msgs" id="kongo-msgs"></div>
     <div class="chat-input-row">
@@ -852,6 +862,8 @@ var STORE_KEY='specimen_v3';
 var APP={users:[],cur:0,timerSecs:120,timerMax:120,timerRun:false,timerInt:null,exTemp:[]};
 var ANTHROPIC_KEY=localStorage.getItem('specimen_apikey')||'';
 var GEMINI_KEY=localStorage.getItem('specimen_gemini')||'';
+// Las keys persisten en localStorage automáticamente
+// Se restauran en cada carga sin acción del usuario
 
 // ── helpers ──────────────────────────────────
 var $=function(id){return document.getElementById(id);};
@@ -1905,11 +1917,22 @@ function initApp(){
 
   $('btn-ia').addEventListener('click',runIA);
   $('btn-save-cfg').addEventListener('click',function(){
-    ANTHROPIC_KEY=$('cfg-key').value.trim();
-    localStorage.setItem('specimen_apikey',ANTHROPIC_KEY);
-    var gk=$('cfg-gemini').value.trim();
-    if(gk) localStorage.setItem('specimen_gemini',gk);
-    toast('Configuración guardada ✓');
+    ANTHROPIC_KEY=($('cfg-key').value||'').trim();
+    if(ANTHROPIC_KEY) localStorage.setItem('specimen_apikey',ANTHROPIC_KEY);
+    GEMINI_KEY=($('cfg-gemini').value||'').trim();
+    if(GEMINI_KEY) localStorage.setItem('specimen_gemini',GEMINI_KEY);
+    toast('Configuración guardada y protegida ✓');
+  });
+  // Auto-guardar al salir del campo (onblur)
+  var cfgKey=$('cfg-key');
+  if(cfgKey) cfgKey.addEventListener('blur',function(){
+    var v=this.value.trim();
+    if(v&&v!==ANTHROPIC_KEY){ANTHROPIC_KEY=v;localStorage.setItem('specimen_apikey',v);}
+  });
+  var cfgGem=$('cfg-gemini');
+  if(cfgGem) cfgGem.addEventListener('blur',function(){
+    var v=this.value.trim();
+    if(v&&v!==GEMINI_KEY){GEMINI_KEY=v;localStorage.setItem('specimen_gemini',v);}
   });
   // Listener nuevo — botón probar conexión Gemini
   var btnTestG=$('btn-test-gemini');
@@ -2922,23 +2945,90 @@ function renderCalcMetabolica(u, mac){
 
 function renderPerfil(){
   var u=U(); var mac=u.macros||calcMacros(u); var esH=u.genero==='H';
-  $('perfil-card').innerHTML='<div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">'
-    +'<div style="width:54px;height:54px;border-radius:50%;background:'+(esH?'var(--accb)':'var(--pb)')+';display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:'+(esH?'var(--acc2)':'var(--pink)')+';">'+(u.nombre||'?')[0].toUpperCase()+'</div>'
-    +'<div><div style="font-size:17px;font-weight:800;">'+u.nombre+'</div><div style="font-size:12px;color:var(--t2);">'+u.email+'</div>'
-    +'<div style="font-size:11px;color:var(--t3);">'+(esH?'♂ Hombre':'♀ Mujer')+' · '+LABEL_OBJ[u.obj||'recomp']+'</div></div></div>'
-    +'<div class="sep"></div>'
-    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:13px;">'
-    +'<div><span style="color:var(--t2);">Peso: </span><b>'+u.peso+' kg</b></div>'
-    +'<div><span style="color:var(--t2);">Altura: </span><b>'+u.alt+' cm</b></div>'
-    +'<div><span style="color:var(--t2);">Edad: </span><b>'+calcEdad(u.fnac)+' años</b></div>'
-    +'<div><span style="color:var(--t2);">Exp.: </span><b>'+({prin:'Principiante',inter:'Intermedio',avanz:'Avanzado'}[u.exp]||'—')+'</b></div>'
-    +'</div><div class="sep"></div>'
-    +'<div class="sg3" style="margin-bottom:0;">'
-    +'<div class="stat"><div class="stat-val" style="color:var(--amber);font-size:18px;">'+(mac.kcal||'—')+'</div><div class="stat-lbl">kcal</div></div>'
-    +'<div class="stat"><div class="stat-val" style="color:var(--acc2);font-size:18px;">'+(mac.prot||'—')+'g</div><div class="stat-lbl">proteína</div></div>'
-    +'<div class="stat"><div class="stat-val" style="color:var(--blue);font-size:18px;">'+(Math.round((mac.agua||2500)/100)/10)+'L</div><div class="stat-lbl">agua</div></div>'
+  var imc=mac.imc||((u.peso/((u.alt/100)*(u.alt/100))).toFixed(1));
+  var imcLabel=imc<18.5?'Bajo peso':imc<25?'Normopeso':imc<30?'Sobrepeso':'Obesidad';
+  var paiLabel={es:'🇪🇸 España',co:'🇨🇴 Colombia'}[u.pais||'es']||u.pais||'—';
+  var dietaLabel={equilibrada:'Equilibrada',lowcarb:'Baja en carbos',keto:'Cetogénica'}[u.dieta||'equilibrada'];
+  var keyStatus='';
+  if(ANTHROPIC_KEY) keyStatus+='<span style="color:var(--green);font-size:11px;">✓ Claude</span> ';
+  if(GEMINI_KEY) keyStatus+='<span style="color:var(--green);font-size:11px;">✓ Gemini</span>';
+  if(!ANTHROPIC_KEY&&!GEMINI_KEY) keyStatus='<span style="color:var(--t3);font-size:11px;">Sin IA configurada</span>';
+
+  $('perfil-card').innerHTML=''
+    // ── Avatar + nombre + email
+    +'<div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">'
+      +'<div style="width:60px;height:60px;border-radius:50%;background:'+(esH?'var(--accb)':'var(--pb)')+';display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:'+(esH?'var(--acc2)':'var(--pink)')+';">'+(u.nombre||'?')[0].toUpperCase()+'</div>'
+      +'<div style="flex:1;">'
+        +'<div style="font-size:18px;font-weight:800;">'+u.nombre+'</div>'
+        +'<div style="font-size:12px;color:var(--acc2);margin-top:2px;">'+u.email+'</div>'
+        +'<div style="font-size:11px;color:var(--t3);margin-top:2px;">'+(esH?'♂ Hombre':'♀ Mujer')+' · '+paiLabel+'</div>'
+        +'<div style="margin-top:4px;">'+keyStatus+'</div>'
+      +'</div>'
     +'</div>'
-    +((u.rests&&u.rests.length)?'<div style="margin-top:10px;" class="tip warn"><b>🚫 Restricciones:</b> '+u.rests.join(', ')+'</div>':'');
+    // ── Datos físicos completos
+    +'<div style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;">Ficha completa</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;margin-bottom:12px;">'
+      +'<div style="background:var(--bg3);border-radius:8px;padding:9px 11px;">'
+        +'<div style="font-size:10px;color:var(--t3);margin-bottom:2px;">PESO</div>'
+        +'<div style="font-weight:700;">'+u.peso+' kg</div>'
+      +'</div>'
+      +'<div style="background:var(--bg3);border-radius:8px;padding:9px 11px;">'
+        +'<div style="font-size:10px;color:var(--t3);margin-bottom:2px;">ALTURA</div>'
+        +'<div style="font-weight:700;">'+u.alt+' cm</div>'
+      +'</div>'
+      +'<div style="background:var(--bg3);border-radius:8px;padding:9px 11px;">'
+        +'<div style="font-size:10px;color:var(--t3);margin-bottom:2px;">EDAD</div>'
+        +'<div style="font-weight:700;">'+calcEdad(u.fnac)+' años</div>'
+      +'</div>'
+      +'<div style="background:var(--bg3);border-radius:8px;padding:9px 11px;">'
+        +'<div style="font-size:10px;color:var(--t3);margin-bottom:2px;">FECHA NACIMIENTO</div>'
+        +'<div style="font-weight:700;">'+(u.fnac||'—')+'</div>'
+      +'</div>'
+      +'<div style="background:var(--bg3);border-radius:8px;padding:9px 11px;">'
+        +'<div style="font-size:10px;color:var(--t3);margin-bottom:2px;">% GRASA</div>'
+        +'<div style="font-weight:700;color:var(--acc2);">'+(u.grasa||'—')+'%</div>'
+      +'</div>'
+      +'<div style="background:var(--bg3);border-radius:8px;padding:9px 11px;">'
+        +'<div style="font-size:10px;color:var(--t3);margin-bottom:2px;">MASA MAGRA EST.</div>'
+        +'<div style="font-weight:700;">'+(mac.masaMagra||'—')+' kg</div>'
+      +'</div>'
+      +'<div style="background:var(--bg3);border-radius:8px;padding:9px 11px;">'
+        +'<div style="font-size:10px;color:var(--t3);margin-bottom:2px;">IMC</div>'
+        +'<div style="font-weight:700;">'+imc+' <span style="font-size:10px;color:var(--t3);">'+imcLabel+'</span></div>'
+      +'</div>'
+      +'<div style="background:var(--bg3);border-radius:8px;padding:9px 11px;">'
+        +'<div style="font-size:10px;color:var(--t3);margin-bottom:2px;">EXPERIENCIA</div>'
+        +'<div style="font-weight:700;">'+({prin:'Principiante',inter:'Intermedio',avanz:'Avanzado'}[u.exp]||'—')+'</div>'
+      +'</div>'
+      +((u.cin)?'<div style="background:var(--bg3);border-radius:8px;padding:9px 11px;">'
+        +'<div style="font-size:10px;color:var(--t3);margin-bottom:2px;">CINTURA</div>'
+        +'<div style="font-weight:700;">'+u.cin+' cm</div>'
+      +'</div>':'')
+      +((u.cue)?'<div style="background:var(--bg3);border-radius:8px;padding:9px 11px;">'
+        +'<div style="font-size:10px;color:var(--t3);margin-bottom:2px;">CUELLO</div>'
+        +'<div style="font-weight:700;">'+u.cue+' cm</div>'
+      +'</div>':'')
+      +((u.cad)?'<div style="background:var(--bg3);border-radius:8px;padding:9px 11px;">'
+        +'<div style="font-size:10px;color:var(--t3);margin-bottom:2px;">CADERA</div>'
+        +'<div style="font-weight:700;">'+u.cad+' cm</div>'
+      +'</div>':'')
+    +'</div>'
+    // ── Objetivo y plan
+    +'<div style="background:var(--accb);border:1px solid var(--acc);border-radius:8px;padding:10px 12px;margin-bottom:12px;">'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px;">'
+        +'<div><span style="color:var(--t2);">Objetivo: </span><b style="color:var(--acc2);">'+LABEL_OBJ[u.obj||'recomp']+'</b></div>'
+        +'<div><span style="color:var(--t2);">Dieta: </span><b>'+dietaLabel+'</b></div>'
+        +'<div><span style="color:var(--t2);">País: </span><b>'+paiLabel+'</b></div>'
+        +'<div><span style="color:var(--t2);">Déficit: </span><b>'+( u.deficit||'20')+'%</b></div>'
+      +'</div>'
+    +'</div>'
+    // ── Macros resumen compacto
+    +'<div class="sg3" style="margin-bottom:12px;">'
+      +'<div class="stat"><div class="stat-val" style="color:var(--amber);font-size:18px;">'+(mac.kcal||'—')+'</div><div class="stat-lbl">kcal/día</div></div>'
+      +'<div class="stat"><div class="stat-val" style="color:var(--acc2);font-size:18px;">'+(mac.prot||'—')+'g</div><div class="stat-lbl">proteína</div></div>'
+      +'<div class="stat"><div class="stat-val" style="color:var(--blue);font-size:18px;">'+(Math.round((mac.agua||2500)/100)/10)+'L</div><div class="stat-lbl">agua</div></div>'
+    +'</div>'
+    +((u.rests&&u.rests.length)?'<div class="tip warn"><b>Intolerancias:</b> '+u.rests.join(', ')+'</div>':'');
 
   var SUPLS_H=[
     {ico:'⚡',n:'Creatina Creapure — 5g/día',d:'El suplemento con más evidencia. Sin ciclos. Cualquier momento.',p:'ESENCIAL',c:'var(--green)'},
@@ -2965,6 +3055,14 @@ function renderPerfil(){
   }).join('');
   $('cfg-key').value=ANTHROPIC_KEY;
   var cgem=$('cfg-gemini'); if(cgem) cgem.value=GEMINI_KEY;
+  // Mostrar estado visual de las keys
+  var cfgKeyEl=$('cfg-key'); if(cfgKeyEl) cfgKeyEl.value=ANTHROPIC_KEY;
+  // Indicador estado Gemini
+  var gemStatus=$('gemini-test-status');
+  if(gemStatus&&GEMINI_KEY&&!gemStatus.textContent){
+    gemStatus.style.color='var(--green)';
+    gemStatus.textContent='✓ Clave guardada';
+  }
 
   // Render calculadora metabólica
   renderCalcMetabolica(u, mac);
