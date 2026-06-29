@@ -1997,6 +1997,9 @@ function initApp(){
   $('timer-rst').addEventListener('click',resetTimer);
 
   document.querySelectorAll('.modal-ov').forEach(function(m){m.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});});
+
+  // Kongo chat listeners — se inicializan aquí para garantizar que el DOM existe
+  initKongoListeners();
 }
 
 function updateUserSwitcher(){
@@ -3628,13 +3631,19 @@ function renderKongo(){
   $('kongo-chat').style.display=hasKey?'flex':'none';
   if(!hasKey) return;
 
-  // Preguntas rápidas
+  // Preguntas rápidas — event delegation, sin onclick inline
   var qDiv=$('kongo-quick');
-  if(qDiv&&!qDiv.children.length){
-    qDiv.innerHTML=KONGO_QUICK.map(function(q){
-      return '<button class="chat-quick-btn" onclick="kongoQuick(\''+q.replace(/'/g,"\\'")+'\')">'
-        +q+'</button>';
+  if(qDiv){
+    qDiv.innerHTML=KONGO_QUICK.map(function(q,i){
+      return '<button class="chat-quick-btn" data-q="'+i+'">'+q+'</button>';
     }).join('');
+    // Listener único por delegación
+    qDiv.onclick=function(e){
+      var btn=e.target.closest('.chat-quick-btn');
+      if(!btn) return;
+      var idx=parseInt(btn.getAttribute('data-q'));
+      kongoQuick(KONGO_QUICK[idx]);
+    };
   }
 
   // Si no hay mensajes, mostrar bienvenida de Kongo
@@ -3660,30 +3669,59 @@ function renderKongo(){
 function kongoRenderMsgs(){
   var div=$('kongo-msgs');
   if(!div) return;
-  div.innerHTML=_kongo.msgs.map(function(m){
+
+  div.innerHTML=_kongo.msgs.map(function(m, idx){
     var isUser=m.role==='user';
+    var isLastKongo=!isUser&&idx===_kongo.msgs.length-1&&!_kongo.typing;
     var timeStr=m.ts?m.ts.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}):'';
-    // Render markdown básico: **bold**, \n\n párrafos, • listas
+
+    // Markdown básico
     var html=m.content
       .replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>')
       .replace(/\n\n/g,'</p><p>')
       .replace(/\n/g,'<br>')
-      .replace(/^•/gm,'<span style="color:var(--acc2)">›</span>');
+      .replace(/• /g,'<span style="color:var(--acc2);margin-right:4px;">›</span>');
     html='<p style="margin:0;">'+html+'</p>';
+
+    // Sugerencias de seguimiento solo en el último mensaje de Kongo
+    var suggestions='';
+    if(isLastKongo&&_kongo.msgs.length>1){
+      var suggs=kongoGetSuggestions(m.content);
+      if(suggs.length){
+        suggestions='<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;">'
+          +suggs.map(function(s,i){
+            return '<button class="chat-quick-btn" style="font-size:11px;padding:4px 10px;" data-sugg="'+i+'">'+s+'</button>';
+          }).join('')
+          +'</div>';
+      }
+    }
+
     return '<div class="chat-msg '+(isUser?'user':'kongo')+'">'
-      +'<div class="chat-avatar '+(isUser?'user':'kongo')+'">'+(isUser?'👤':'🦍')+'</div>'
-      +'<div>'
-        +'<div class="chat-bubble">'+html+'</div>'
+      +'<div class="chat-avatar '+(isUser?'':'kongo')+'">'+(isUser?'👤':'🦍')+'</div>'
+      +'<div style="min-width:0;flex:1;">'
+        +'<div class="chat-bubble">'+html+suggestions+'</div>'
         +'<div class="chat-time">'+timeStr+'</div>'
       +'</div>'
       +'</div>';
   }).join('');
 
+  // Event delegation para sugerencias de seguimiento
+  div.onclick=function(e){
+    var btn=e.target.closest('[data-sugg]');
+    if(!btn) return;
+    // Recoger sugerencias del último mensaje
+    var lastKongo=_kongo.msgs.slice().reverse().find(function(m){return m.role==='assistant';});
+    if(!lastKongo) return;
+    var suggs=kongoGetSuggestions(lastKongo.content);
+    var idx=parseInt(btn.getAttribute('data-sugg'));
+    if(suggs[idx]) kongoQuick(suggs[idx]);
+  };
+
   // Typing indicator
   if(_kongo.typing){
     div.innerHTML+='<div class="chat-msg kongo">'
       +'<div class="chat-avatar kongo">🦍</div>'
-      +'<div class="chat-bubble">'
+      +'<div class="chat-bubble" style="min-width:60px;">'
         +'<div class="chat-typing">'
           +'<div class="chat-dot"></div><div class="chat-dot"></div><div class="chat-dot"></div>'
         +'</div>'
@@ -3691,8 +3729,30 @@ function kongoRenderMsgs(){
       +'</div>';
   }
 
-  // Scroll al final
   div.scrollTop=div.scrollHeight;
+}
+
+// Genera sugerencias contextuales según el contenido del último mensaje
+function kongoGetSuggestions(content){
+  var c=content.toLowerCase();
+  if(c.indexOf('proteín')>=0||c.indexOf('proteina')>=0)
+    return['¿Cuántos gramos en cada comida?','¿Qué alimentos tienen más proteína?','¿Puedo tomar proteína antes de dormir?'];
+  if(c.indexOf('sentadill')>=0||c.indexOf('pierna')>=0||c.indexOf('cuádricep')>=0)
+    return['¿Cómo mejorar la técnica?','¿Qué peso debo usar?','¿Cuántas series semanales?'];
+  if(c.indexOf('grasa')>=0||c.indexOf('déficit')>=0||c.indexOf('perder')>=0)
+    return['¿Cuánto cardio debo hacer?','¿Afecta el cardio a la masa muscular?','¿Qué comer por la noche?'];
+  if(c.indexOf('músculo')>=0||c.indexOf('volumen')>=0||c.indexOf('ganar')>=0)
+    return['¿Cuántas calorías extra necesito?','¿Cuánto tiempo tarda en notarse?','¿Qué suplementos ayudan?'];
+  if(c.indexOf('descanso')>=0||c.indexOf('recuper')>=0||c.indexOf('sueño')>=0)
+    return['¿Cuántas horas de sueño necesito?','¿Qué comer después del entreno?','¿Puedo entrenar con agujetas?'];
+  if(c.indexOf('suplemento')>=0||c.indexOf('creatina')>=0||c.indexOf('whey')>=0)
+    return['¿Cuándo tomo la creatina?','¿Es necesario el Whey?','¿Qué suplementos son prioritarios?'];
+  if(c.indexOf('cardio')>=0||c.indexOf('hiit')>=0||c.indexOf('correr')>=0)
+    return['¿Cardio antes o después del peso?','¿Cuántos días de cardio?','¿HIIT o cardio suave?'];
+  if(c.indexOf('diet')>=0||c.indexOf('comer')>=0||c.indexOf('nutri')>=0)
+    return['¿Qué desayuno antes del entreno?','¿Puedo comer carbos por la noche?','¿Cuántas comidas al día?'];
+  // Sugerencias genéricas si no hay contexto claro
+  return['¿Algo más sobre este tema?','¿Cómo aplico esto a mi plan?','¿Qué más debo tener en cuenta?'];
 }
 
 function kongoQuick(q){
