@@ -3695,45 +3695,45 @@ var KONGO_QUICK=[
 
 function renderKongo(){
   var hasKey=!!(ANTHROPIC_KEY||GEMINI_KEY);
-  $('kongo-nokey').style.display=hasKey?'none':'block';
-  var kc=$('kongo-chat');
-  if(hasKey){
-    kc.style.cssText='display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;padding:0 14px;';
-  } else {
-    kc.style.cssText='display:none;';
-  }
+  // Mostrar/ocultar secciones con los IDs correctos
+  var nokey=$('kongo-nokey');
+  var msgs=$('kongo-msgs');
+  var bar=$('kongo-input-bar');
+  var st=$('kongo-status');
+  if(nokey) nokey.style.display=hasKey?'none':'flex';
+  if(msgs)  msgs.style.display=hasKey?'flex':'none';
+  if(bar)   bar.style.display=hasKey?'flex':'none';
+  if(st)    st.textContent=hasKey?(ANTHROPIC_KEY?'Claude conectado':'Gemini conectado'):'';
   if(!hasKey) return;
 
-  // Preguntas rápidas — event delegation, sin onclick inline
+  // Chips de preguntas rápidas (scroll horizontal)
   var qDiv=$('kongo-quick');
   if(qDiv){
     qDiv.innerHTML=KONGO_QUICK.map(function(q,i){
       return '<button class="chat-quick-btn" data-q="'+i+'">'+q+'</button>';
     }).join('');
-    // Listener único por delegación
     qDiv.onclick=function(e){
       var btn=e.target.closest('.chat-quick-btn');
       if(!btn) return;
-      var idx=parseInt(btn.getAttribute('data-q'));
-      kongoQuick(KONGO_QUICK[idx]);
+      kongoQuick(KONGO_QUICK[parseInt(btn.getAttribute('data-q'))]);
     };
   }
 
-  // Si no hay mensajes, mostrar bienvenida de Kongo
+  // Mensaje de bienvenida si es la primera vez
   if(!_kongo.msgs.length){
     var u=U();
     var nombre=u&&u.nombre?u.nombre.split(' ')[0]:'campeón';
-    var obj=u&&u.obj?({recomp:'recomposición corporal',perdida:'pérdida de grasa',volumen:'ganancia muscular',mant:'mantenimiento'}[u.obj]||u.obj):'tu objetivo';
-    var bienvenida='¡Qué tal, '+nombre+'! Soy Kongo, tu entrenador personal. 🦍💪\n\n'
-      +'Estoy al tanto de tu perfil: trabajamos en tu **'+obj+'**. '
-      +'Puedes preguntarme lo que quieras sobre:\n\n'
+    var obj={recomp:'recomposición corporal',perdida:'pérdida de grasa',volumen:'ganancia muscular',mant:'mantenimiento'}[u.obj||'recomp'];
+    _kongo.msgs.push({role:'assistant',ts:new Date(),content:
+      '¡Qué tal, **'+nombre+'**! Soy Kongo, tu entrenador personal. 🦍💪\n\n'
+      +'Trabajamos en tu **'+obj+'**. Pregúntame sobre:\n\n'
       +'• Técnica de ejercicios\n'
-      +'• Tu dieta y nutrición\n'
+      +'• Dieta y nutrición\n'
       +'• Suplementación\n'
-      +'• Recuperación y descanso\n'
+      +'• Recuperación\n'
       +'• Ajustes a tu plan\n\n'
-      +'¿Qué necesitas hoy?';
-    _kongo.msgs.push({role:'assistant',content:bienvenida,ts:new Date()});
+      +'¿Qué necesitas hoy?'
+    });
   }
 
   kongoRenderMsgs();
