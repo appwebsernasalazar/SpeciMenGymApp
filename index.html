@@ -338,7 +338,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   display:flex;flex-direction:column;gap:6px;z-index:50;}
 /* Chips de preguntas rápidas */
 #kongo-quick{display:grid;grid-template-columns:1fr 1fr;
-  gap:6px;padding-bottom:4px;}
+  gap:6px;padding-bottom:4px;display:none;}
 /* Input row */
 #kongo-inp-row{display:flex;gap:8px;align-items:flex-end;}
 /* Estilos de burbujas */
@@ -864,7 +864,11 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <!-- Barra inferior: chips + input (posición absoluta) -->
   <div id="kongo-input-bar" style="display:none;">
     <div id="kongo-quick"></div>
-    <div id="kongo-inp-row">
+    <div id="kongo-inp-row" style="align-items:center;">
+      <button id="kongo-quick-tog" onclick="toggleKongoQuick()" title="Preguntas sugeridas"
+        style="width:36px;height:36px;min-width:36px;border-radius:50%;background:var(--bg3);border:1.5px solid var(--border2);color:var(--t3);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;">
+        💡
+      </button>
       <textarea class="chat-input" id="kongo-inp" placeholder="Escríbele a Kongo..." rows="1" inputmode="text" autocomplete="off" autocorrect="on" spellcheck="true"></textarea>
       <button class="chat-send" id="kongo-send">
         <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -3840,10 +3844,13 @@ function kongoRenderMsgs(){
     if(isLastKongo&&_kongo.msgs.length>1){
       var suggs=kongoGetSuggestions(m.content);
       if(suggs.length){
-        suggestions='<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;">'
-          +suggs.map(function(s,i){
-            return '<button class="chat-quick-btn" style="font-size:11px;padding:4px 10px;" data-sugg="'+i+'">'+s+'</button>';
-          }).join('')
+        var suggBtns=suggs.map(function(s,i){
+          return '<button class="chat-quick-btn" style="font-size:11px;padding:4px 10px;" data-sugg="'+i+'">'+s+'</button>';
+        }).join('');
+        // Solo mostrar botón toggle, sugerencias ocultas por defecto
+        suggestions='<div style="margin-top:8px;">'
+          +'<button onclick="toggleKongoSugg(this)" style="font-size:11px;padding:4px 10px;border-radius:100px;border:1px dashed var(--border2);background:transparent;color:var(--t3);cursor:pointer;font-family:inherit;">💡 Ver sugerencias</button>'
+          +'<div class="kongo-sugg-list" style="display:none;flex-wrap:wrap;gap:5px;margin-top:6px;">'+suggBtns+'</div>'
           +'</div>';
       }
     }
@@ -3885,6 +3892,28 @@ function kongoRenderMsgs(){
 }
 
 // Genera sugerencias contextuales según el contenido del último mensaje
+function toggleKongoQuick(){
+  var q=$('kongo-quick');
+  var tog=$('kongo-quick-tog');
+  if(!q) return;
+  var visible=q.style.display!=='none'&&q.style.display!=='';
+  q.style.display=visible?'none':'grid';
+  if(tog){
+    tog.style.color=visible?'var(--t3)':'var(--acc2)';
+    tog.style.borderColor=visible?'var(--border2)':'var(--acc2)';
+    tog.style.background=visible?'var(--bg3)':'var(--accb)';
+  }
+}
+window.toggleKongoQuick=toggleKongoQuick;
+
+function toggleKongoSugg(btn){
+  var list=btn.nextElementSibling;
+  var visible=list.style.display!=='none';
+  list.style.display=visible?'none':'flex';
+  btn.textContent=visible?'💡 Ver sugerencias':'🔼 Ocultar sugerencias';
+}
+window.toggleKongoSugg=toggleKongoSugg;
+
 function kongoGetSuggestions(content){
   var c=content.toLowerCase();
   if(c.indexOf('proteín')>=0||c.indexOf('proteina')>=0)
@@ -4115,21 +4144,56 @@ window.removeSerieEx=removeSerieEx;
 // ── FIX 10: Editar sesión desde historial ──────────
 function editHistSession(sIdx){
   var u=U(); if(!u) return;
-  var s=u.sessions[sIdx];
-  if(!s) return;
-  // Abrir modal de edición
+  var s=u.sessions[sIdx]; if(!s) return;
+
+  // Construir filas de ejercicios editables
+  var exRows=(s.exs||[]).map(function(e,eIdx){
+    var mejorSer=(e.series||[]).filter(function(sr){return sr.done&&sr.kg;})
+      .sort(function(a,b){return (parseFloat(b.kg)||0)-(parseFloat(a.kg)||0);})[0];
+    return '<div id="eh-ex-'+eIdx+'" style="background:var(--bg3);border-radius:10px;padding:10px;margin-bottom:8px;">'
+      +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">'
+        +'<div style="flex:1;font-size:13px;font-weight:600;color:var(--text);">'+e.n+'</div>'
+        +'<button onclick="deleteHistEx('+sIdx+','+eIdx+')" style="background:rgba(239,68,68,0.15);border:1px solid var(--red);color:var(--red);border-radius:6px;padding:3px 8px;font-size:11px;cursor:pointer;">🗑 Quitar</button>'
+      +'</div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">'
+        +'<div><div style="font-size:10px;color:var(--t3);margin-bottom:3px;">SERIES</div>'
+          +'<input type="number" inputmode="numeric" id="eh-ex-ser-'+eIdx+'" value="'+(e.seriesCompletadas||'')+'" style="width:100%;background:var(--bg4);border:1px solid var(--border2);border-radius:6px;color:var(--text);padding:6px;font-size:13px;box-sizing:border-box;" placeholder="4"></div>'
+        +'<div><div style="font-size:10px;color:var(--t3);margin-bottom:3px;">REPS</div>'
+          +'<input type="text" inputmode="numeric" id="eh-ex-rep-'+eIdx+'" value="'+(mejorSer?mejorSer.reps:'')+'" style="width:100%;background:var(--bg4);border:1px solid var(--border2);border-radius:6px;color:var(--text);padding:6px;font-size:13px;box-sizing:border-box;" placeholder="12"></div>'
+        +'<div><div style="font-size:10px;color:var(--t3);margin-bottom:3px;">KG</div>'
+          +'<input type="text" inputmode="decimal" id="eh-ex-kg-'+eIdx+'" value="'+(mejorSer?mejorSer.kg:'')+'" style="width:100%;background:var(--bg4);border:1px solid var(--border2);border-radius:6px;color:var(--text);padding:6px;font-size:13px;box-sizing:border-box;" placeholder="60"></div>'
+      +'</div>'
+    +'</div>';
+  }).join('');
+
   var html='<div class="modal-ov open" id="m-edit-hist" onclick="if(event.target===this)closeM(\'m-edit-hist\')">'
-    +'<div class="modal"><div class="modal-hnd"></div>'
-    +'<div class="modal-title">✏️ Editar sesión</div>'
-    +'<div class="fg"><label>Tipo</label><input id="eh-tipo" class="inp" value="'+( s.tipo||'')+'" placeholder="Tipo de sesión"></div>'
-    +'<div class="fg"><label>Duración (min)</label><input type="number" id="eh-dur" class="inp" inputmode="numeric" value="'+(s.dur||'')+'" placeholder="60"></div>'
-    +'<div class="fg"><label>Hora inicio</label><input type="time" id="eh-hora" class="inp" value="'+(s.horaInicio||'')+'"></div>'
-    +'<div class="fg"><label>RPE (1-10)</label><input type="number" id="eh-rpe" class="inp" min="1" max="10" inputmode="numeric" value="'+(s.rpe||'')+'" placeholder="7"></div>'
+    +'<div class="modal" style="max-height:92vh;display:flex;flex-direction:column;">'
+    +'<div class="modal-hnd"></div>'
+    +'<div class="modal-title" style="flex-shrink:0;">✏️ Editar sesión</div>'
+    +'<div style="overflow-y:auto;flex:1;padding-bottom:4px;">'
+    // Datos generales
+    +'<div style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;">Datos generales</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">'
+      +'<div class="fg" style="margin:0;"><label>Tipo</label><input id="eh-tipo" class="inp" value="'+(s.tipo||'')+'" placeholder="Tipo de sesión"></div>'
+      +'<div class="fg" style="margin:0;"><label>Hora inicio</label><input type="time" id="eh-hora" class="inp" value="'+(s.horaInicio||'')+'"></div>'
+      +'<div class="fg" style="margin:0;"><label>Duración (min)</label><input type="number" id="eh-dur" class="inp" inputmode="numeric" value="'+(s.dur||'')+'" placeholder="60"></div>'
+      +'<div class="fg" style="margin:0;"><label>RPE (1-10)</label><input type="number" id="eh-rpe" class="inp" min="1" max="10" inputmode="numeric" value="'+(s.rpe||'')+'" placeholder="7"></div>'
+    +'</div>'
     +'<div class="fg"><label>Notas</label><textarea id="eh-notas" class="inp" rows="2" placeholder="Notas...">'+(s.notas||'')+'</textarea></div>'
-    +'<div class="modal-actions">'
-    +'<button class="btn btn-acc btn-full" onclick="saveHistEdit('+sIdx+')">Guardar cambios</button>'
-    +'<button class="btn" onclick="closeM(\'m-edit-hist\')">Cancelar</button>'
-    +'</div></div></div>';
+    // Ejercicios
+    +(s.exs&&s.exs.length
+      ?'<div style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin:12px 0 8px;">Ejercicios ('+s.exs.length+')</div>'
+       +'<div id="eh-ex-list">'+exRows+'</div>'
+      :'')
+    +'</div>'
+    // Botones
+    +'<div class="modal-actions" style="flex-shrink:0;border-top:1px solid var(--border);padding-top:12px;margin-top:4px;">'
+      +'<button class="btn btn-acc btn-full" onclick="saveHistEdit('+sIdx+')">💾 Guardar cambios</button>'
+      +'<button class="btn btn-d btn-full" onclick="deleteHistSession('+sIdx+')" style="margin-top:8px;">🗑️ Eliminar sesión completa</button>'
+      +'<button class="btn btn-full" onclick="closeM(\'m-edit-hist\')" style="margin-top:8px;">Cancelar</button>'
+    +'</div>'
+    +'</div></div>';
+
   var div=document.createElement('div');
   div.innerHTML=html;
   document.body.appendChild(div.firstChild);
@@ -4139,17 +4203,71 @@ window.editHistSession=editHistSession;
 function saveHistEdit(sIdx){
   var u=U(); if(!u) return;
   var s=u.sessions[sIdx]; if(!s) return;
+  // Guardar datos generales
   s.tipo=$('eh-tipo').value||s.tipo;
   s.dur=$('eh-dur').value||s.dur;
   s.horaInicio=$('eh-hora').value||s.horaInicio;
   s.rpe=$('eh-rpe').value||s.rpe;
   s.notas=$('eh-notas').value;
+  // Guardar datos de ejercicios
+  (s.exs||[]).forEach(function(e,eIdx){
+    var serInput=$('eh-ex-ser-'+eIdx);
+    var repInput=$('eh-ex-rep-'+eIdx);
+    var kgInput=$('eh-ex-kg-'+eIdx);
+    if(!serInput) return; // fue eliminado del DOM (ejercicio quitado)
+    var newSer=parseInt(serInput.value)||e.seriesCompletadas||0;
+    var newRep=repInput.value||'';
+    var newKg=kgInput.value||'';
+    e.seriesCompletadas=newSer;
+    // Recalcular volumen si hay kg
+    if(newKg&&newSer){
+      e.volumenTotal=Math.round(parseFloat(newKg)*newSer*(parseFloat(newRep)||1));
+    }
+    // Actualizar mejor serie en el array de series
+    if(e.series&&e.series.length>0){
+      e.series[0].reps=newRep;
+      e.series[0].kg=newKg;
+      e.series[0].done=true;
+    } else {
+      e.series=[{reps:newRep,kg:newKg,done:true}];
+    }
+  });
   saveAll();
   closeM('m-edit-hist');
   renderHist();
-  toast('Sesión actualizada ✓');
+  toast('✓ Sesión actualizada');
 }
 window.saveHistEdit=saveHistEdit;
+
+function deleteHistEx(sIdx, eIdx){
+  var u=U(); if(!u) return;
+  var s=u.sessions[sIdx]; if(!s||!s.exs) return;
+  var nombre=s.exs[eIdx]?s.exs[eIdx].n:'ejercicio';
+  if(!confirm('¿Quitar "'+nombre+'" de esta sesión?')) return;
+  s.exs.splice(eIdx,1);
+  // Quitar la fila del DOM sin cerrar el modal
+  var row=document.getElementById('eh-ex-'+eIdx);
+  if(row) row.style.display='none';
+  // Recalcular índices actualizando sIdx en los botones restantes sería complejo
+  // Guardamos el estado y re-renderizamos el modal completo
+  saveAll();
+  closeM('m-edit-hist');
+  editHistSession(sIdx);
+  toast('Ejercicio eliminado');
+}
+window.deleteHistEx=deleteHistEx;
+
+function deleteHistSession(sIdx){
+  var u=U(); if(!u) return;
+  var s=u.sessions[sIdx]; if(!s) return;
+  if(!confirm('¿Eliminar la sesión "'+s.tipo+'" del '+fmtDate(s.fecha)+'?\n\nEsta acción no se puede deshacer.')) return;
+  u.sessions.splice(sIdx,1);
+  saveAll();
+  closeM('m-edit-hist');
+  renderHist();
+  toast('Sesión eliminada');
+}
+window.deleteHistSession=deleteHistSession;
 
 // ── FIX 11: Hora inicio en historial ────────────────
 function addHoraInicioHist(sIdx){
