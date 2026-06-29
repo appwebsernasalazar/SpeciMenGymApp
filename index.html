@@ -30,7 +30,7 @@
   --r:10px;--rl:14px;
   --safe:env(safe-area-inset-bottom,0px);
 }
-html,body{height:100%;overflow:hidden;}
+html{height:100%;height:100dvh;}body{height:100%;height:100dvh;overflow:hidden;max-height:100dvh;}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;line-height:1.5;display:flex;flex-direction:column;}
 
 .topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 16px;height:54px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:10;}
@@ -41,14 +41,14 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .user-btn.active-m{background:var(--accb);color:var(--acc2);border-color:var(--acc);}
 .user-btn.active-f{background:var(--pb);color:var(--pink);border-color:var(--pink);}
 
-.content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 13px;padding-bottom:calc(74px + var(--safe));}
+.content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 13px;padding-bottom:calc(74px + var(--safe));min-height:0;}
 
 .bnav{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);display:flex;padding-bottom:var(--safe);z-index:100;}
 .bn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 2px 7px;border:none;background:transparent;color:var(--t3);font-size:9px;font-weight:500;cursor:pointer;gap:2px;min-height:52px;transition:color 0.15s;}
 .bn.on{color:var(--acc2);}
 .bn-ico{font-size:19px;line-height:1;}
 
-.screen{display:none;}.screen.active{display:block;}#sc-kongo.active{display:flex;flex-direction:column;padding:0;height:100%;}
+.screen{display:none;}.screen.active{display:block;}#sc-kongo.active{display:flex;flex-direction:column;padding:0;flex:1;min-height:0;}
 
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:15px;margin-bottom:11px;}
 .card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
@@ -295,7 +295,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .chat-msg.kongo .chat-bubble{background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-bottom-left-radius:4px;}
 .chat-msg.user .chat-bubble{background:var(--acc);color:#fff;border-bottom-right-radius:4px;}
 .chat-time{font-size:10px;color:var(--t3);margin-top:3px;padding:0 4px;}
-.chat-input-row{display:flex;gap:8px;padding:8px 0 4px;border-top:1px solid var(--border);flex-shrink:0;}
+.chat-input-row{display:flex;gap:8px;padding:8px 0;padding-bottom:max(8px,var(--safe));border-top:1px solid var(--border);flex-shrink:0;}
 .chat-input{flex:1;background:var(--bg3);border:1.5px solid var(--border2);border-radius:22px;color:var(--text);font-family:inherit;font-size:15px;padding:10px 16px;outline:none;resize:none;max-height:120px;min-height:44px;line-height:1.4;-webkit-appearance:none;}
 .chat-input:focus{border-color:var(--acc2);}
 .chat-send{width:44px;height:44px;border-radius:50%;background:var(--acc);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -758,7 +758,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <button class="btn btn-acc btn-sm" onclick="goTo('perfil')">Ir a Configuración →</button>
   </div>
   <!-- Chat activo: flex column, ocupa todo el espacio disponible -->
-  <div id="kongo-chat" style="display:none;flex:1;min-height:0;flex-direction:column;overflow:hidden;padding:0 14px;">
+  <div id="kongo-chat" style="display:none;">
     <div class="chat-quick" id="kongo-quick"></div>
     <div class="chat-msgs" id="kongo-msgs"></div>
     <div class="chat-input-row">
@@ -2048,19 +2048,11 @@ function goTo(id){
   if(bn)bn.classList.add('on');
   $('pg-title').textContent=TITLES[id]||id;
   var ct=$('content');
-  // Para Kongo: content no debe hacer scroll (el chat-msgs lo hace internamente)
+  // Para Kongo: el content debe ser flex sin padding ni scroll propio
   if(id==='kongo'){
-    ct.style.overflowY='hidden';
-    ct.style.padding='0';
-    ct.style.paddingBottom='0';
-    ct.style.display='flex';
-    ct.style.flexDirection='column';
+    ct.style.cssText='overflow:hidden;padding:0;flex:1;display:flex;flex-direction:column;min-height:0;';
   } else {
-    ct.style.overflowY='';
-    ct.style.padding='';
-    ct.style.paddingBottom='';
-    ct.style.display='';
-    ct.style.flexDirection='';
+    ct.style.cssText='';
     ct.scrollTop=0;
   }
   if(id==='home')renderHome();
@@ -3662,11 +3654,11 @@ function renderKongo(){
   var hasKey=!!(ANTHROPIC_KEY||GEMINI_KEY);
   $('kongo-nokey').style.display=hasKey?'none':'block';
   var kc=$('kongo-chat');
-  kc.style.display=hasKey?'flex':'none';
-  kc.style.flexDirection='column';
-  kc.style.flex='1';
-  kc.style.minHeight='0';
-  kc.style.overflow='hidden';
+  if(hasKey){
+    kc.style.cssText='display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;padding:0 14px;';
+  } else {
+    kc.style.cssText='display:none;';
+  }
   if(!hasKey) return;
 
   // Preguntas rápidas — event delegation, sin onclick inline
@@ -3818,28 +3810,35 @@ async function kongoSend(){
   var pais=u.pais==='co'?'Colombia':'España';
   var sesCount=(u.sessions||[]).length;
 
-  var systemPrompt='Eres Kongo, un entrenador personal y nutricionista experto con 15 años de experiencia. '
-    +'Eres directo, motivador y cercano. Usas lenguaje natural y amigable pero con precisión científica. '
-    +'NUNCA digas que eres una IA — eres Kongo, punto. '
-    +'Responde siempre en español. Sé conciso pero completo (máximo 250 palabras por respuesta). '
-    +'Usa **negrita** para términos clave. Usa saltos de línea para separar ideas. '
-    +'Cuando des consejos de alimentación, adapta los alimentos al país del usuario ('+ pais+'). '
-    +'\n\nPERFIL DEL ATLETA CON EL QUE HABLAS:\n'
-    +'- Nombre: '+u.nombre+'\n'
-    +'- Género: '+(u.genero==='H'?'Hombre':'Mujer')+'\n'
-    +'- Edad: '+calcEdad(u.fnac)+' años\n'
-    +'- Peso: '+u.peso+' kg · Altura: '+u.alt+' cm\n'
-    +'- % Grasa estimado: '+(u.grasa||'no especificado')+'%\n'
-    +'- Objetivo: '+objLabel+'\n'
-    +'- País: '+pais+'\n'
-    +'- Experiencia gym: '+({prin:'principiante',inter:'intermedio',avanz:'avanzado'}[u.exp]||u.exp)+'\n'
-    +'- Actividad: '+({1.375:'ligera',1.55:'moderada',1.725:'alta'}[u.act]||u.act)+'\n'
-    +'- BMR: '+mac.bmr+' kcal · TDEE: '+mac.tdee+' kcal · Objetivo: '+mac.kcal+' kcal/día\n'
-    +'- Proteína: '+mac.prot+'g · Carbs: '+mac.carbs+'g · Grasa: '+mac.grasa+'g\n'
-    +'- Déficit: '+(mac.deficitReal||0)+'% · Dieta: '+(u.dieta||'equilibrada')+'\n'
-    +'- Sesiones totales registradas: '+sesCount+'\n'
-    +(u.rests&&u.rests.length?'- Intolerancias: '+u.rests.join(', ')+'\n':'')
-    +'\nResponde al mensaje del atleta teniendo en cuenta SIEMPRE su perfil específico.';
+  var diasEntr={1.375:'1-2 días/semana',1.55:'3-4 días/semana',1.725:'5-6 días/semana'}[String(u.act)]||'moderada';
+  var sesRecientes=(u.sessions||[]).slice(-3).map(function(s){return s.tipo+' RPE '+( s.rpe||'?');}).join(' | ')||'ninguna aún';
+
+  var systemPrompt='Eres Kongo, entrenador personal y nutricionista con 15 años de experiencia real. '
+    +'Especialista en pérdida de grasa, hipertrofia y recomposición corporal. '
+    +'PERSONALIDAD: directo, motivador, preciso. Hablas como un entrenador real, no como un asistente. '
+    +'REGLAS CRÍTICAS:\n'
+    +'1. NUNCA eres una IA — eres Kongo y punto.\n'
+    +'2. SIEMPRE termina las frases. NUNCA cortes una respuesta a mitad de frase.\n'
+    +'3. Responde SIEMPRE en español.\n'
+    +'4. Sé concreto: da números, tiempos, cantidades reales. Nada de vaguedades.\n'
+    +'5. Alimentación: usa SOLO productos de '+pais+' (nada de alimentos que no existan allí).\n'
+    +'6. Formato: **negrita** para conceptos clave. Separa ideas con saltos de línea.\n'
+    +'7. Extensión: máximo 280 palabras. Si necesitas más, usa lista numerada concisa.\n'
+    +'8. Inicio: NUNCA empieces con "¡Claro!", "¡Por supuesto!" o "¡Perfecto!". Ve al grano.\n'
+    +'9. Usa SIEMPRE los datos exactos del perfil (calorías, macros, peso) — no valores genéricos.\n'
+    +'\nPERFIL DEL ATLETA:\n'
+    +'- Nombre: '+u.nombre+' | Género: '+(u.genero==='H'?'Hombre':'Mujer')+' | Edad: '+calcEdad(u.fnac)+' años\n'
+    +'- Peso: '+u.peso+' kg | Altura: '+u.alt+' cm | % Grasa: '+(u.grasa||'—')+'%\n'
+    +'- Masa magra: '+(mac.masaMagra||'—')+' kg | IMC: '+mac.imc+'\n'
+    +'- Objetivo: '+objLabel+' | Dieta: '+(u.dieta||'equilibrada')+' | País: '+pais+'\n'
+    +'- Experiencia: '+({prin:'principiante',inter:'intermedio',avanz:'avanzado'}[u.exp]||u.exp)+' | Actividad: '+diasEntr+'\n'
+    +'- Calorías objetivo: '+mac.kcal+' kcal/día (BMR: '+mac.bmr+' | TDEE: '+mac.tdee+')\n'
+    +'- Macros: '+mac.prot+'g proteína | '+mac.carbs+'g carbs | '+mac.grasa+'g grasa\n'
+    +'- Déficit/Superávit: '+(mac.deficitReal||0)+'% | Agua: '+Math.round((mac.agua||2500)/100)/10+'L/día\n'
+    +(u.rests&&u.rests.length?'- INTOLERANCIAS (excluir siempre): '+u.rests.join(', ')+'\n':'')
+    +'- Últimas sesiones: '+sesRecientes+'\n'
+    +'\nUsa estos datos exactos cuando respondas. Si preguntan sobre proteína, di exactamente '+( mac.prot)+'g. '
+    +'Si preguntan sobre calorías, di exactamente '+mac.kcal+' kcal.';
 
   // Build messages for API (last 10 messages for context)
   var apiMsgs=_kongo.msgs.slice(-11,-1).map(function(m){
@@ -3855,7 +3854,7 @@ async function kongoSend(){
         headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01'},
         body:JSON.stringify({
           model:'claude-sonnet-4-6',
-          max_tokens:600,
+          max_tokens:1200,
           system:systemPrompt,
           messages:apiMsgs
         })
@@ -3874,7 +3873,7 @@ async function kongoSend(){
         body:JSON.stringify({
           model:'gemini-2.5-flash',
           messages:geminiMsgs.map(function(m){return {role:m.role,content:m.content};}),
-          max_tokens:600,
+          max_tokens:1200,
           temperature:0.7
         })
       });
