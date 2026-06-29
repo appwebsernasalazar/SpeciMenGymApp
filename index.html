@@ -48,7 +48,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .bn.on{color:var(--acc2);}
 .bn-ico{font-size:19px;line-height:1;}
 
-.screen{display:none;}.screen.active{display:block;}#sc-kongo.active{display:flex;flex-direction:column;padding:0;flex:1;min-height:0;}
+.screen{display:none;}.screen.active{display:block;}
 
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:15px;margin-bottom:11px;}
 .card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
@@ -281,27 +281,75 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .modal-srch{max-height:90vh;overflow-y:auto;padding-bottom:calc(var(--safe)+10px);}
 
 /* ── Chat Kongo ─────────────────────────────── */
-/* ── Chat Kongo ───────────────────────────────────── */
-.kongo-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border-radius:100px;padding:4px 12px 4px 6px;font-size:12px;font-weight:700;}
-.chat-nokey{background:var(--bg3);border:1px solid var(--amber);border-radius:12px;padding:20px 14px;text-align:center;font-size:13px;color:var(--t2);line-height:1.7;margin:12px 0;}
-.chat-quick{display:flex;flex-wrap:wrap;gap:6px;padding:0 0 8px;flex-shrink:0;}
-.chat-quick-btn{padding:7px 13px;border-radius:100px;border:1.5px solid var(--border2);background:var(--bg3);color:var(--acc2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;-webkit-tap-highlight-color:transparent;}
-.chat-msgs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:10px;padding:4px 0 8px;min-height:0;}
+/* ══ Chat Kongo — layout nativo ══════════════════════ */
+/* Estrategia: sc-kongo es position:relative con altura
+   exacta. Los elementos internos usan position:absolute
+   igual que las apps nativas de mensajería. */
+#sc-kongo{position:relative!important;}
+#sc-kongo.active{display:block!important;padding:0!important;
+  position:absolute!important;top:0;left:0;right:0;bottom:0;}
+/* Header Kongo */
+#kongo-header{position:absolute;top:0;left:0;right:0;
+  height:48px;display:flex;align-items:center;gap:10px;
+  padding:0 14px;border-bottom:1px solid var(--border);
+  background:var(--bg2);z-index:2;}
+/* Sin API key */
+#kongo-nokey{position:absolute;top:48px;left:0;right:0;bottom:0;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:24px;text-align:center;}
+/* Área mensajes — scrollable */
+#kongo-msgs{position:absolute;top:48px;left:0;right:0;
+  bottom:68px;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:12px 14px 8px;display:flex;flex-direction:column;gap:10px;}
+/* Input bar — pegado al fondo */
+#kongo-input-bar{position:absolute;bottom:0;left:0;right:0;
+  background:var(--bg);border-top:1px solid var(--border);
+  padding:8px 14px;padding-bottom:max(8px,var(--safe));
+  display:flex;flex-direction:column;gap:6px;}
+/* Chips de preguntas rápidas */
+#kongo-quick{display:flex;flex-wrap:nowrap;overflow-x:auto;
+  gap:6px;padding-bottom:2px;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;}
+#kongo-quick::-webkit-scrollbar{display:none;}
+/* Input row */
+#kongo-inp-row{display:flex;gap:8px;align-items:flex-end;}
+/* Estilos de burbujas */
+.kongo-badge{display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,var(--acc),var(--acc2));
+  color:#fff;border-radius:100px;padding:3px 10px 3px 6px;
+  font-size:12px;font-weight:700;}
+.chat-nokey{font-size:13px;color:var(--t2);line-height:1.7;}
+.chat-quick-btn{padding:7px 14px;border-radius:100px;
+  border:1.5px solid var(--acc2);background:transparent;
+  color:var(--acc2);font-size:12px;font-weight:600;cursor:pointer;
+  font-family:inherit;white-space:nowrap;flex-shrink:0;
+  -webkit-tap-highlight-color:transparent;}
+.chat-quick-btn:active{background:var(--accb);}
 .chat-msg{display:flex;gap:8px;align-items:flex-end;width:100%;}
 .chat-msg.user{flex-direction:row-reverse;}
-.chat-avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:17px;background:var(--bg4);border:2px solid var(--border2);}
-.chat-avatar.kongo{background:linear-gradient(135deg,var(--acc),var(--acc2));border-color:var(--acc2);}
-.chat-bubble{max-width:84%;padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.55;word-break:break-word;}
-.chat-msg.kongo .chat-bubble{background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-bottom-left-radius:4px;}
+.chat-avatar{width:30px;height:30px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+  background:var(--bg4);border:2px solid var(--border2);}
+.chat-avatar.kongo-av{background:linear-gradient(135deg,var(--acc),var(--acc2));}
+.chat-bubble{max-width:82%;padding:10px 14px;border-radius:18px;
+  font-size:14px;line-height:1.6;word-break:break-word;}
+.chat-msg.kongo .chat-bubble{background:var(--bg3);border:1px solid var(--border2);
+  color:var(--text);border-bottom-left-radius:4px;}
 .chat-msg.user .chat-bubble{background:var(--acc);color:#fff;border-bottom-right-radius:4px;}
-.chat-time{font-size:10px;color:var(--t3);margin-top:3px;padding:0 4px;}
-.chat-input-row{display:flex;gap:8px;padding:8px 0;padding-bottom:max(8px,var(--safe));border-top:1px solid var(--border);flex-shrink:0;}
-.chat-input{flex:1;background:var(--bg3);border:1.5px solid var(--border2);border-radius:22px;color:var(--text);font-family:inherit;font-size:15px;padding:10px 16px;outline:none;resize:none;max-height:120px;min-height:44px;line-height:1.4;-webkit-appearance:none;}
+.chat-time{font-size:10px;color:var(--t3);margin-top:3px;padding:0 2px;}
+.chat-input{flex:1;background:var(--bg3);border:1.5px solid var(--border2);
+  border-radius:22px;color:var(--text);font-family:inherit;font-size:15px;
+  padding:10px 16px;outline:none;resize:none;max-height:100px;min-height:44px;
+  line-height:1.4;-webkit-appearance:none;display:block;}
 .chat-input:focus{border-color:var(--acc2);}
-.chat-send{width:44px;height:44px;border-radius:50%;background:var(--acc);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.chat-send svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-.chat-typing{display:flex;gap:5px;align-items:center;padding:6px 2px;}
-.chat-dot{width:7px;height:7px;border-radius:50%;background:var(--t2);animation:chat-pulse 1.2s ease-in-out infinite;}
+.chat-send{width:44px;height:44px;min-width:44px;border-radius:50%;
+  background:var(--acc);border:none;cursor:pointer;display:flex;
+  align-items:center;justify-content:center;}
+.chat-send svg{width:18px;height:18px;stroke:#fff;fill:none;
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.chat-typing{display:flex;gap:5px;align-items:center;padding:4px 0;}
+.chat-dot{width:7px;height:7px;border-radius:50%;background:var(--t2);
+  animation:chat-pulse 1.2s ease-in-out infinite;}
 .chat-dot:nth-child(2){animation-delay:0.2s;}
 .chat-dot:nth-child(3){animation-delay:0.4s;}
 @keyframes chat-pulse{0%,100%{opacity:0.3;transform:scale(0.8)}50%{opacity:1;transform:scale(1)}}
@@ -741,28 +789,28 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
 <!-- PANTALLA CHAT KONGO ══════════════════════ -->
 <div id="sc-kongo" class="screen">
-  <!-- Header fijo -->
-  <div style="padding:10px 16px 8px;flex-shrink:0;border-bottom:1px solid var(--border);">
+  <!-- Header absoluto -->
+  <div id="kongo-header">
     <div class="kongo-badge">
-      <span style="font-size:18px;">🦍</span>
-      <span>Kongo — Entrenador personal IA</span>
+      <span style="font-size:17px;">🦍</span>
+      <span>Kongo — Entrenador IA</span>
     </div>
+    <div id="kongo-status" style="font-size:11px;color:var(--green);margin-left:auto;"></div>
   </div>
   <!-- Sin API key -->
-  <div id="kongo-nokey" style="display:none;" class="chat-nokey" style="margin:16px;">
-    <div style="font-size:32px;margin-bottom:10px;">🔑</div>
-    <b style="color:var(--amber);">API Key requerida</b><br>
-    Ve a <b>Perfil → Configuración</b><br>
-    y añade tu clave de Claude o Gemini.
-    <br><br>
-    <button class="btn btn-acc btn-sm" onclick="goTo('perfil')">Ir a Configuración →</button>
+  <div id="kongo-nokey" style="display:none;">
+    <div style="font-size:36px;margin-bottom:12px;">🔑</div>
+    <b style="color:var(--amber);font-size:15px;">API Key requerida</b>
+    <p style="color:var(--t2);margin:8px 0;">Ve a <b>Perfil → Configuración</b> y añade tu clave de Claude o Gemini.</p>
+    <button class="btn btn-acc" onclick="goTo('perfil')">Ir a Configuración →</button>
   </div>
-  <!-- Chat activo: flex column, ocupa todo el espacio disponible -->
-  <div id="kongo-chat" style="display:none;">
-    <div class="chat-quick" id="kongo-quick"></div>
-    <div class="chat-msgs" id="kongo-msgs"></div>
-    <div class="chat-input-row">
-      <textarea class="chat-input" id="kongo-inp" placeholder="Pregúntale a Kongo..." rows="1"></textarea>
+  <!-- Mensajes (scrollable, posición absoluta) -->
+  <div id="kongo-msgs"></div>
+  <!-- Barra inferior: chips + input (posición absoluta) -->
+  <div id="kongo-input-bar" style="display:none;">
+    <div id="kongo-quick"></div>
+    <div id="kongo-inp-row">
+      <textarea class="chat-input" id="kongo-inp" placeholder="Escríbele a Kongo..." rows="1"></textarea>
       <button class="chat-send" id="kongo-send">
         <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       </button>
@@ -2048,13 +2096,8 @@ function goTo(id){
   if(bn)bn.classList.add('on');
   $('pg-title').textContent=TITLES[id]||id;
   var ct=$('content');
-  // Para Kongo: el content debe ser flex sin padding ni scroll propio
-  if(id==='kongo'){
-    ct.style.cssText='overflow:hidden;padding:0;flex:1;display:flex;flex-direction:column;min-height:0;';
-  } else {
-    ct.style.cssText='';
-    ct.scrollTop=0;
-  }
+  // Kongo usa position:absolute — el content no necesita ajustes
+  if(id!=='kongo') ct.scrollTop=0;
   if(id==='home')renderHome();
   else if(id==='plan')renderPlan();
   else if(id==='sesion')populateTipoSesion();
@@ -3698,7 +3741,10 @@ function renderKongo(){
 
 function kongoRenderMsgs(){
   var div=$('kongo-msgs');
-  if(!div) return;
+  if(!div||div.style.display==='none') return;
+  // Ajustar bottom de msgs según altura del input bar
+  var bar=$('kongo-input-bar');
+  if(bar) div.style.bottom=(bar.offsetHeight||68)+'px';
 
   div.innerHTML=_kongo.msgs.map(function(m, idx){
     var isUser=m.role==='user';
@@ -3727,7 +3773,7 @@ function kongoRenderMsgs(){
     }
 
     return '<div class="chat-msg '+(isUser?'user':'kongo')+'">'
-      +'<div class="chat-avatar '+(isUser?'':'kongo')+'">'+(isUser?'👤':'🦍')+'</div>'
+      +'<div class="chat-avatar '+(isUser?'':'kongo-av')+'">'+( isUser?'👤':'🦍')+'</div>'
       +'<div style="min-width:0;flex:1;">'
         +'<div class="chat-bubble">'+html+suggestions+'</div>'
         +'<div class="chat-time">'+timeStr+'</div>'
